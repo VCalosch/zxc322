@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Socorristas</title>
+  <% include partials/head %>
+</head>
+
+
+<script type="text/javascript">
+  window.eventos = <%- JSON.stringify(Eventos) %>
+</script>
+<script>
+    function onChange() {
+      var id = document.getElementById("eventosSelect").value; 
+   
+
+      const event = eventos.filter((ev) => ev._id == id)
+     
+      let descriptionsHTML = ''
+      event[0].descripcion.forEach(des => {
+        descriptionsHTML += `<option value=${des.name}> ${des.name} </option>`
+      })
+      document.getElementById("descripcionSelect").innerHTML = descriptionsHTML;
+    }
+</script>
+
+
+
+<div class="container top-container margenf">
+ 
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Incidentes/Intervenciones</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Avisos Preventivos</a>
+    </li>
+  </ul>
+
+    <div class="tab-content" id="myTabContent">
+
+
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="card">
+
+            <div class="card-body Margenes">
+             
+              <form action="/addIncInt" method="post">
+                <div class="form-row"><div class="col"></div>
+                    <div class="form-check col-auto">
+                      <input class="form-check-input" type="checkbox" value="Fuera" name="horario" id="defaultCheck1">
+                      <label class="form-check-label" for="defaultCheck1">Fuera de Horario</label>
+                    </div>
+                    <div class="col"></div>
+                  </div>
+                  <br> 
+                  <div class="form-row">
+                    <div class="col">
+                        <select onchange="onChange()" id="eventosSelect" name="Eventos" class="form-control">
+                            <option disabled selected value="">Eventos</option>
+                          <% for(var i=0; i<Eventos.length; i++) {%>
+                              <option value='<%= Eventos[i]._id %>'><%= Eventos[i].evento %></option>
+                            <% } %>
+                          </select>
+                    </div>
+                    <div class="col">
+                        <select  id="descripcionSelect" onchange="" name="descripcion" class="form-control"> 
+                            <option disabled selected value="">Descripción</option>
+
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select name="Eventos" class="form-control">
+                            <option disabled selected value="">Consecuencia</option>
+                            <% for(var i=0; i<consecuencia.length; i++) {%> 
+                           <option id="consecuencia" value='<%= consecuencia[i]._id %>'><%= consecuencia[i].consecuencia %></option> 
+                            <% } %>
+                         </select>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="form-row">
+                      <div class="col"></div>
+                      <div class="col-auto"><button class="btn btn-primary">Agregar Incidente</button></div>
+                      <div class="col"></div>
+                  </div>
+
+              </form>
+              </div>
+            </div>
+      </div>
+
+
+
+
+
+      
+      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="card">
+          <div class="card-body Margenes">
+                <div class="form-row">
+                  <div class="col"></div>
+                  <div class="col-auto">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                      <li class="nav-item">
+                      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Acciones Preventivas (Actuaciones Activas)</a>
+                      </li>
+                      <li class="nav-item">
+                      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Acciones Preventivas (Actuaciones reactivas)</a>
+                      </li>
+              </ul></div>
+              <div class="col"></div>
+            </div>
+            <div class="tab-content" id="pills-tabContent">
+                  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <br><br>
+
+                    <div style="margin-left: 60px; margin-right: 60px;">
+                      <div class="card-columns">
+                        <% for(var i=0; i<Actuacionesactivas.length; i++) {%>
+                        <div class="card text-center">
+                            <div class="card-body">
+                              <h5 class="card-title"><%= Actuacionesactivas[i].ActuacionActivas %></h5>
+                            </div>
+                          </div>
+                          <% }%>
+                        </div>
+                    </div>
+
+
+                  </div>
+                  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+                    <br><br>
+                   <div style="margin-left: 60px; margin-right: 60px;">
+                    <div class="card-columns">
+                      <% for(var i=0; i<Actuacionesreactivas.length; i++) {%>
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title"><%= Actuacionesreactivas[i].ActuacionreactivasNombre %></h5>
+                            <a href='GestionEventos/addReactForm/<%= Actuacionesreactivas[i].id%>' class="card-link">Agregar</a>
+                          </div>
+                        </div>
+                        <% }%>
+                    </div>
+                  </div>
+
+
+                  </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+  </div>
+</div>
+
+
+</html>

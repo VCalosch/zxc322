@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Nuevo Evento</title>
+	<% include partials/head %>
+</head>
+
+<body>
+
+
+</body>
+
+
+
+<body>
+	<div class="container">
+		<div class="col-sm-6 mx-auto">
+			<div class="card mt-5">
+				<div class="card-body">
+					<h1 class="text-center">
+						<span class="fa fa-sing-in"></span>Agregar
+					</h1>
+					<center>
+
+						<form action="/addEvento" method="post">
+							<div class="form-group">
+								<label for="evento">Evento</label>
+								<input type="text" name="evento">
+							</div>
+							
+							<div class="col">
+								<button class="btn btn-primary">Agregar</button>
+							</div>
+					</center>
+					</form>
+
+					<hr>
+					<div class="text-center">
+
+						<p>
+							<a href="/PlayaAdmin">Volver</a>
+						</p>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<hr>
+	<br>
+	<br>
+
+	<h1>Administrar Eventos</h1>
+	 <div class="card-columns">
+      <% for(var i=0; i<Eventos.length; i++) {%>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              <label for="nombre">Nombre: </label>
+              <%= Eventos[i].evento %>
+            </h5>
+            <a href='/addEvento/delete/<%= Eventos[i]._id%>' onclick="return confirm('Esta seguro que quieres eliminar?');" >Eliminar</a> |
+           <a href='/addEvento/addDescripcion/<%= Eventos[i]._id%>'>Agregar Descripcion</a> 
+          </div>
+        </div>
+        <% }%>
+    </div>
+</body>
+
+</html>

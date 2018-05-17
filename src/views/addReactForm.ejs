@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Modificar Playa</title>
+  <% include partials/head %>
+</head>
+
+<div class="container top-container margenf">
+    <!--Nombres de Fichas-->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Registrar Incidentes/Intervenciones</a>
+      </li>
+    </ul>
+
+      <div class="tab-content" id="myTabContent">
+
+
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              <div class="card">
+              <div class="card-body Margenes">
+
+                    <form action="/GestionEventos/addReactForm/" method="post">
+                            <div class="form-row">
+
+                              <div class="col">
+                                    <input class="form-control" name="Actividad" type="text" placeholder="Actividad">
+                              </div>
+                              <div class="col">
+                                    <input class="form-control" name="PaisdeOrigen" type="text" placeholder="Pais de Origen">
+                              </div>
+                              <div class="col">
+                                    <input class="form-control" name="sexo" type="text" placeholder="Sexo">
+                              </div>
+                              <div class="col">
+                                    <input class="form-control" name="Edad" type="text" placeholder="Edad">
+                              </div>
+                              <div class="col">
+                                    <input class="form-control" name="hora" type="text" placeholder="Hora">
+                                    
+                                    
+                                    
+                                    <input id="lat" class="form-control" name="Latitud" type="hidden">
+                                    <input id="lng" class="form-control" name="Longitud" type="hidden">
+                              </div>
+                              
+                            </div>
+                            <br>
+                            <div class="form-row"><div class="col"></div>
+                                <div class="btn-group col-auto" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-secondary" onclick="Mapa(11)">Marcador</button>
+                                    <button type="button" class="btn btn-secondary" onclick="Mapa(22)">Polígono</button>
+                                </div>
+                                <div class="col">
+                                <button type="button" class="btn btn-secondary btn-sm float-right" style="display: none;" id="cerrarPoligono"  onclick="CerrarPoligono()">Cerrar Poligono</button>
+                                <button type="button" class="btn btn-secondary btn-sm float-right" style="display: none;" id="eliminarMarcador" onclick="EliminarMarcador()">Eliminar Marcador</button>
+                                <button type="button" class="btn btn-secondary btn-sm float-right" style="display: none;" id="eliminarPoligono" onclick="EliminarPoligono()">Eliminar Poligono</button>
+                                </div></div>
+                              
+                            <div class="form-row">
+                                    <div id="map"></div>
+                            </div>
+                            <br>
+                            <div class="form-row">
+                                <div class="col-1"></div>
+                                <div class="col"><input id="latPlaceHolder" class="form-control" placeholder="Latitud" disabled></div>
+                                <div class="col"><input id="lngPlaceHolder" class="form-control" placeholder="Longitud" disabled></div>
+                                <div class="col-1"></div>
+                            </div>
+                            <br>
+                            <div class="form-row">
+                                <div class="col"></div>
+                                <div class="form-row">
+                                    <div class="col"><button type="submit" class="btn btn-primary btn-block">Guardar</button></div>
+                                </div>
+                                <div class="col"></div>
+                            </div>
+    
+                          </form>
+
+
+
+
+            </div>
+              </div>
+        </div>
+
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="card">
+            <div class="card-body Margenes">
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+    </div>
+</div>
+
+<script>
+  var map;
+  var isMarcador=false;
+  var isPoligono;
+  var Marcador=0;
+  var latitud, longitud;
+  var cerrarPoligono=0;
+  var poligono;
+  var marker;
+  var insertarPoligono=true;
+
+
+  var list = [];
+  var numeros=[];
+
+  var listPolygon=[];
+  var numerosPolygon=[];
+  
+  function Mapa(x){
+    if(x==11){
+      isMarcador=true;
+      isPoligono=false;
+      
+    }
+
+    if(x==22){
+      isMarcador=false;
+      isPoligono=true;
+      
+    }
+    
+    initMap();
+
+    
+    
+  }
+
+  function EliminarMarcador(){
+    marker.setMap(null);
+    Marcador=0;
+    longitud=null;
+    latitud=null;
+    document.getElementById("eliminarMarcador").style.display = "none";
+    document.getElementById('lat').value = latitud;
+    document.getElementById('latPlaceHolder').placeholder = "";
+
+    document.getElementById('lng').value = longitud;
+    document.getElementById('lngPlaceHolder').placeholder = "";
+    }
+
+  function CerrarPoligono(){
+    poligono.setMap(map);
+    insertarPoligono=false;
+    document.getElementById("cerrarPoligono").style.display = "none";
+    document.getElementById("eliminarPoligono").style.display = "block";
+  }
+  
+  function EliminarPoligono(){
+        for (var i = 0; i < numerosPolygon.length; i++ ) {
+          numerosPolygon[i].setMap(null);
+        }
+        numerosPolygon.length = 0;
+        poligono.setMap(null);
+        numeros.length=0; 
+
+        document.getElementById("eliminarPoligono").style.display = "none";
+        insertarPoligono=true;
+
+  }
+  
+
+    
+    function initMap(){
+      
+      
+      //Valores Iniciales para Mapa
+      var options = {
+        zoom:15,
+        center:{lat:43.477373,lng:-3.787489}
+      }
+      // Defininar Mapa
+      map = new google.maps.Map(document.getElementById('map'), options);
+      
+      
+      if(isMarcador==true){
+      
+      google.maps.event.addListener(map, 'click', function(event){
+        if(Marcador==0){                                
+        marker=addMarker({coords:event.latLng});
+        document.getElementById("eliminarMarcador").style.display = "block";
+        latitud = event.latLng.lat();
+        longitud = event.latLng.lng();
+        document.getElementById('lat').value = latitud;
+        document.getElementById('latPlaceHolder').placeholder = latitud;
+        document.getElementById('lng').value = longitud;
+        document.getElementById('lngPlaceHolder').placeholder = longitud;
+        Marcador = 1;
+        }
+        
+      });
+    }
+      
+
+//----------------------------------------------------POLIGONOS----------------------------------------------------------------------------
+      
+      var destinations = new google.maps.MVCArray();
+      
+      var contador=0;
+      
+      if(isPoligono==true){
+      
+      google.maps.event.addListener(map, 'click', function (event) {
+
+      if(insertarPoligono==true){
+	    var polyLat = event.latLng.lat();
+      var polyLng = event.latLng.lng();
+      this.list={
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng()
+      }
+      numeros.push(this.list);
+      contador = contador+1;
+      
+      
+      markerPolygon=addMarkerPolygon({coords:event.latLng});
+      
+      document.getElementById("cerrarPoligono").style.display = "block";
+
+          poligono = new google.maps.Polygon({
+          paths: numeros,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35});
+}
+      });
+      
+      }
+      
+//---------------------------------------------------------------------------------------------------------------------------------------------
+
+ 
+    function addMarker(props){
+        var marker = new google.maps.Marker({
+          position:props.coords,
+          map:map,
+        });                                        
+        return marker;
+      }
+
+      function addMarkerPolygon(props){
+        var markerPolygon = new google.maps.Marker({
+          position:props.coords,
+          map:map,
+        });
+        numerosPolygon.push(markerPolygon);
+        console.log(numerosPolygon);
+        return numerosPolygon;
+      }
+    
+
+    
+    }
+
+//---------------------------------------------ELIMINAR MARCADOR------------------------------------------------------------------------
+  
+  
+  
+  </script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3d6OC5uV4aQlVClt97CEULYxOvY7b1GU&callback=initMap">
+  </script>
+
+
+</html>

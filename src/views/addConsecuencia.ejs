@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Consecuencia</title>
+	<% include partials/head %>
+</head>
+
+<body>
+	<div class="container">
+		<div class="col-sm-6 mx-auto">
+			<div class="card mt-5">
+				<div class="card-body">
+					<h1 class="text-center">
+						<span class="fa fa-sing-in"></span>Agregar
+					</h1>
+					<center>
+
+						<form action="/addConsecuencia" method="post">
+							<div class="form-group">
+								<label for="consecuencia">Consecuencia</label>
+								<input type="text" name="consecuencia">
+							</div>
+							
+							<div class="col">
+								<button class="btn btn-primary">Agregar</button>
+							</div>
+					</center>
+					</form>
+
+					<hr>
+					<div class="text-center">
+
+						<p>
+							<a href="/PlayaAdmin">Volver</a>
+						</p>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<hr>
+	<br>
+	<br>
+
+	<h1>Administrar Consecuencias</h1>
+	 <div class="card-columns">
+      <% for(var i=0; i<consecuencia.length; i++) {%>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              <label for="nombre">Nombre: </label>
+              <%= consecuencia[i].consecuencia %>
+            </h5>
+            <a href='/addConsecuencia/delete/<%= consecuencia[i]._id%>' onclick="return confirm('Esta seguro que quieres eliminar?');" >Eliminar</a> |
+          </div>
+        </div>
+        <% }%>
+    </div>
+</body>
+
+</html>

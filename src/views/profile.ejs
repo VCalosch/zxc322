@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Tu perfil</title>
+	<% include partials/head %>
+</head>
+
+<body>
+	<div class="container">
+		<header class="text-center">
+			<h1>Mi perfil</h1>
+
+		</header>
+
+		<hr>
+		<div class="container">
+			<div class="col-sm6">
+				<div class="card">
+					<div class="card-body">
+						<h3>
+							<span class="fa fa-user"></span> Datos </h3>
+						<p>
+							<strong>Id:</strong>
+							<%= user._id %>
+								<br>
+								<strong>Email:</strong>
+								<%= user.local.email %>
+									<br>
+									<strong>Contraseña:</strong>
+									<%= user.local.password %>
+						</p>
+						<a href='/userAdmin/MofUser/<%= user._id%>' class="btn btn-light">Modificar</a>
+						<a href="/userAdmin" class="btn btn-light">Usuarios </a>
+						<a href="/playaAdmin" class="btn btn-light">Administrar Playas </a>
+						<a href="/riegosAdmin" class="btn btn-light">Administrar Riesgos </a>
+						<a href="/socorrista" class="btn btn-light">Socorristas</a>
+						<a href="/logout" class="btn btn-light">Salir </a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

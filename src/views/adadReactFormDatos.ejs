@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Consecuencia</title>
+	<% include partials/head %>
+</head>
+
+
+<h1>Datos</h1>
+<div class="card-columns">
+ <% for(var i=0; i<costa.length; i++) {%>
+   <div class="card">
+     <div class="card-body">
+       <h5 class="card-title">
+         <label for="nombre">Nombre: </label>
+         <%= costa[i].consecuencia %>
+       </h5>
+       
+     </div>
+   </div>
+   <% }%>
+</div>
+
+ </html>

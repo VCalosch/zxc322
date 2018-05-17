@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Login</title>
+	<% include partials/head %>
+
+		<!--<body class="login">
+			<div class="container">
+				<div class="col-sm-6 mx-auto">
+					<div class="card mt-5">
+						<div class="card-body">
+							<h1 class="text-center">
+								<span class="fa fa-sing-in"></span>Login
+							</h1>
+
+							<% if(message.length >0 ){ %>
+								<div class="alert alert-danger">
+									<%= message%>
+								</div>
+								<% } %>
+
+									<form action="/login" method="post">
+										<div class="form-group">
+											<label for="email">Email</label>
+											<input type="email" name="email" class="form-control">
+										</div>
+										<div class="form-group">
+											<label for="password">Passsword</label>
+											<input type="password" name="password" class="form-control">
+										</div>
+										<input type="submit" class="btn btn-dark btn-lg" value="Puchame">
+									</form>
+
+									<hr>
+									<div class="text-center">
+										<p>Quieres registrarte?
+											<a href="/signup">Registrar me</a>
+										</p>
+										<p>
+											<a href="/">Volver</a>
+										</p>
+									</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</body>-->
+		<body>
+				
+				<div class="container-fluid padding_elementos">
+				  <div class="row">
+					<div class="card align-self-center">
+				  <div class="card-body">
+				  <form action="/login" method="post">
+							  <div class="form-group">
+								<label for="exampleInputEmail1">Correo Electrónico:</label>
+								<input type="email" class="form-control" placeholder="E-mail"
+								type="text"
+								name="email">
+				
+							  </div>
+
+							  <div class="form-group">
+								<label for="exampleInputPassword1">Contraseña:</label>
+								<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+								name="password">
+				
+				
+								<button type="button" class="btn btn-link">¿Haz olvidado tu contraseña?</button>
+							  </div>
+				
+							  <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+				  </form>
+				  <br>
+				
+				
+				
+				  </div>
+				</div>
+				
+				</div>
+
+				</div>
+				</body>
+
+</html>

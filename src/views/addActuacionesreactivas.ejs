@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Agregar Actuaciones Reactivas</title>
+	<% include partials/head %>
+</head>
+
+<body>
+	<div class="container">
+		<div class="col-sm-6 mx-auto">
+			<div class="card mt-5">
+				<div class="card-body">
+					<h1 class="text-center">
+						<span class="fa fa-sing-in"></span>Agregar
+					</h1>
+					<center>
+
+						<form action="/addActuacionesreactivas" method="post">
+							<div class="form-group">
+								<label for="Actuacionesreactivas">Actuaciones reactivas</label>
+								<input type="text" name="ActuacionreactivasNombre">
+							</div>
+							
+							<div class="col">
+								<button class="btn btn-primary">Agregar</button>
+							</div>
+					</center>
+					</form>
+
+					<hr>
+					<div class="text-center">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<hr>
+	<br>
+	<br>
+
+	<h1>Administrar Actuaciones reactivas</h1>
+	 <div class="card-columns">
+      <% for(var i=0; i<Actuacionesreactivas.length; i++) {%>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              <label for="nombre">Nombre: </label>
+              <%= Actuacionesreactivas[i].ActuacionreactivasNombre %>
+            </h5>
+            <a href='/addActuacionesreactivas/delete/<%= Actuacionesreactivas[i]._id%>' onclick="return confirm('Esta seguro que quieres eliminar?');" >Eliminar</a>
+          </div>
+        </div>
+        <% }%>
+    </div>
+</body>
+
+</html>

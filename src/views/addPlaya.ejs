@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Nueva playa</title>
+	<% include partials/head %>
+</head>
+
+<body>
+
+
+</body>
+
+
+
+<body>
+	<div class="container">
+		<div class="col-sm-6 mx-auto">
+			<div class="card mt-5">
+				<div class="card-body">
+					<h1 class="text-center">
+						<span class="fa fa-sing-in"></span>Agregar
+					</h1>
+					<center>
+
+						<form action="/addPlaya" method="post">
+							<div class="form-group">
+								<label for="Nombre">Nombre</label>
+								<input type="text" name="nombre">
+							</div>
+							<div class="form-group">
+								<label for="Descripcion">Descripcion</label>
+								<input type="text" name="descripcion">
+							</div>
+
+							<div class="form-group">
+								<label for="tipoarena">Tipo de arena</label>
+								<input type="text" name="tipoarena">
+							</div>
+
+							<div class="form-group">
+								<label for="ubicacion">ubicacion</label>
+								<input type="text" name="ubicacion">
+							</div>
+
+							<div class="col">
+								<button class="btn btn-primary">Agregar</button>
+							</div>
+					</center>
+					</form>
+
+					<hr>
+					<div class="text-center">
+
+						<p>
+							<a href="/PlayaAdmin">Volver</a>
+						</p>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

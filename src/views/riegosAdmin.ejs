@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Riesgos</title>
+  <% include partials/head %>
+</head>
+
+<body>
+  <div class="container">
+    <header class="text-center">
+      <h1>Riesgos</h1>
+
+    </header>
+
+    <div class="card-columns">
+      <% for(var i=0; i<Riesgos.length; i++) {%>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              <label for="nombre">Nombre: </label>
+              <%= Riesgos[i].nombre %>
+            </h5>
+            <p class="card-text">
+              <label for="descripcion">Descripcion: </label>
+              <%= Riesgos[i].descripcion %>
+            </p>
+            <p class="card-text">
+              <label for="ubicacion">Ubicacion: </label>
+              <%= Riesgos[i].ubicacion %>
+            </p>
+            <a href='/riegosAdmin/delete/<%= Riesgos[i]._id%>'>Delete</a> |
+            <a href='/riegosAdmin/modRiesgo/<%= Riesgos[i]._id%>'>Modificar</a>
+          </div>
+        </div>
+        <% }%>
+    </div>
+    <a href="/profile" class="btn btn-light">Regresar </a>
+    <a href="/addRiesgo" class="btn btn-light">Agregar Riesgo </a>
+  </div>
+</body>
+
+</html>

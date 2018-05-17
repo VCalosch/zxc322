@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Playas</title>
+  <% include partials/head %>
+</head>
+
+<body>
+  <div class="container">
+    <header class="text-center">
+      <h1>Incidencias</h1>
+    </header>
+    <br>
+   <h2>Actuaciones activas</h2>   
+   <hr>
+   <br>
+   <br>
+    <div class="card-columns">
+        
+      <% for(var i=0; i<ActuacionActivasSave.length; i++) {%>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              <label for="nombre">Nombre: </label>
+              <%= ActuacionActivasSave[i].ActuacionActivas %>
+             
+            </h5>
+        </div>
+        <% }%>
+    </div>
+  </div>
+
+</div>
+   <br>
+   <h2>Actuaciones reactivas</h2>
+   <hr>
+   <div class="card-columns">
+      <% for(var i=0; i<ActuacionActivasRe.length; i++) {%>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              <label for="nombre">Nombre: </label>
+              <%= ActuacionActivasRe[i].ActuacionreactivasNombre %>
+            </h5>
+        </div>
+        <% }%>
+    </div>
+  </div>
+
+</div>
+   <br>
+   <br>
+
+   <br>
+   <h2>Incidentes Intervenidos</h2>
+    <br>
+
+
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Perfiles</title>
+	<% include partials/head %>
+</head>
+
+<body>
+	<div class="container">
+		<header class="text-center">
+			<h1>Perfiles</h1>
+
+		</header>
+
+
+		<div class="container">
+			<div class="col-sm6">
+				<div class="card">
+					<div class="card-body">
+						<h3>
+							<span class="fa fa-user"></span> Usuarios </h3>
+						<!--<strong>Email:</strong> <%= lista[0].local.email %> <br>-->
+						<table>
+							<% lista.forEach(function(User) { %>
+								<li>
+									<%= User.local.email %> |
+										<a href='/delUser/<%= User._id %>'> Eliminar</a> |
+										<a href='/userAdmin/MofUser/<%= User._id%>'>Modificar</a>
+								</li>
+
+								<% }); %>
+
+						</table>
+
+						<a href="/profile" class="btn btn-light">Regresar </a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

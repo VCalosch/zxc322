@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Modificar Usuario</title>
+	<% include partials/head %>
+</head>
+
+<body>
+	<div class="container">
+		<header class="text-center">
+			<h1>Modificar Usuario</h1>
+
+		</header>
+		<hr>
+		<div class="col-sm-6 mx-auto">
+			<div class="card mt-5">
+				<div class="card-body">
+					<h1 class="text-center">
+						<span class="fa fa-sing-in"></span>Agregar
+					</h1>
+					<center>
+
+						<form action="/userAdmin/MofUser/<%= user._id %>" method="post">
+							<div class="form-group">
+								<label for="Nombre">Nombre</label>
+								<input type="text" name="nombre" placeholder="<%= user.local.email %>">
+							</div>
+							<div class="form-group">
+								<label for="Descripcion">Descripcion</label>
+								<input type="text" name="descripcion" placeholder="<%= user.local.password %>">
+							</div>
+
+							<div class="col">
+								<button class="btn btn-primary">Agregar</button>
+							</div>
+					</center>
+					</form>
+					<hr>
+					<div class="text-center">
+
+						<p>
+							<a href="/profile">Volver</a>
+						</p>
+
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>
+
+</body>
+
+</html>

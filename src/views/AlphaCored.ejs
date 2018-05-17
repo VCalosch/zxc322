@@ -1,0 +1,217 @@
+<!--<a href="/addActuacionesActivas">ActuacionesActivas</a>
+<br>
+<hr>
+<a href="/addConsecuencia">Consecuencia</a>
+<br>
+<hr>
+<a href="/addActuacionesreactivas">ActuacionReactiva</a>
+<br>
+<hr>
+<a href="/addEvento">Evento</a>-->
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Panel de Administración</title>
+        <% include partials/head %>
+    </head>
+    <body>
+
+            <div class="container top-container margenf">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                    <a class="nav-link active" id="actuacionesActivas-tab" data-toggle="tab" href="#actuacionesActivas" role="tab" aria-controls="actuacionesActivas" aria-selected="true">Actuaciones Activas</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" id="actuacionesReativas-tab" data-toggle="tab" href="#actuacionesReativas" role="tab" aria-controls="actuacionesReativas" aria-selected="false">Actuaciones Reactivas</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" id="consecuencia-tab" data-toggle="tab" href="#consecuencia" role="tab" aria-controls="consecuencia" aria-selected="false">Consecuencia</a>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link" id="evento-tab" data-toggle="tab" href="#evento" role="tab" aria-controls="evento" aria-selected="false">Evento</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <!--Actuaciones Activas-->
+                        <div class="tab-pane fade show active" id="actuacionesActivas" role="tabpanel" aria-labelledby="actuacionesActivas-tab">
+                            <div class="card">
+                                <div class="card-body Margenes">
+
+
+                                    <form action="/AlphaCored" method="post">
+                                        <div class="form-row">
+                                            <div class="col"></div>
+                                            <div class="col"><input class="form-control" type="text" placeholder="Añadir Actuaciones Activas" name="ActuacionActivas"></div>
+                                            <div class="col"></div>
+                                        </div>
+                                        <br>
+                                        <div class="form-row">
+                                                <div class="col"></div>
+                                                <div class="col-auto"><button class="btn btn-primary">Agregar Actuación</button></div>
+                                                <div class="col"></div>
+                                        </div>
+                                    </form>
+                                <br><hr><br>
+                                <div class="card-columns">
+                                        <% for(var i=0; i<ActuacionActivas.length; i++) {%>
+                                            <div class="card" style="width: 250px">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <%= ActuacionActivas[i].ActuacionActivas %>
+                                                </h5>
+                                                <a href='/AlphaCored/delete/<%= ActuacionActivas[i]._id%>' onclick="return confirm('Esta seguro que quieres eliminar?');" >Eliminar</a>
+                                            </div>
+                                            </div>
+                                            <% }%>
+                                        </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    <!--Actuaciones Reactivas-->
+                        <div class="tab-pane fade" id="actuacionesReativas" role="tabpanel" aria-labelledby="actuacionesReativas-tab">
+                            <div class="card">
+                                    <div class="card-body Margenes">
+
+
+                                            <form>
+                                                <div class="form-row">
+                                                    <div class="col"></div>
+                                                    <div class="col"><input class="form-control" type="text" placeholder="Añadir Actuación Reactiva" name=""></div>
+                                                    <div class="col"></div>
+                                                </div>
+                                                <br>
+                                                <div class="form-row">
+                                                        <div class="col"></div>
+                                                        <div class="col-auto"><button class="btn btn-primary">Agregar Actuación</button></div>
+                                                        <div class="col"></div>
+                                                </div>
+                                            </form>
+
+                                        <br><hr><br>
+                                        <div class="card-columns">
+                                                
+                                                    <div class="card" style="width: 250px">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">
+                                                            Lorem Ipsum
+                                                        </h5>
+                                                        <a onclick="return confirm('Esta seguro que quieres eliminar?');" >Eliminar</a>
+                                                    </div>
+                                                    </div>
+                                                    
+                                                </div>
+
+                                    </div>
+                            </div>
+                        </div>
+                    <!--Consecuencia-->
+                        <div class="tab-pane fade" id="consecuencia" role="tabpanel" aria-labelledby="consecuencia-tab">
+                            <div class="card">
+                                    <div class="card-body Margenes">
+                                          
+                                        
+                                            <form>
+                                                    <div class="form-row">
+                                                        <div class="col"></div>
+                                                        <div class="col"><input class="form-control" type="text" placeholder="Añadir Consecuencia" name=""></div>
+                                                        <div class="col"></div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-row">
+                                                            <div class="col"></div>
+                                                            <div class="col-auto"><button class="btn btn-primary">Agregar Consecuencia</button></div>
+                                                            <div class="col"></div>
+                                                    </div>
+                                                </form>
+    
+                                            <br><hr><br>
+                                            <div class="card-columns">
+                                                    
+                                                        <div class="card" style="width: 250px">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">
+                                                                Lorem Ipsum
+                                                            </h5>
+                                                            <a onclick="return confirm('Esta seguro que quieres eliminar?');" >Eliminar</a>
+                                                        </div>
+                                                        </div>
+                                                        
+                                                    </div>   
+
+
+
+
+                                    </div>
+                                </div>
+                        </div>
+                    <!--Evento-->
+                        <div class="tab-pane fade" id="evento" role="tabpanel" aria-labelledby="evento-tab">
+                            <div class="card">
+                                    <div class="card-body Margenes">
+                                            
+
+                                            <form>
+                                                    <div class="form-row">
+                                                        <div class="col"></div>
+                                                        <div class="col"><input class="form-control" type="text" placeholder="Añadir Evento" name=""></div>
+                                                        <div class="col"></div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-row">
+                                                            <div class="col"></div>
+                                                            <div class="col-auto"><button class="btn btn-primary">Agregar Evento</button></div>
+                                                            <div class="col"></div>
+                                                    </div>
+                                                </form>
+    
+                                            <br><hr><br>
+                                            <div class="card-columns">
+                                                    
+                                                        <div class="card" style="width: 250px">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">
+                                                                Lorem Ipsum
+                                                            </h5>
+                                                            <a onclick="return confirm('Esta seguro que quieres eliminar?');" >Eliminar</a>
+                                                        </div>
+                                                        </div>
+                                                        
+                                                    </div> 
+
+
+
+
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+                        </div>
+                </div>
+            </div>
+
+    </body>
+
+
+</html>
+
+                                        <!--<a href="/addActuacionesActivas">ActuacionesActivas</a>
+                                        <br>
+                                        <hr>
+                                        <a href="/addConsecuencia">Consecuencia</a>
+                                        <br>
+                                        <hr>
+                                        <a href="/addActuacionesreactivas">ActuacionReactiva</a>
+                                        <br>
+                                        <hr>
+                                        <a href="/addEvento">Evento</a>-->
+
+
+
