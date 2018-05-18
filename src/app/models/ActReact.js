@@ -17,8 +17,8 @@ if (!db) {
         PaisdeOrigen: String,
         Latitud: Number,
         Longitud: Number,
-        cordenadas: String        
+        cordenadas: String,
+        idPlaya: String       
     });
 
 module.exports = mongoose.model('Actreac', Actreac);
-

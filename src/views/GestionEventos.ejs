@@ -28,7 +28,7 @@
 
 
 <div class="container top-container margenf">
- 
+    <center><h1>Playa: <%= Playas.nombre %> </h1></center>
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
       <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Incidentes/Intervenciones</a>
@@ -36,6 +36,9 @@
     <li class="nav-item">
       <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Avisos Preventivos</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab"href='Incidencias/<%= Playas.id%>' role="tab" aria-controls="profile" aria-selected="false">Incidencias registradas</a>
+      </li>
   </ul>
 
     <div class="tab-content" id="myTabContent">
@@ -74,10 +77,11 @@
                         <select name="Eventos" class="form-control">
                             <option disabled selected value="">Consecuencia</option>
                             <% for(var i=0; i<consecuencia.length; i++) {%> 
-                           <option id="consecuencia" value='<%= consecuencia[i]._id %>'><%= consecuencia[i].consecuencia %></option> 
+                           <option id="consecuencia" value='<%= consecuencia[i].consecuencia %>'><%= consecuencia[i].consecuencia %></option> 
                             <% } %>
                          </select>
                     </div>
+                    <input type="hidden" name="idPlaya" value="<%= Playas.id%>">                    
                   </div>
                   <br>
                   <div class="form-row">
@@ -119,12 +123,21 @@
                     <div style="margin-left: 60px; margin-right: 60px;">
                       <div class="card-columns">
                         <% for(var i=0; i<Actuacionesactivas.length; i++) {%>
-                        <div class="card text-center">
-                            <div class="card-body">
-                              <h5 class="card-title"><%= Actuacionesactivas[i].ActuacionActivas %></h5>
-                            </div>
-                          </div>
-                          <% }%>
+                          <form action="/GestionEventosAct/<%= Actuacionesactivas._id %>" method="post">
+                              <div class="card">
+                              <div class="card-body">
+                              <h5 class="card-title"><%= Actuacionesactivas[i].ActuacionActivas %>
+                              <input type="hidden" name="idPlaya" value="<%= Playas.id%>">
+                              <input type="hidden" name="ActuacionActivas" value="<%= Actuacionesactivas[i].ActuacionActivas %>">
+                              </h5>
+                          <button class="btn btn-primary">Agregar</button>
+                        </div>
+                      </div>
+                    
+                   
+                    </center>
+                   </form>
+                   <% }%>
                         </div>
                     </div>
 
@@ -139,7 +152,7 @@
                         <div class="card">
                           <div class="card-body">
                             <h5 class="card-title"><%= Actuacionesreactivas[i].ActuacionreactivasNombre %></h5>
-                            <a href='GestionEventos/addReactForm/<%= Actuacionesreactivas[i].id%>' class="card-link">Agregar</a>
+                            <a href='/GestionEventos/addReactForm/<%= Actuacionesreactivas[i].id + "/" + Playas.id%>'>Agregar</a>
                           </div>
                         </div>
                         <% }%>

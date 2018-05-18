@@ -34,35 +34,12 @@
               <label for="ubicacion">Ubicacion: </label>
               <%= Playas[i].ubicacion %>
             </p>
-            <a href='/GestionEventos'>Eventos</a>
+            <a href='/GestionEventos/<%= Playas[i]._id%>'>Eventos</a>
           </div>
         </div>
         <% }%>
     </div>
     <hr>
-    <center><h3>Usuario asociados</h3></center>
-    <div class="container">
-      <div class="col-sm6">
-        <div class="card">
-          <div class="card-body">
-            <h3>
-              <span class="fa fa-user"></span> Usuarios </h3>
-            <!--<strong>Email:</strong> <%= lista[0].local.email %> <br>-->
-            <table>
-              <% lista.forEach(function(User) { %>
-                <li>
-                  <%= User.local.email %>
-                    
-                </li>
-
-                <% }); %>
-
-            </table>
-
-          </div>
-        </div>
-      </div>
-    </div>
     <a href="/profile" class="btn btn-light">Regresar </a>
   </div>
 </body>

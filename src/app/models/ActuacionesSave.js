@@ -8,8 +8,8 @@ if (!db) {
 }
 
  var ActuacionesSave = new Schema({
-        ActuacionActivas: String,       
+        ActuacionActivas: String,  
+        idPlaya: String,     
     });
 
 module.exports = mongoose.model('ActuacionesSave', ActuacionesSave);
-

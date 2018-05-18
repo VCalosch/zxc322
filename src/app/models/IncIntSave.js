@@ -11,9 +11,8 @@ var IncIntSave = new Schema({
 	hora:{ type: String, default:'dentro'},
     evento: String,
     descripcion: String,
-    consecuencia: String
-
+    consecuencia: String,
+    idPlaya: String
 });
 
 module.exports = mongoose.model('IncIntSave', IncIntSave);
-
