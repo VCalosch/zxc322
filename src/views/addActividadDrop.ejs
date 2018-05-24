@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Administrar Drop Actividad</title>
+	<% include partials/head %>
+</head>
+
+<body>
+		<div class="container top-container margenf">
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" id="addActividadDrop-tab" data-toggle="tab" href="#addActividadDrop" role="tab" aria-controls="addActividadDrop" aria-selected="true">Administrar Drop Actividad</a>
+				</li>
+			</ul>
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade show active" id="addActividadDrop" role="tabpanel" aria-labelledby="addActividadDrop-tab">
+						<div class="card">
+								<div class="card-body Margenes">
+
+										<form action="/agregarActividadDrop" method="post">
+											<div class="form-row">
+													<div class="col"></div>
+													<div class="col"><input class="form-control" type="text" placeholder="Añadir Actividad" name="actividad"></div>
+													<div class="col"></div>
+											</div>
+											<br>
+											<div class="form-row">
+															<div class="col"></div>
+															<div class="col-auto"><button class="btn btn-primary">Agregar</button></div>
+															<div class="col"></div>
+											</div>
+									</form>
+							<br><hr><br>
+							<div class="card-columns">
+											<% for(var i=0; i<Actividades.length; i++) {%>
+													<div class="card" style="width: 250px">
+													<div class="card-body">
+															<h5 class="card-title">
+																	<%= Actividades[i].actividad %>
+															</h5>
+															<a href='/addPais/delete/<%= Actividades[i]._id%>' onclick="return confirm('Esta seguro que quieres eliminar?');" >Eliminar</a>
+														</div>
+													</div>
+													<% }%>
+											</div>
+
+
+								</div>
+						</div>
+
+				</div>
+			</div>
+		</div>
+</body>
+
+</html>

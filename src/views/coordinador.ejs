@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Coordinador</title>
+  <% include partials/head %>
+</head>
+
+<div class="container top-container">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#EscogerPlaya" role="tab" aria-controls="home" aria-selected="true">Escoger Playa</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="home-tab" data-toggle="tab" href="#SolicitarNuevaPlaya" role="tab" aria-controls="home" aria-selected="true">Solicitar una Nueva Playa</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#DarAltaNuevoUsuario" role="tab" aria-controls="profile" aria-selected="false">Dar de Alta a un Nuevo Usuario</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+      <!--Escoger Playa-->
+    <div class="tab-pane fade show active" id="EscogerPlaya" role="tabpanel" aria-labelledby="home-tab">
+          <div class="card">
+            <div class="card-body Margenes">
+
+              <div class="card-columns">
+                <% for(var i=0; i<Playas.length; i++) {%>
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <label for="nombre">Nombre: </label>
+                        <%= Playas[i].nombre %>
+                      </h5>
+                      <p class="card-text">
+                        <label for="descripcion">Descripcion: </label>
+                        <%= Playas[i].descripcion %>
+                      </p>
+                      <p class="card-text">
+                        <label for="tipoarena">Tipo arena: </label>
+                        <%= Playas[i].tipoarena %>
+                      </p>
+                      <p class="card-text">
+                        <label for="ubicacion">Ubicacion: </label>
+                        <%= Playas[i].ubicacion %>
+                      </p>
+                      <a href='/GestionEventos/<%= Playas[i]._id%>'>Eventos</a>
+                    </div>
+                  </div>
+                  <% }%>
+              </div>
+
+
+            </div>
+          </div>
+    </div>
+      <!--Solicitar una Nueva Playa-->
+    <div class="tab-pane fade" id="SolicitarNuevaPlaya" role="tabpanel" aria-labelledby="home-tab">
+          <div class="card">
+            <div class="card-body Margenes">
+
+                  <form action="/SolicitarPlaya" method="post">
+                      <div class="form-row">
+                          <div class="col">
+                            <input type="text" class="form-control" placeholder="Nombre de la Playa" name="nombrePlaya">
+                          </div>
+                          <div class="col">
+                            <input type="email" class="form-control"  placeholder="Correo Electronico" name="CorreoElectronico">
+                          </div>
+                      </div>
+                      <br>
+
+                      <div class="form-row"><div class="col"></div>
+                                <div class="col">
+                                <button type="button" class="btn btn-secondary btn-sm float-right" style="display: none;" id="eliminarMarcador" onclick="EliminarMarcador()">Eliminar Marcador</button>
+                                </div></div>
+                              
+                            <div class="form-row">
+                                    <div id="map"></div>
+                            </div>
+                            <br>
+
+
+                      <br>
+                      <div class="form-row">
+                          <div class="col-1"></div>
+                          <input id="lat" class="form-control" name="latitud" type="hidden">
+                          <input id="lng" class="form-control" name="longitud" type="hidden">
+
+                          <div class="col"><input id="latPlaceHolder" class="form-control" placeholder="Latitud" disabled></div>
+                          <div class="col"><input id="lngPlaceHolder" class="form-control" placeholder="Longitud" disabled></div>
+                          <div class="col-1"></div>
+                      </div>
+                      <br>
+
+                      <div class="form-row">
+                        <label for="exampleFormControlTextarea1">Comentarios:</label>
+                        <textarea class="form-control" rows="3" name="Comentarios"></textarea>
+                      </div>
+                      <br>
+                      <div class="form-row">
+
+                        <div class="col"></div>
+                        <div class="col-auto">
+                        <button type="submit" class="btn btn-primary btn-lg">Enviar Solicitud</button></div>
+                        <div class="col"></div>
+
+                      </div>
+                  </form>
+
+            </div>
+          </div>
+    </div>
+      <!--Dar de Alta a un nuevo Usuario-->
+    <div class="tab-pane fade" id="DarAltaNuevoUsuario" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="card">
+            <div class="card-body Margenes">
+
+              <form action="/AgregarUsuario" action="/signup" method="post">
+                  <div class="form-row">
+                      <div class="col">
+                        <input type="text" class="form-control" placeholder="Usuario" name="email">
+                      </div>
+                      <div class="col">
+                        <input type="password" class="form-control" placeholder="Password" name="password">
+                      </div>
+                      <div class="col">
+                        <select  class="form-control" name="rol">
+                          <option selected disabled value="">Rol de Usuario</option>
+                          <option id="Encargado" value='Encargado'>Encargado</option> 
+                          <option id="Socorrista" value='Socorrista'>Socorrista</option> 
+
+                        </select>
+                      </div>
+                      <div class="col">
+                        <select  class="form-control" name="sexo">
+                          <option selected disabled value="">Sexo</option>
+                          <option id="Hombre" value='Hombre'>Hombre</option> 
+                          <option id="Mujer" value='Mujer'>Mujer</option>
+                          <option id="Otro" value='Otro'>Otro</option>
+                        </select>
+                      </div>
+                  </div>
+                  <br>
+
+                  <div class="form-row"><div class="col"></div><div class="col-auto"><h5>Elige Playa</h5></div><div class="col"></div></div>
+                  <div class="form-row">
+                    
+                          <div class="card-columns">
+                            <% for(var i=0; i<Playas.length; i++) {%>
+                              <div class="card">
+                                <div class="card-body">
+                                  <h5 class="card-title">
+                                    <label for="nombre">Nombre: </label>
+                                    <%= Playas[i].nombre %>
+                                    <input type="checkbox" id="ChecPlaya" name="ChecPlaya" value="<%= Playas[i].nombre %>">
+                                  </h5>
+                                </div>
+                              </div>
+                              <% }%>
+                          </div>
+
+                  </div>
+
+                  <br>
+                  <div class="form-row">
+                      <div class="col">
+                        <input type="email" class="form-control"  placeholder="Nº de Temporadas como Socorrista" name="number">
+                      </div>
+                      <div class="col">
+                        <select name="experiencia" class="form-control">
+                          <option disabled selected value="">Experiencia en:</option>
+                         <option value='playa'>Playas</option> 
+                         <option value='piscina'>Piscinas</option> 
+                          <option  value='playaYpiscina'>Playa y Piscina</option> 
+                       </select> 
+                      </div>
+                  </div>
+
+                  <br>
+
+                  <div class="form-row">
+                    <label for="exampleFormControlTextarea1">Descricpión:</label>
+                    <textarea class="form-control" rows="3" name="descripcion" ></textarea>
+                  </div>
+
+                  <br>
+
+                  <div class="form-row">
+                    <div class="col">
+                      <input type="text" class="form-control" placeholder="Horas de Formación" name="horasForm">
+                    </div>
+
+                    <div class="col">
+                      <input type="text" class="form-control" placeholder="Ultima Actualización de Formación" name="LastActForm">
+                    </div>
+
+                    <div class="col">
+                      <input type="text" class="form-control" placeholder="Entidad Formadora" name="entidadForma">
+                    </div>
+
+                  </div>
+
+                  <br>
+
+                  <div class="form-row">
+                    <label for="exampleFormControlTextarea1">Descripción:</label>
+                    <textarea class="form-control" rows="3" name="descripcion2" ></textarea>
+                  </div>
+
+                  <br>
+
+                  <div class="form-row">
+                    <div class="col">
+                      <input type="text" class="form-control" placeholder="Correo Electronico" name="correo">
+                    </div>
+                    <div class="col">
+                      <input type="text" class="form-control" placeholder="Codigo" name="codigo">
+                    </div>
+                    <div class="col">
+                      <input type="text" class="form-control" placeholder="Fecha de Inicio de Contrato" name="fecha">
+                    </div>
+                  </div>
+
+                  <br>
+
+                  <div class="form-row">
+                    <div class="col"></div>
+                    <div class="col-auto"><button type="submit" class="btn btn-primary btn-lg">Registrar</button></div>
+                    <div class="col"></div>
+                  </div>
+
+            </form>
+            </div>
+          </div>
+
+    </div>
+
+
+                </div>
+
+
+
+</div>
+
+<script>
+  var map;
+  var currentLatitud;
+  var currentLongitud;
+
+  var isMarcador=false;
+  var isPoligono;
+  var Marcador=0;
+  var latitud, longitud;
+  var cerrarPoligono=0;
+  var poligono;
+  var marker;
+  var insertarPoligono=true;
+
+
+  var list = [];
+  var numeros=[];
+
+  var listPolygon=[];
+  var numerosPolygon=[];
+  
+  
+
+    
+    
+
+    
+    getLocation();
+    function getLocation() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(initMap);
+      }
+    }
+
+    /*function AsignacionVariables(posiciones){
+      
+      
+    }*/
+  
+
+  function EliminarMarcador(){
+    marker.setMap(null);
+    Marcador=0;
+    longitud=null;
+    latitud=null;
+    document.getElementById("eliminarMarcador").style.display = "none";
+    document.getElementById('lat').value = latitud;
+    document.getElementById('latPlaceHolder').placeholder = "";
+
+    document.getElementById('lng').value = longitud;
+    document.getElementById('lngPlaceHolder').placeholder = "";
+
+    }
+
+  
+    function initMap(posiciones){
+
+      currentLatitud = posiciones.coords.latitude;
+      currentLongitud = posiciones.coords.longitude;
+
+      
+
+      //Valores Iniciales para Mapa
+      var options = {
+        zoom:15,
+        center:{lat:currentLatitud,lng:currentLongitud}
+      }
+      // Defininar Mapa
+      map = new google.maps.Map(document.getElementById('map'), options);
+      
+      
+      
+      
+      google.maps.event.addListener(map, 'click', function(event){
+        if(Marcador==0){                                
+        marker=addMarker({coords:event.latLng});
+        document.getElementById("eliminarMarcador").style.display = "block";
+        latitud = event.latLng.lat();
+        longitud = event.latLng.lng();
+        document.getElementById('lat').value = latitud;
+        document.getElementById('latPlaceHolder').placeholder = latitud;
+        document.getElementById('lng').value = longitud;
+        document.getElementById('lngPlaceHolder').placeholder = longitud;
+        Marcador = 1;
+        }
+        
+      });
+    
+      
+
+//----------------------------------------------------POLIGONOS----------------------------------------------------------------------------
+      
+      
+//---------------------------------------------------------------------------------------------------------------------------------------------
+
+ 
+    function addMarker(props){
+        var marker = new google.maps.Marker({
+          position:props.coords,
+          map:map,
+        });                                        
+        return marker;
+      }
+
+
+  
+    }
+
+//---------------------------------------------ELIMINAR MARCADOR------------------------------------------------------------------------
+  
+  
+  
+  </script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3d6OC5uV4aQlVClt97CEULYxOvY7b1GU&callback=initMap">
+  </script>
