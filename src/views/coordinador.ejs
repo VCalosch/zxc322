@@ -88,8 +88,8 @@
                         <br>
                         <div class="form-row">
                             <div class="col-1"></div>
-                            <input onkeyup="SolicitarPlayaValidity();" required="required" id="lat" class="form-control" name="latitud">
-                            <input onkeyup="SolicitarPlayaValidity();" required="required" id="lng" class="form-control" name="longitud">
+                            <input onkeyup="SolicitarPlayaValidity();" required="required" id="lat" class="form-control" name="latitud" type="hidden">
+                            <input onkeyup="SolicitarPlayaValidity();" required="required" id="lng" class="form-control" name="longitud" type="hidden">
 
                             <div class="col"><input id="latPlaceHolder" class="form-control" placeholder="Latitud" disabled></div>
                             <div class="col"><input id="lngPlaceHolder" class="form-control" placeholder="Longitud" disabled></div>
@@ -144,9 +144,11 @@
             var solicitarPlaya_btn = document.getElementById("xx");
             solicitarPlaya_btn.disabled = true;
 
+            var marcadorCounter;
+
             SolicitarPlayaValidity = function() {
                 var form = document.forms["ssxx"];
-                if (form.checkValidity()) {
+                if (form.checkValidity() && marcadorCounter==1) {
                     solicitarPlaya_btn.disabled = false;
                 } else {
                     solicitarPlaya_btn.disabled = true;
@@ -492,6 +494,9 @@
         document.getElementById('lng').value = longitud;
         document.getElementById('lngPlaceHolder').placeholder = "";
 
+        marcadorCounter=0;
+        SolicitarPlayaValidity();
+
     }
 
 
@@ -520,7 +525,12 @@
             if (Marcador == 0) {
                 marker = addMarker({
                     coords: event.latLng
+                    
                 });
+
+                marcadorCounter=1;
+                SolicitarPlayaValidity();
+
                 document.getElementById("eliminarMarcador").style.display = "block";
                 latitud = event.latLng.lat();
                 longitud = event.latLng.lng();
