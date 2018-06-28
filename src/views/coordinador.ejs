@@ -60,7 +60,7 @@
             <div class="card">
                 <div class="card-body Margenes">
 
-                    <form action="/SolicitarPlaya" method="post" name="ssxx">
+                    <form action="/SolicitarPlaya" method="post" name="SolicitarPlayaForm">
                         <div class="form-row">
                             <div class="col">
                                 <input onkeyup="SolicitarPlayaValidity();" required="required" type="text" class="form-control" placeholder="Nombre de la Playa" name="nombrePlaya" id="vPlaya">
@@ -106,7 +106,7 @@
 
                             <div class="col"></div>
                             <div class="col-auto">
-                                <button type="submit" class="btn btn-primary btn-lg" id="xx">Solicitar</button></div>
+                                <button type="submit" class="btn btn-primary btn-lg" id="SolicitarPlaya_btn">Solicitar</button></div>
                             <div class="col"></div>
 
                         </div>
@@ -118,42 +118,26 @@
 
 
         <script>
-            $('#vPlaya').blur(function() {
-                if (!this.value) {
-                    $('#vPlaya').attr('class', 'form-control is-invalid');
-                } else {
-                    $('#vPlaya').attr('class', 'form-control');
-                }
-            });
-            $('#vMail').blur(function() {
-                if (!this.value) {
-                    $('#vMail').attr('class', 'form-control is-invalid');
-                } else {
-                    $('#vMail').attr('class', 'form-control');
-                }
-            });
-            $('#vComentarios').blur(function() {
-                if (!this.value) {
-                    $('#vComentarios').attr('class', 'form-control is-invalid');
-                } else {
-                    $('#vComentarios').attr('class', 'form-control');
-                }
-            });
 
+            //Funciones para marcar si un input es invalido
+            $('#vPlaya').blur(function() {if (!this.value) {$('#vPlaya').attr('class', 'form-control is-invalid');} else {$('#vPlaya').attr('class', 'form-control');}});
+            $('#vMail').blur(function() {if (!this.value) {$('#vMail').attr('class', 'form-control is-invalid');} else {$('#vMail').attr('class', 'form-control');}});
+            $('#vComentarios').blur(function() {if (!this.value) {$('#vComentarios').attr('class', 'form-control is-invalid');} else {$('#vComentarios').attr('class', 'form-control');}});
+            //************************************************
 
-            var solicitarPlaya_btn = document.getElementById("xx");
+            //********Validacion de Formulario "Solicitar una Nueva Playa"***********************
+            var solicitarPlaya_btn = document.getElementById("SolicitarPlaya_btn");
             solicitarPlaya_btn.disabled = true;
-
             var marcadorCounter;
-
             SolicitarPlayaValidity = function() {
-                var form = document.forms["ssxx"];
+                var form = document.forms["SolicitarPlayaForm"];
                 if (form.checkValidity() && marcadorCounter==1) {
                     solicitarPlaya_btn.disabled = false;
                 } else {
                     solicitarPlaya_btn.disabled = true;
                 }
             }
+            //**********************************************************************************
 
 
         </script>
@@ -269,7 +253,7 @@
 
                         <div class="form-row">
                             <div class="col">
-                                <input onkeyup="checkFormsValidity();" required="required" type="email" class="form-control validador" placeholder="Correo Electronico" name="correo" id="vCorreo">
+                                <input onkeyup="checkFormsValidity();" required="required" type="email" class="form-control validador" placeholder="Correo Electronico" name="correo" id="vCorreo" >
                             </div>
                             <div class="col">
                                 <input onkeyup="checkFormsValidity();" required="required" type="text" class="form-control validador" placeholder="Codigo" name="codigo" id="vCodigo">
@@ -475,12 +459,6 @@
             navigator.geolocation.getCurrentPosition(initMap);
         }
     }
-
-    /*function AsignacionVariables(posiciones){
-      
-      
-    }*/
-
 
     function EliminarMarcador() {
         marker.setMap(null);
