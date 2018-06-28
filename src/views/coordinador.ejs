@@ -1,363 +1,559 @@
-
 <!DOCTYPE html>
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <title>Coordinador</title>
-  <% include partials/head %>
+    <meta charset="utf-8">
+    <title>Coordinador</title>
+    <% include partials/head %>
 </head>
 
 <div class="container top-container">
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#EscogerPlaya" role="tab" aria-controls="home" aria-selected="true">Escoger Playa</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="home-tab" data-toggle="tab" href="#SolicitarNuevaPlaya" role="tab" aria-controls="home" aria-selected="true">Solicitar una Nueva Playa</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#DarAltaNuevoUsuario" role="tab" aria-controls="profile" aria-selected="false">Dar de Alta a un Nuevo Usuario</a>
-    </li>
-  </ul>
-  <div class="tab-content" id="myTabContent">
-      <!--Escoger Playa-->
-    <div class="tab-pane fade show active" id="EscogerPlaya" role="tabpanel" aria-labelledby="home-tab">
-          <div class="card">
-            <div class="card-body Margenes">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#EscogerPlaya" role="tab" aria-controls="home" aria-selected="true">Escoger Playa</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="home-tab" data-toggle="tab" href="#SolicitarNuevaPlaya" role="tab" aria-controls="home" aria-selected="true">Solicitar una Nueva Playa</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#DarAltaNuevoUsuario" role="tab" aria-controls="profile" aria-selected="false">Dar de Alta a un Nuevo Usuario</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <!--Escoger Playa-->
+        <div class="tab-pane fade show active" id="EscogerPlaya" role="tabpanel" aria-labelledby="home-tab">
+            <div class="card">
+                <div class="card-body Margenes">
 
-              <div class="card-columns">
-                <% for(var i=0; i<Playas.length; i++) {%>
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <label for="nombre">Nombre: </label>
-                        <%= Playas[i].nombre %>
-                      </h5>
-                      <p class="card-text">
-                        <label for="descripcion">Descripcion: </label>
-                        <%= Playas[i].descripcion %>
-                      </p>
-                      <p class="card-text">
-                        <label for="tipoarena">Tipo arena: </label>
-                        <%= Playas[i].tipoarena %>
-                      </p>
-                      <p class="card-text">
-                        <label for="ubicacion">Ubicacion: </label>
-                        <%= Playas[i].ubicacion %>
-                      </p>
-                      <a href='/GestionEventos/<%= Playas[i]._id%>'>Eventos</a>
-                    </div>
-                  </div>
-                  <% }%>
-              </div>
-
-
-            </div>
-          </div>
-    </div>
-      <!--Solicitar una Nueva Playa-->
-    <div class="tab-pane fade" id="SolicitarNuevaPlaya" role="tabpanel" aria-labelledby="home-tab">
-          <div class="card">
-            <div class="card-body Margenes">
-
-                  <form action="/SolicitarPlaya" method="post">
-                      <div class="form-row">
-                          <div class="col">
-                            <input type="text" class="form-control" placeholder="Nombre de la Playa" name="nombrePlaya">
-                          </div>
-                          <div class="col">
-                            <input type="email" class="form-control"  placeholder="Correo Electronico" name="CorreoElectronico">
-                          </div>
-                      </div>
-                      <br>
-
-                      <div class="form-row"><div class="col"></div>
-                                <div class="col">
-                                <button type="button" class="btn btn-secondary btn-sm float-right" style="display: none;" id="eliminarMarcador" onclick="EliminarMarcador()">Eliminar Marcador</button>
-                                </div></div>
-                              
-                            <div class="form-row">
-                                    <div id="map"></div>
+                    <div class="card-columns">
+                        <% for(var i=0; i<Playas.length; i++) {%>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <label for="nombre">Nombre: </label>
+                                        <%= Playas[i].nombre %>
+                                    </h5>
+                                    <p class="card-text">
+                                        <label for="descripcion">Descripcion: </label>
+                                        <%= Playas[i].descripcion %>
+                                    </p>
+                                    <p class="card-text">
+                                        <label for="tipoarena">Tipo arena: </label>
+                                        <%= Playas[i].tipoarena %>
+                                    </p>
+                                    <p class="card-text">
+                                        <label for="ubicacion">Ubicacion: </label>
+                                        <%= Playas[i].ubicacion %>
+                                    </p>
+                                    <a href='/GestionEventos/<%= Playas[i]._id%>'>Eventos</a>
+                                </div>
                             </div>
-                            <br>
+                            <% }%>
+                    </div>
 
 
-                      <br>
-                      <div class="form-row">
-                          <div class="col-1"></div>
-                          <input id="lat" class="form-control" name="latitud" type="hidden">
-                          <input id="lng" class="form-control" name="longitud" type="hidden">
-
-                          <div class="col"><input id="latPlaceHolder" class="form-control" placeholder="Latitud" disabled></div>
-                          <div class="col"><input id="lngPlaceHolder" class="form-control" placeholder="Longitud" disabled></div>
-                          <div class="col-1"></div>
-                      </div>
-                      <br>
-
-                      <div class="form-row">
-                        <label for="exampleFormControlTextarea1">Comentarios:</label>
-                        <textarea class="form-control" rows="3" name="Comentarios"></textarea>
-                      </div>
-                      <br>
-                      <div class="form-row">
-
-                        <div class="col"></div>
-                        <div class="col-auto">
-                        <button type="submit" class="btn btn-primary btn-lg">Enviar Solicitud</button></div>
-                        <div class="col"></div>
-
-                      </div>
-                  </form>
-
+                </div>
             </div>
-          </div>
-    </div>
-      <!--Dar de Alta a un nuevo Usuario-->
-    <div class="tab-pane fade" id="DarAltaNuevoUsuario" role="tabpanel" aria-labelledby="profile-tab">
-          <div class="card">
-            <div class="card-body Margenes">
+        </div>
+        <!--Solicitar una Nueva Playa-->
+        <div class="tab-pane fade" id="SolicitarNuevaPlaya" role="tabpanel" aria-labelledby="home-tab">
+            <div class="card">
+                <div class="card-body Margenes">
 
-              <form action="/AgregarUsuario" action="/signup" method="post">
-                  <div class="form-row">
-                      <div class="col">
-                        <input type="text" class="form-control" placeholder="Usuario" name="email">
-                      </div>
-                      <div class="col">
-                        <input type="password" class="form-control" placeholder="Password" name="password">
-                      </div>
-                      <div class="col">
-                        <select  class="form-control" name="rol">
-                          <option selected disabled value="">Rol de Usuario</option>
+                    <form action="/SolicitarPlaya" method="post" name="ssxx">
+                        <div class="form-row">
+                            <div class="col">
+                                <input onkeyup="SolicitarPlayaValidity();" required="required" type="text" class="form-control" placeholder="Nombre de la Playa" name="nombrePlaya" id="vPlaya">
+                            </div>
+
+                            <div class="col">
+                                <input onkeyup="SolicitarPlayaValidity();" required="required" type="email" class="form-control" placeholder="Correo Electronico" name="CorreoElectronico" id="vMail">
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-row">
+                            <div class="col"></div>
+                            <div class="col">
+                                <button type="button" class="btn btn-secondary btn-sm float-right" style="display: none;" id="eliminarMarcador" onclick="EliminarMarcador()">Eliminar Marcador</button>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div id="map"></div>
+                        </div>
+                        <br>
+
+                    
+                        <br>
+                        <div class="form-row">
+                            <div class="col-1"></div>
+                            <input onkeyup="SolicitarPlayaValidity();" required="required" id="lat" class="form-control" name="latitud">
+                            <input onkeyup="SolicitarPlayaValidity();" required="required" id="lng" class="form-control" name="longitud">
+
+                            <div class="col"><input id="latPlaceHolder" class="form-control" placeholder="Latitud" disabled></div>
+                            <div class="col"><input id="lngPlaceHolder" class="form-control" placeholder="Longitud" disabled></div>
+                            <div class="col-1"></div>
+                        </div>
+                        <br>
+
+                        <div class="form-row">
+                            <label for="exampleFormControlTextarea1">Comentarios:</label>
+                            <textarea onkeyup="SolicitarPlayaValidity();" required="required" class="form-control" rows="3" name="Comentarios" id="vComentarios"></textarea>
+                        </div>
+                        <br>
+                        <div class="form-row">
+
+                            <div class="col"></div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary btn-lg" id="xx">Solicitar</button></div>
+                            <div class="col"></div>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            $('#vPlaya').blur(function() {
+                if (!this.value) {
+                    $('#vPlaya').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vPlaya').attr('class', 'form-control');
+                }
+            });
+            $('#vMail').blur(function() {
+                if (!this.value) {
+                    $('#vMail').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vMail').attr('class', 'form-control');
+                }
+            });
+            $('#vComentarios').blur(function() {
+                if (!this.value) {
+                    $('#vComentarios').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vComentarios').attr('class', 'form-control');
+                }
+            });
+
+
+            var solicitarPlaya_btn = document.getElementById("xx");
+            solicitarPlaya_btn.disabled = true;
+
+            SolicitarPlayaValidity = function() {
+                var form = document.forms["ssxx"];
+                if (form.checkValidity()) {
+                    solicitarPlaya_btn.disabled = false;
+                } else {
+                    solicitarPlaya_btn.disabled = true;
+                }
+            }
+
+
+        </script>
+
+
+
+
+
+        <!--Dar de Alta a un nuevo Usuario-->
+        <div class="tab-pane fade" id="DarAltaNuevoUsuario" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="card">
+                <div class="card-body Margenes">
+
+                    <form action="/AgregarUsuario" action="/signup" method="post" name="AgregarUsuario">
+                        <div class="form-row">
+                            <div class="col">
+                                <input onkeyup="checkFormsValidity();" type="text" class="form-control validador" placeholder="Usuario" name="email" id="vUsuario" required="required">
+                            </div>
+                            <div class="col">
+                                <input onkeyup="checkFormsValidity();" required="required" type="password" class="form-control validador" placeholder="Password" name="password" id="vPassword">
+                            </div>
+                            <div class="col">
+                                <select class="form-control validador" name="rol" id="vRol">
+                          <option selected disabled value='none'>Rol de Usuario</option>
                           <option id="Encargado" value='Encargado'>Encargado</option> 
                           <option id="Socorrista" value='Socorrista'>Socorrista</option> 
 
                         </select>
-                      </div>
-                      <div class="col">
-                        <select  class="form-control" name="sexo">
+                            </div>
+                            <div class="col">
+                                <select class="form-control validador" name="sexo" id="vSexo">
                           <option selected disabled value="">Sexo</option>
                           <option id="Hombre" value='Hombre'>Hombre</option> 
                           <option id="Mujer" value='Mujer'>Mujer</option>
                           <option id="Otro" value='Otro'>Otro</option>
                         </select>
-                      </div>
-                  </div>
-                  <br>
+                            </div>
+                        </div>
+                        <br>
 
-                  <div class="form-row"><div class="col"></div><div class="col-auto"><h5>Elige Playa</h5></div><div class="col"></div></div>
-                  <div class="form-row">
-                    
-                          <div class="card-columns">
-                            <% for(var i=0; i<Playas.length; i++) {%>
-                              <div class="card">
-                                <div class="card-body">
-                                  <h5 class="card-title">
-                                    <label for="nombre">Nombre: </label>
-                                    <%= Playas[i].nombre %>
-                                    <input type="checkbox" id="ChecPlaya" name="ChecPlaya" value="<%= Playas[i].nombre %>">
-                                  </h5>
-                                </div>
-                              </div>
-                              <% }%>
-                          </div>
+                        <div class="form-row">
+                            <div class="col"></div>
+                            <div class="col-auto">
+                                <h5>Elige Playa</h5>
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                        <div class="form-row">
 
-                  </div>
+                            <div class="card-columns">
+                                <% for(var i=0; i<Playas.length; i++) {%>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <label for="nombre">Nombre: </label>
+                                                <%= Playas[i].nombre %>
+                                                    <input onchange="checkBoxValidation(this.checked)" type="checkbox" id="ChecPlaya" name="ChecPlaya" value="<%= Playas[i].nombre %>">
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <% }%>
+                            </div>
 
-                  <br>
-                  <div class="form-row">
-                      <div class="col">
-                        <input type="email" class="form-control"  placeholder="Nº de Temporadas como Socorrista" name="number">
-                      </div>
-                      <div class="col">
-                        <select name="experiencia" class="form-control">
+                        </div>
+
+                        <br>
+                        <div class="form-row">
+                            <div class="col">
+                                <input onkeyup="checkFormsValidity();" required="required" type="text" class="form-control validador" placeholder="Nº de Temporadas como Socorrista" name="number" id="vTemporadas">
+                            </div>
+                            <div class="col">
+                                <select name="experiencia" class="form-control validador" id="vExperiencia">
                           <option disabled selected value="">Experiencia en:</option>
                          <option value='playa'>Playas</option> 
                          <option value='piscina'>Piscinas</option> 
                           <option  value='playaYpiscina'>Playa y Piscina</option> 
-                       </select> 
-                      </div>
-                  </div>
+                       </select>
+                            </div>
+                        </div>
 
-                  <br>
+                        <br>
 
-                  <div class="form-row">
-                    <label for="exampleFormControlTextarea1">Descricpión:</label>
-                    <textarea class="form-control" rows="3" name="descripcion" ></textarea>
-                  </div>
+                        <div class="form-row">
+                            <label for="exampleFormControlTextarea1">Descricpión:</label>
+                            <textarea onkeyup="checkFormsValidity();" required="required" class="form-control validador" rows="3" name="descripcion" id="vDescripcion"></textarea>
+                        </div>
 
-                  <br>
+                        <br>
 
-                  <div class="form-row">
-                    <div class="col">
-                      <input type="text" class="form-control" placeholder="Horas de Formación" name="horasForm">
-                    </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <input onkeyup="checkFormsValidity();" required="required" type="text" class="form-control validador" placeholder="Horas de Formación" name="horasForm" id="vHorasFormacion">
+                            </div>
 
-                    <div class="col">
-                      <input type="text" class="form-control" placeholder="Ultima Actualización de Formación" name="LastActForm">
-                    </div>
+                            <div class="col">
+                                <input onkeyup="checkFormsValidity();" required="required" type="text" class="form-control validador" placeholder="Ultima Actualización de Formación" name="LastActForm" id="vActualizacionFormacion">
+                            </div>
 
-                    <div class="col">
-                      <input type="text" class="form-control" placeholder="Entidad Formadora" name="entidadForma">
-                    </div>
+                            <div class="col">
+                                <input type="text" class="form-control validador" placeholder="Entidad Formadora" name="entidadForma" id="vEntidadFormadora">
+                            </div>
 
-                  </div>
+                        </div>
 
-                  <br>
+                        <br>
 
-                  <div class="form-row">
-                    <label for="exampleFormControlTextarea1">Descripción:</label>
-                    <textarea class="form-control" rows="3" name="descripcion2" ></textarea>
-                  </div>
+                        <div class="form-row">
+                            <label for="exampleFormControlTextarea1">Descripción:</label>
+                            <textarea onkeyup="checkFormsValidity();" required="required" class="form-control validador" rows="3" name="descripcion2" id="vDescripcion2"></textarea>
+                        </div>
 
-                  <br>
+                        <br>
 
-                  <div class="form-row">
-                    <div class="col">
-                      <input type="text" class="form-control" placeholder="Correo Electronico" name="correo">
-                    </div>
-                    <div class="col">
-                      <input type="text" class="form-control" placeholder="Codigo" name="codigo">
-                    </div>
-                    <div class="col">
-                      <input type="text" class="form-control" placeholder="Fecha de Inicio de Contrato" name="fecha">
-                    </div>
-                  </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <input onkeyup="checkFormsValidity();" required="required" type="email" class="form-control validador" placeholder="Correo Electronico" name="correo" id="vCorreo">
+                            </div>
+                            <div class="col">
+                                <input onkeyup="checkFormsValidity();" required="required" type="text" class="form-control validador" placeholder="Codigo" name="codigo" id="vCodigo">
+                            </div>
+                            <div class="col">
+                                <input onkeyup="checkFormsValidity();" required="required" type="text" class="form-control validador" placeholder="Fecha de Inicio de Contrato" name="fecha" id="vFecha">
+                            </div>
+                        </div>
 
-                  <br>
+                        <br>
 
-                  <div class="form-row">
-                    <div class="col"></div>
-                    <div class="col-auto"><button type="submit" class="btn btn-primary btn-lg">Registrar</button></div>
-                    <div class="col"></div>
-                  </div>
-
-            </form>
+                        <div class="form-row">
+                            <div class="col"></div>
+                            <div class="col-auto"><button type="submit" name="submit_name" id="SubmitButton" class="btn btn-primary btn-lg">Registrar</button></div>
+                            <div class="col"></div>
+                        </div>
+                    </form>
+                </div>
             </div>
-          </div>
+
+        </div>
+
+
+        <script>
+            $('#vUsuario').blur(function() {
+                if (!this.value) {
+                    $('#vUsuario').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vUsuario').attr('class', 'form-control');
+                }
+            });
+            $('#vPassword').blur(function() {
+                if (!this.value) {
+                    $('#vPassword').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vPassword').attr('class', 'form-control');
+                }
+            });
+            $('#vRol').blur(function() {
+                if (!this.value) {
+                    $('#vRol').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vRol').attr('class', 'form-control');
+                }
+            });
+            $('#vSexo').blur(function() {
+                if (!this.value) {
+                    $('#vSexo').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vSexo').attr('class', 'form-control');
+                }
+            });
+            $('#vTemporadas').blur(function() {
+                if (!this.value) {
+                    $('#vTemporadas').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vTemporadas').attr('class', 'form-control');
+                }
+            });
+            $('#vExperiencia').blur(function() {
+                if (!this.value) {
+                    $('#vExperiencia').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vExperiencia').attr('class', 'form-control');
+                }
+            });
+            $('#vDescripcion').blur(function() {
+                if (!this.value) {
+                    $('#vDescripcion').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vDescripcion').attr('class', 'form-control');
+                }
+            });
+            $('#vHorasFormacion').blur(function() {
+                if (!this.value) {
+                    $('#vHorasFormacion').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vHorasFormacion').attr('class', 'form-control');
+                }
+            });
+            $('#vActualizacionFormacion').blur(function() {
+                if (!this.value) {
+                    $('#vActualizacionFormacion').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vActualizacionFormacion').attr('class', 'form-control');
+                }
+            });
+            $('#vEntidadFormadora').blur(function() {
+                if (!this.value) {
+                    $('#vEntidadFormadora').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vEntidadFormadora').attr('class', 'form-control');
+                }
+            });
+            $('#vDescripcion2').blur(function() {
+                if (!this.value) {
+                    $('#vDescripcion2').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vDescripcion2').attr('class', 'form-control');
+                }
+            });
+            $('#vCorreo').blur(function() {
+                if (!this.value) {
+                    $('#vCorreo').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vCorreo').attr('class', 'form-control');
+                }
+            });
+            $('#vCodigo').blur(function() {
+                if (!this.value) {
+                    $('#vCodigo').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vCodigo').attr('class', 'form-control');
+                }
+            });
+            $('#vFecha').blur(function() {
+                if (!this.value) {
+                    $('#vFecha').attr('class', 'form-control is-invalid');
+                } else {
+                    $('#vFecha').attr('class', 'form-control');
+                }
+            });
+
+            var sbmtBtn = document.getElementById("SubmitButton");
+            sbmtBtn.disabled = true;
+            var RolCounter, SexoCounter, ExperienciaCounter, checkboxPlaya;
+
+            checkFormsValidity = function() {
+                var myforms = document.forms["AgregarUsuario"];
+                if (myforms.checkValidity() && RolCounter==1 && SexoCounter==1 && ExperienciaCounter==1 && checkboxPlaya) {
+                    sbmtBtn.disabled = false;
+                } else {
+                    sbmtBtn.disabled = true;
+                }
+            }
+            
+            function checkBoxValidation(x){
+                checkboxPlaya = x;checkFormsValidity();  
+            }
+            
+            $('#vRol').change(function() {
+                if ($(this).val() != 'none') {
+                    RolCounter=1;checkFormsValidity();    
+                }
+            });
+            
+            $('#vSexo').change(function() {
+                if ($(this).val() != 'none') {
+                    SexoCounter=1;checkFormsValidity();                
+                }
+            });
+
+            $('#vExperiencia').change(function() {
+                if ($(this).val() != 'none') {
+                    ExperienciaCounter=1;checkFormsValidity();                
+                }
+            });
+
+        </script>
+
+
+
+
+
 
     </div>
-
-
-                </div>
 
 
 
 </div>
 
 <script>
-  var map;
-  var currentLatitud;
-  var currentLongitud;
+    var map;
+    var currentLatitud;
+    var currentLongitud;
 
-  var isMarcador=false;
-  var isPoligono;
-  var Marcador=0;
-  var latitud, longitud;
-  var cerrarPoligono=0;
-  var poligono;
-  var marker;
-  var insertarPoligono=true;
+    var isMarcador = false;
+    var isPoligono;
+    var Marcador = 0;
+    var latitud, longitud;
+    var cerrarPoligono = 0;
+    var poligono;
+    var marker;
+    var insertarPoligono = true;
 
 
-  var list = [];
-  var numeros=[];
+    var list = [];
+    var numeros = [];
 
-  var listPolygon=[];
-  var numerosPolygon=[];
-  
-  
+    var listPolygon = [];
+    var numerosPolygon = [];
 
-    
-    
 
-    
+
+
+
+
+
     getLocation();
+
     function getLocation() {
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(initMap);
-      }
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(initMap);
+        }
     }
 
     /*function AsignacionVariables(posiciones){
       
       
     }*/
-  
 
-  function EliminarMarcador(){
-    marker.setMap(null);
-    Marcador=0;
-    longitud=null;
-    latitud=null;
-    document.getElementById("eliminarMarcador").style.display = "none";
-    document.getElementById('lat').value = latitud;
-    document.getElementById('latPlaceHolder').placeholder = "";
 
-    document.getElementById('lng').value = longitud;
-    document.getElementById('lngPlaceHolder').placeholder = "";
-
-    }
-
-  
-    function initMap(posiciones){
-
-      currentLatitud = posiciones.coords.latitude;
-      currentLongitud = posiciones.coords.longitude;
-
-      
-
-      //Valores Iniciales para Mapa
-      var options = {
-        zoom:15,
-        center:{lat:currentLatitud,lng:currentLongitud}
-      }
-      // Defininar Mapa
-      map = new google.maps.Map(document.getElementById('map'), options);
-      
-      
-      
-      
-      google.maps.event.addListener(map, 'click', function(event){
-        if(Marcador==0){                                
-        marker=addMarker({coords:event.latLng});
-        document.getElementById("eliminarMarcador").style.display = "block";
-        latitud = event.latLng.lat();
-        longitud = event.latLng.lng();
+    function EliminarMarcador() {
+        marker.setMap(null);
+        Marcador = 0;
+        longitud = null;
+        latitud = null;
+        document.getElementById("eliminarMarcador").style.display = "none";
         document.getElementById('lat').value = latitud;
-        document.getElementById('latPlaceHolder').placeholder = latitud;
+        document.getElementById('latPlaceHolder').placeholder = "";
+
         document.getElementById('lng').value = longitud;
-        document.getElementById('lngPlaceHolder').placeholder = longitud;
-        Marcador = 1;
-        }
-        
-      });
-    
-      
+        document.getElementById('lngPlaceHolder').placeholder = "";
 
-//----------------------------------------------------POLIGONOS----------------------------------------------------------------------------
-      
-      
-//---------------------------------------------------------------------------------------------------------------------------------------------
-
- 
-    function addMarker(props){
-        var marker = new google.maps.Marker({
-          position:props.coords,
-          map:map,
-        });                                        
-        return marker;
-      }
-
-
-  
     }
 
-//---------------------------------------------ELIMINAR MARCADOR------------------------------------------------------------------------
-  
-  
-  
-  </script>
-  <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3d6OC5uV4aQlVClt97CEULYxOvY7b1GU&callback=initMap">
-  </script>
+
+    function initMap(posiciones) {
+
+        currentLatitud = posiciones.coords.latitude;
+        currentLongitud = posiciones.coords.longitude;
+
+
+
+        //Valores Iniciales para Mapa
+        var options = {
+                zoom: 15,
+                center: {
+                    lat: currentLatitud,
+                    lng: currentLongitud
+                }
+            }
+            // Defininar Mapa
+        map = new google.maps.Map(document.getElementById('map'), options);
+
+
+
+
+        google.maps.event.addListener(map, 'click', function(event) {
+            if (Marcador == 0) {
+                marker = addMarker({
+                    coords: event.latLng
+                });
+                document.getElementById("eliminarMarcador").style.display = "block";
+                latitud = event.latLng.lat();
+                longitud = event.latLng.lng();
+                document.getElementById('lat').value = latitud;
+                document.getElementById('latPlaceHolder').placeholder = latitud;
+                document.getElementById('lng').value = longitud;
+                document.getElementById('lngPlaceHolder').placeholder = longitud;
+                Marcador = 1;
+            }
+
+        });
+
+
+
+        //----------------------------------------------------POLIGONOS----------------------------------------------------------------------------
+
+
+        //---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+        function addMarker(props) {
+            var marker = new google.maps.Marker({
+                position: props.coords,
+                map: map,
+            });
+            return marker;
+        }
+
+
+
+    }
+
+    //---------------------------------------------ELIMINAR MARCADOR------------------------------------------------------------------------
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3d6OC5uV4aQlVClt97CEULYxOvY7b1GU&callback=initMap">
+</script>
