@@ -80,7 +80,7 @@
                         </div>
 
                         <div class="form-row">
-                            <div id="map"></div>
+                            <div id="map" onload="initCords(x)"></div>
                         </div>
                         <br>
 
@@ -161,7 +161,7 @@
                             </div>
                             <div class="col">
                                 <select class="form-control validador" name="rol" id="vRol">
-                          <option selected disabled value='none'>Rol de Usuario</option>
+                          <option selected disabled value="">Rol de Usuario</option>
                           <option id="Encargado" value='Encargado'>Encargado</option> 
                           <option id="Socorrista" value='Socorrista'>Socorrista</option> 
 
@@ -425,6 +425,7 @@
 
 </div>
 
+
 <script>
     var map;
     var currentLatitud;
@@ -447,16 +448,11 @@
     var numerosPolygon = [];
 
 
-
-
-
-
-
-    getLocation();
-
-    function getLocation() {
+    function initCords(){
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(initMap);
+        }else { 
+        alert("El navegador no lo soporta");
         }
     }
 
@@ -478,10 +474,10 @@
     }
 
 
-    function initMap(posiciones) {
+    function initMap(position) {
 
-        currentLatitud = posiciones.coords.latitude;
-        currentLongitud = posiciones.coords.longitude;
+        currentLatitud = position.coords.latitude;
+        currentLongitud = position.coords.longitude;
 
 
 
@@ -498,41 +494,41 @@
 
 
 
-
+        
         google.maps.event.addListener(map, 'click', function(event) {
+            
             if (Marcador == 0) {
                 marker = addMarker({
                     coords: event.latLng
-                    
                 });
-
-                marcadorCounter=1;
-                SolicitarPlayaValidity();
-
-                document.getElementById("eliminarMarcador").style.display = "block";
                 latitud = event.latLng.lat();
                 longitud = event.latLng.lng();
+                marcadorCounter=1;
+                SolicitarPlayaValidity();
+                document.getElementById("eliminarMarcador").style.display = "block";
+                llenarInputsMapa();
+                Marcador = 1;
+                }
+                
+                marker.addListener('dragend', function(event) {
+                    latitud = event.latLng.lat();
+                    longitud = event.latLng.lng();
+                    llenarInputsMapa();
+                });
+
+                function llenarInputsMapa(){
                 document.getElementById('lat').value = latitud;
                 document.getElementById('latPlaceHolder').placeholder = latitud;
                 document.getElementById('lng').value = longitud;
                 document.getElementById('lngPlaceHolder').placeholder = longitud;
-                Marcador = 1;
-            }
-
+                }
         });
-
-
-
-        //----------------------------------------------------POLIGONOS----------------------------------------------------------------------------
-
-
-        //---------------------------------------------------------------------------------------------------------------------------------------------
-
 
         function addMarker(props) {
             var marker = new google.maps.Marker({
                 position: props.coords,
                 map: map,
+                draggable:true
             });
             return marker;
         }
