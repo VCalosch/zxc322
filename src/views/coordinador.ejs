@@ -5,7 +5,131 @@
     <meta charset="utf-8">
     <title>Coordinador</title>
     <% include partials/head %>
+
 </head>
+
+<script>
+    var map;
+    var currentLatitud;
+    var currentLongitud;
+
+    var isMarcador = false;
+    var isPoligono;
+    var Marcador = 0;
+    var latitud, longitud;
+    var cerrarPoligono = 0;
+    var poligono;
+    var marker;
+    var insertarPoligono = true;
+
+
+    var list = [];
+    var numeros = [];
+
+    var listPolygon = [];
+    var numerosPolygon = [];
+
+    //initCords();
+
+function initCoords() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(initMap, locationError);
+  } else {
+    showError("Your browser does not support Geolocation!");
+  }
+}
+
+    function EliminarMarcador() {
+        marker.setMap(null);
+        Marcador = 0;
+        longitud = null;
+        latitud = null;
+        document.getElementById("eliminarMarcador").style.display = "none";
+        document.getElementById('lat').value = latitud;
+        document.getElementById('latPlaceHolder').placeholder = "";
+
+        document.getElementById('lng').value = longitud;
+        document.getElementById('lngPlaceHolder').placeholder = "";
+
+        marcadorCounter=0;
+        SolicitarPlayaValidity();
+
+    }
+
+    function locationError(){
+        console.log("Hello There");
+    }
+
+
+    function initMap(position) {
+
+        currentLatitud = position.coords.latitude;
+        currentLongitud = position.coords.longitude;
+
+
+
+        //Valores Iniciales para Mapa
+        var options = {
+                zoom: 15,
+                center: {
+                    lat: currentLatitud,
+                    lng: currentLongitud
+                }
+            }
+            // Defininar Mapa
+        map = new google.maps.Map(document.getElementById('map'), options);
+
+
+
+        
+        google.maps.event.addListener(map, 'click', function(event) {
+            
+            if (Marcador == 0) {
+                marker = addMarker({
+                    coords: event.latLng
+                });
+                latitud = event.latLng.lat();
+                longitud = event.latLng.lng();
+                marcadorCounter=1;
+                SolicitarPlayaValidity();
+                document.getElementById("eliminarMarcador").style.display = "block";
+                llenarInputsMapa();
+                Marcador = 1;
+                } 
+                
+                marker.addListener('dragend', function(event) {
+                    latitud = event.latLng.lat();
+                    longitud = event.latLng.lng();
+                    llenarInputsMapa();
+                });
+
+                function llenarInputsMapa(){
+                document.getElementById('lat').value = latitud;
+                document.getElementById('latPlaceHolder').placeholder = latitud;
+                document.getElementById('lng').value = longitud;
+                document.getElementById('lngPlaceHolder').placeholder = longitud;
+                }
+        });
+
+        function addMarker(props) {
+            var marker = new google.maps.Marker({
+                position: props.coords,
+                map: map,
+                draggable:true
+            });
+            return marker;
+        }
+
+
+
+    }
+
+    //---------------------------------------------ELIMINAR MARCADOR------------------------------------------------------------------------
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3d6OC5uV4aQlVClt97CEULYxOvY7b1GU&callback=initMap">
+</script>
+
+
 
 <div class="container top-container">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -80,7 +204,9 @@
                         </div>
 
                         <div class="form-row">
-                            <div id="map" onload="initCords(x)"></div>
+                            <div id="map">
+                                <script>initCoords();</script>
+                            </div>
                         </div>
                         <br>
 
@@ -424,120 +550,6 @@
 
 
 </div>
+<% include partials/footer %>
 
 
-<script>
-    var map;
-    var currentLatitud;
-    var currentLongitud;
-
-    var isMarcador = false;
-    var isPoligono;
-    var Marcador = 0;
-    var latitud, longitud;
-    var cerrarPoligono = 0;
-    var poligono;
-    var marker;
-    var insertarPoligono = true;
-
-
-    var list = [];
-    var numeros = [];
-
-    var listPolygon = [];
-    var numerosPolygon = [];
-
-
-    function initCords(){
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(initMap);
-        }else { 
-        alert("El navegador no lo soporta");
-        }
-    }
-
-    function EliminarMarcador() {
-        marker.setMap(null);
-        Marcador = 0;
-        longitud = null;
-        latitud = null;
-        document.getElementById("eliminarMarcador").style.display = "none";
-        document.getElementById('lat').value = latitud;
-        document.getElementById('latPlaceHolder').placeholder = "";
-
-        document.getElementById('lng').value = longitud;
-        document.getElementById('lngPlaceHolder').placeholder = "";
-
-        marcadorCounter=0;
-        SolicitarPlayaValidity();
-
-    }
-
-
-    function initMap(position) {
-
-        currentLatitud = position.coords.latitude;
-        currentLongitud = position.coords.longitude;
-
-
-
-        //Valores Iniciales para Mapa
-        var options = {
-                zoom: 15,
-                center: {
-                    lat: currentLatitud,
-                    lng: currentLongitud
-                }
-            }
-            // Defininar Mapa
-        map = new google.maps.Map(document.getElementById('map'), options);
-
-
-
-        
-        google.maps.event.addListener(map, 'click', function(event) {
-            
-            if (Marcador == 0) {
-                marker = addMarker({
-                    coords: event.latLng
-                });
-                latitud = event.latLng.lat();
-                longitud = event.latLng.lng();
-                marcadorCounter=1;
-                SolicitarPlayaValidity();
-                document.getElementById("eliminarMarcador").style.display = "block";
-                llenarInputsMapa();
-                Marcador = 1;
-                }
-                
-                marker.addListener('dragend', function(event) {
-                    latitud = event.latLng.lat();
-                    longitud = event.latLng.lng();
-                    llenarInputsMapa();
-                });
-
-                function llenarInputsMapa(){
-                document.getElementById('lat').value = latitud;
-                document.getElementById('latPlaceHolder').placeholder = latitud;
-                document.getElementById('lng').value = longitud;
-                document.getElementById('lngPlaceHolder').placeholder = longitud;
-                }
-        });
-
-        function addMarker(props) {
-            var marker = new google.maps.Marker({
-                position: props.coords,
-                map: map,
-                draggable:true
-            });
-            return marker;
-        }
-
-
-
-    }
-
-    //---------------------------------------------ELIMINAR MARCADOR------------------------------------------------------------------------
-</script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3d6OC5uV4aQlVClt97CEULYxOvY7b1GU&callback=initMap">
-</script>

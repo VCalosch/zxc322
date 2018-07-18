@@ -104,12 +104,14 @@ const User = require('../app/models/user');  //modelo a usar para guardar los da
 module.exports = (app, passport) => {
 
 	app.get('/', (req, res) => {
-		res.render('index');
+		res.render('index', {
+			isLoggedIn: req.isAuthenticated() 
+		});
 	});
 
 	app.get('/login', (req, res) => {
 		res.render('login', {
-			message: req.flash('loginMessage')
+			message: req.flash('loginMessage'), isLoggedIn: req.isAuthenticated()
 		});
 	});
 
@@ -136,7 +138,7 @@ module.exports = (app, passport) => {
 
 	app.get('/profile', isLoggedIn, (req, res) => {
 		res.render('profile', {
-			user: req.user
+			user: req.user, isLoggedIn: req.isAuthenticated() 
 		});
 	});
 
@@ -194,9 +196,11 @@ module.exports = (app, passport) => {
 };
 function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated()) {
-		return next();
+		return next(null, true);
 	}
 	res.redirect('/');
 }
+
+
 
 
