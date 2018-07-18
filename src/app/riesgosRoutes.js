@@ -94,7 +94,8 @@ routRiesgos.get('/riegosAdmin', isLoggedIn, (req, res) => {
 		if (err) { throw err; }
 		else {
 			res.render('riegosAdmin', {
-				Riesgos: riesgo
+				Riesgos: riesgo,
+				isLoggedIn: req.isAuthenticated() 
 			});
 		}
 	});
@@ -104,7 +105,7 @@ routRiesgos.get('/riegosAdmin', isLoggedIn, (req, res) => {
 
 //render de riesgos
 routRiesgos.get('/addRiesgo', isLoggedIn, (req, res) => {
-	res.render('addRiesgo');
+	res.render('addRiesgo',{isLoggedIn: req.isAuthenticated() });
 });
 
 
@@ -138,7 +139,8 @@ routRiesgos.get('/riegosAdmin/modRiesgo/:id', isLoggedIn, (req, res) => {
 		if (err) { throw err; }
 		else {
 			res.render('modRiesgo', {
-				Riesgos: riesgo
+				Riesgos: riesgo,
+				isLoggedIn: req.isAuthenticated() 
 			});
 		}
 	});

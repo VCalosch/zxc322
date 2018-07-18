@@ -96,7 +96,8 @@ routPlaya.get('/playaAdmin', isLoggedIn, (req, res) => {
 		if (err) throw err;
 		//Anexar riesgo a la busqueda de playas
 		res.render('playaAdmin', {
-			Playas: playa
+			Playas: playa,
+			isLoggedIn: req.isAuthenticated()
 		});
 	});
 });
@@ -137,7 +138,8 @@ routPlaya.get('/playaAdmin/modPlaya/:id', isLoggedIn, (req, res) => {
 	modelPlaya.findById({ _id: id }, (err, playa) => {
 		if (err) throw err;
 		res.render('modPlaya', {
-			Playas: playa
+			Playas: playa,
+			isLoggedIn: req.isAuthenticated()
 		});
 	});
 

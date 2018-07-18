@@ -325,7 +325,8 @@ IncidenteInter.get('/GestionEventos/:id', (req, res) => {
 									Eventos: eventos,
 									consecuencia: consecu,
 									Actuacionesactivas : ActActivas,
-									Actuacionesreactivas : ActReactivas
+									Actuacionesreactivas : ActReactivas,
+									isLoggedIn: req.isAuthenticated()
 								});
 							});
 						}

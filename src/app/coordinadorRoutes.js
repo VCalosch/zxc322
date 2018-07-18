@@ -89,7 +89,8 @@ socoRoutes.get('/coordinador', (req, res) => { //Listar Todo
 							Playas: playa,
 							lista: users,
 							Actuaciones: Act, //SOLO CAMBIE ESTOOO ME VOY ALV
-							Usrs: usr
+							Usrs: usr, 
+							isLoggedIn: req.isAuthenticated() 
 							});
 							}
 						});

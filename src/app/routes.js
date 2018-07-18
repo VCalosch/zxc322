@@ -154,7 +154,8 @@ module.exports = (app, passport) => {
 				else {
 
 					res.render('userAdmin', {
-						lista: users
+						lista: users,
+						isLoggedIn: req.isAuthenticated()
 					});
 				}
 			});
@@ -177,7 +178,8 @@ module.exports = (app, passport) => {
 		User.findById({ _id: id }, (err, user) => {
 			if (err) throw err;
 			res.render('MofUser', {
-				user: req.user
+				user: req.user,
+				isLoggedIn: req.isAuthenticated()
 			});
 		});
 	});

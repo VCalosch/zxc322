@@ -37,7 +37,8 @@ socoRoutes.get('/socorrista', (req, res) => {
 			else{
 			res.render('socorrista', {
 			Playas: playa,
-			lista: users
+			lista: users,
+			isLoggedIn: req.isAuthenticated()
 		});
 			}
 		})
