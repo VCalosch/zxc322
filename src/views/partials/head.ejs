@@ -20,6 +20,7 @@
                 <% }%>
                 
                 <% if(isLoggedIn) {%>
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="button" onclick="location='/profile'">Inicio</button>
                     <button class="btn btn-outline-light my-2 my-sm-0" type="button" onclick="location='/logout'">Cerrar Sesión</button>
                 <% }%>
 
@@ -93,6 +94,7 @@ body{
 }
 
 .top-container{margin-top: 100px;}
+.dashboard_container{margin-left: 400px; margin-right: 400px;}
 
 /*Margenes para Roles Generales*/
 .Margenes{margin-top: 60px; margin-bottom: 60px; margin-left: 40px; margin-right: 40px;}
@@ -162,7 +164,7 @@ body.landing #main {
     padding: 4em 0;
 }
 
-.container {
+/*.container {
     width: 90%;
 }
 
@@ -179,7 +181,8 @@ body.landing #main {
 .container {
     margin-left: auto;
     margin-right: auto;
-}
+}*/
+
 
 
 section.special, article.special {

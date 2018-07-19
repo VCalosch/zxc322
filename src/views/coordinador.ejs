@@ -129,7 +129,19 @@ function initCoords() {
 
 
 
-<div class="container top-container">
+
+
+<div class="dashboard_container top-container">
+        <div class="row">
+            <!--<div class="col-2">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Coordinador</a>
+                            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Socorrista</a>
+                          </div>
+
+
+            </div>-->
+                <div class="col">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#EscogerPlaya" role="tab" aria-controls="home" aria-selected="true">Escoger Playa</a>
@@ -147,15 +159,17 @@ function initCoords() {
             <div class="card">
                 <div class="card-body Margenes">
 
-                    <div class="card-columns">
+
+
+
+                    <!--<div class="card-columns">
                         <% for(var i=0; i<Playas.length; i++) {%>
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">
-                                        <label for="nombre">Nombre: </label>
-                                        <%= Playas[i].nombre %>
-                                    </h5>
-                                    <p class="card-text">
+                                    <a href="/GestionEventos/<%= Playas[i]._id%>"><img src="img/playa.JPG" style="border-radius: 50%; width: 35px; height: 35px;"></a>
+                                    <h6><%= Playas[i].nombre %></h6>
+                                    
+                                    <!--<p class="card-text">
                                         <label for="descripcion">Descripcion: </label>
                                         <%= Playas[i].descripcion %>
                                     </p>
@@ -166,12 +180,30 @@ function initCoords() {
                                     <p class="card-text">
                                         <label for="ubicacion">Ubicacion: </label>
                                         <%= Playas[i].ubicacion %>
-                                    </p>
-                                    <a href='/GestionEventos/<%= Playas[i]._id%>'>Eventos</a>
-                                </div>
+                                    </p>-->
+                                    
+                                    <!--<a href='/GestionEventos/<%= Playas[i]._id%>'>Eventos</a>-->
+                                <!--</div>
                             </div>
                             <% }%>
+                    </div>-->
+                    
+                    <div class="card-group text-center" style="max-width: 300px;">
+                            <% for(var i=0; i<Playas.length; i++) {%>
+                            
+                        <div class="card">
+                          <div class="card-body">
+                                <a href="/GestionEventos/<%= Playas[i]._id%>"><img src="img/playa.JPG" style="border-radius: 50%; width: 35px; height: 35px;"></a><br><br>
+                                <small class="text-muted"><%= Playas[i].nombre %></small>
+                          </div>
+                        </div>
+                        <% }%>
                     </div>
+
+
+
+
+
 
 
                 </div>
@@ -544,10 +576,12 @@ function initCoords() {
 
 
     </div>
-
-
+    </div>
+</div>
 
 </div>
+
+
 <% include partials/footer %>
 
 

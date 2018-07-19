@@ -343,7 +343,8 @@ IncidenteInter.get('/addEvento', (req, res) => {
     Eventos.find({}, (err, eventos) => {
    	 if (err) throw err;
    	 res.render('addEvento', {
-   		 Eventos: eventos
+			Eventos: eventos,
+			isLoggedIn: req.isAuthenticated()
    	 });
     });
 });
@@ -375,7 +376,8 @@ IncidenteInter.get('/addEvento/addDescripcion/:id', (req, res) => {
 	Eventos.findById({ _id: id }, (err, evento) => {
 		if (err) throw err;
 		res.render('addDescripcion', {
-			Eventos: evento
+			Eventos: evento,
+			isLoggedIn: req.isAuthenticated()
 		});
 	});
 });
@@ -447,7 +449,8 @@ IncidenteInter.get('/addConsecuencia', (req, res) => {
 	consecuencia.find({}, (err, consecu) => {
 		if (err) throw err;
 		res.render('addConsecuencia', {
-			consecuencia: consecu
+			consecuencia: consecu,
+			isLoggedIn: req.isAuthenticated()
 		});
 	});
 });
@@ -479,7 +482,8 @@ IncidenteInter.get('/addActuacionesactivas', (req, res) => {
 	Actuacionesactivas.find({}, (err, ActActivas) => {
 		if (err) throw err;
 		res.render('addActuacionesactivas', {
-			ActuacionActivas  : ActActivas
+			ActuacionActivas  : ActActivas,
+			isLoggedIn: req.isAuthenticated()
 		});
 	});
 });
@@ -504,7 +508,7 @@ IncidenteInter.get('/addActuacionesactivas/delete/:id', (req, res) => {
 
 
 IncidenteInter.get('/AlphaCored', (req,res) =>{
-	res.render('AlphaCored');
+	res.render('AlphaCored', {isLoggedIn: req.isAuthenticated()});
 });
 
 //FIN DE Consecuencia ////////////////////////////// 
@@ -515,7 +519,8 @@ IncidenteInter.get('/addActuacionesreactivas', (req, res) => {
 	Actuacionesreactivas.find({}, (err, ActReactivas) => {
 		if (err) throw err;
 		res.render('addActuacionesreactivas', {
-			Actuacionesreactivas : ActReactivas
+			Actuacionesreactivas : ActReactivas,
+			isLoggedIn: req.isAuthenticated()
 		});
 	});
 });

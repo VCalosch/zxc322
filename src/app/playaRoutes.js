@@ -105,7 +105,7 @@ routPlaya.get('/playaAdmin', isLoggedIn, (req, res) => {
 
 //::::::::::render addPlaya::::::::::
 routPlaya.get('/addPlaya', isLoggedIn, (req, res) => {
-	res.render('addPlaya');
+	res.render('addPlaya', {isLoggedIn: req.isAuthenticated()});
 });
 
 
