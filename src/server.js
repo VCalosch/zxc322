@@ -55,6 +55,7 @@ app.use(coorRoutes);
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname + 'public')));
 
 app.listen(app.get('port'), () => {
 	console.log('server on port', app.get('port')); //obtener el puerto

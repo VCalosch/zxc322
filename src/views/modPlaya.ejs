@@ -7,8 +7,642 @@
 	<% include partials/head %>
 </head>
 
+
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3d6OC5uV4aQlVClt97CEULYxOvY7b1GU&callback=initMap">
+</script>
+<script>
+    var map;
+    var currentLatitud;
+    var currentLongitud;
+
+    var isMarcador = false;
+    var isPoligono;
+    var Marcador = 0;
+    var latitud, longitud;
+    var cerrarPoligono = 0;
+    var poligono;
+    var marker;
+    var insertarPoligono = true;
+
+
+    var list = [];
+    var numeros = [];
+
+    var listPolygon = [];
+    var numerosPolygon = [];
+
+    function EliminarMarcador() {
+        marker.setMap(null);
+        Marcador = 0;
+        longitud = null;
+        latitud = null;
+
+        marcadorCounter=0;
+ 
+    }
+
+
+    function initMap(position) {
+
+        //Valores Iniciales para Mapa
+        var options = {
+                zoom: 15,
+                center: {
+                  lat:43.477373,lng:-3.787489
+                }
+            }
+            // Defininar Mapa
+        map = new google.maps.Map(document.getElementById('map'), options);
+
+
+
+        
+        google.maps.event.addListener(map, 'click', function(event) {
+            
+            if (Marcador == 0) {
+                marker = addMarker({
+                    coords: event.latLng
+                });
+                latitud = event.latLng.lat();
+                longitud = event.latLng.lng();
+                marcadorCounter=1;
+               
+                document.getElementById("eliminarMarcador").style.display = "block";
+                
+                Marcador = 1;
+                } 
+                
+                marker.addListener('dragend', function(event) {
+                    latitud = event.latLng.lat();
+                    longitud = event.latLng.lng();
+                    
+                });
+
+        });
+
+        function addMarker(props) {
+            var marker = new google.maps.Marker({
+                position: props.coords,
+                map: map,
+                draggable:true
+            });
+            return marker;
+        }
+
+
+
+    }
+
+    //---------------------------------------------ELIMINAR MARCADOR------------------------------------------------------------------------
+</script>
+
+
+
+
 <body>
-	<div class="container">
+
+		<div class="dashboard_container top-container">
+
+				<div class="tab-content" id="myTabContent">
+						<div class="card">
+								<div class="card-body Margenes">
+
+
+									<!--*************************************************************************-->
+										<div id="contenido">
+												<div id="map"></div>
+												<br><br>
+												<div class="form-row">
+													<div class="col"></div>
+													<div class="col">
+														<input style="text-align: center" class="form-control" type="text" placeholder="[Nombre de Playa Escogida]" disabled>
+													</div>
+													<div class="col"></div>
+												</div>
+												<br><br>
+										</div>
+									<!--*************************************************************************-->
+									<div class="form-row">
+										<div class="col"></div>
+										<div class="col-center">
+											<button  class="btn btn-info" onclick="location.href = '/playaAdmin';">Atras</button>
+											<button  class="btn btn-info" onclick="location.href = '/coordinador';">Cambiar Playa</button>
+											<button  class="btn btn-info" onclick="cambio();">Siguiente</button>
+										</div>
+										<div class="col"></div>
+									</div>
+									<br><br>
+
+									<script>
+										function cambio(){
+											$('#contenido').html('');
+										}
+									</script>
+									
+									<!-- *************************************************************************** -->
+									<div class="form-group text-center">
+										<div class="form-row ">
+											<div class="col">
+													<label>Municipio:</label>
+													<input type="text" class="form-control">
+											</div>
+											<div class="col">
+													<label>Provincia:</label>
+													<input type="text" class="form-control">
+											</div>
+											<div class="col">
+													<label>CC AA:</label>
+													<input type="text" class="form-control">
+											</div>
+										</div>
+										<br><br>
+										<div class="form-row">
+												<div class="col">
+														<label>Longitud:</label>
+														<input type="text" class="form-control">
+												</div>
+												<div class="col">
+														<label>Anchura:</label>
+														<select class="form-control">
+															<option disabled selected>Seleccione una Opción</option>
+															<option>0 - 10</option>
+															<option>10 - 25</option>
+															<option>25 - 50</option>
+															<option>50 - 100</option>
+															<option>100 - 200</option>
+															<option>+200</option>
+														</select>
+												</div>
+										</div>
+									</div>
+									<br>
+									<!--<div class="form-row">
+											<div class="col"></div>
+											<div class="col-center">
+												<button  class="btn btn-info" onclick="location.href = '/playaAdmin';">Atras</button>
+												<button  class="btn btn-info ">Siguiente</button>
+											</div>
+											<div class="col"></div>
+										</div>-->
+									
+									<!-- ******************************* -->
+									<br><br>
+									<div class="form-group text-center">
+										<div class="form-row">
+											<div class="col">
+												<label>Pendiente</label>
+												<select class="form-control">
+													<option disabled selected>Seleccione una Opción</option>
+													<option>Angulo Suave</option>
+													<option>Angulo Normal</option>
+													<option>Pendiente Brusca</option>
+												</select>
+											</div>
+											<div class="col">
+												<label>Grado de Ocupación</label>
+												<select class="form-control">
+													<option disabled selected>Seleccione una Opción</option>
+													<option>Alto</option>
+													<option>Medio</option>
+													<option>Bajo</option>
+												</select>
+											</div>
+											<div class="col">
+													<label>Grado de Urbanización:</label>
+													<select class="form-control">
+														<option disabled selected>Seleccione una Opción</option>
+														<option>Rural</option>
+														<option>Salvaje</option>
+														<option>Urbana</option>
+														<option>Aislada</option>
+													</select>
+											</div>
+										</div>
+										<br><br>
+										<div class="form-row align-items-end">
+											<div class="col">
+													
+															
+														<div class="custom-control custom-checkbox">
+															<input type="checkbox" class="custom-control-input" id="customCheck1">
+															<label class="custom-control-label" for="customCheck1">Paseo Maritimo</label>
+														</div>
+													
+											</div>
+											<div class="col">
+													<label>Fachada Litoral:</label>
+													<select class="form-control">
+														<option disabled selected>Seleccione una Opción</option>
+														<option>Urbano</option>
+														<option>Industrial</option>
+														<option>Natural</option>
+														<option>Acantilado</option>
+													</select>
+											</div>
+										</div>
+										<br><br>
+										<div class="form-row">
+											<div class="col">
+													<label>Descripción:</label>
+													<textarea class="form-control" rows="3"></textarea>
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="form-row">
+										<div class="col"></div>
+										<div class="col-center">
+												<button  class="btn btn-info" onclick="location.href = '/playaAdmin';">Atras</button>
+												<button  class="btn btn-info ">Siguiente</button>
+										</div>
+										<div class="col"></div>
+									</div>
+
+									<!--***************************************************-->
+									<br><br>
+								
+									<div class="form-group text-center">
+											<div class="form-row">
+												<div class="col">
+													<label>Morfología:</label>
+													<select class="form-control">
+														<option disabled selected>Seleccione una Opción</option>
+														<option>Arenosa</option>
+														<option>Rocosa</option>
+													</select>
+												</div>
+												<div class="col">
+														<label>Composición:</label>
+														<select class="form-control">
+															<option disabled selected>Seleccione una Opción</option>
+															<option>Arena</option>
+															<option>Grabilla</option>
+															<option>Grava</option>
+															<option>Bolos</option>
+														</select>
+												</div>
+												<div class="col">
+														<label>Tipo Arena:</label>
+														<select class="form-control">
+															<option disabled selected>Seleccione una Opción</option>
+															<option>Dorada</option>
+														</select>
+												</div>
+											</div>
+										<br><br>
+										<div class="form-row">
+											<div class="col">
+											<label>Tipo de Oleaje:</label>
+											<select class="form-control">
+												<option disabled selected>Seleccione una Opción</option>
+												<option>Leve</option>
+												<option>Moderado</option>
+												<option>Fuerte</option>
+											</select>
+											</div>
+											<div class="col">
+													<label>Nivel de Viento:</label>
+													<select class="form-control">
+														<option disabled selected>Seleccione una Opción</option>
+														<option>Leve</option>
+														<option>Moderado</option>
+														<option>Fuerte</option>
+													</select>
+											</div>
+										</div>
+										<br>
+										<div class="jumbotron jumbotron-fluid">
+												<div class="form-row">
+														<div class="col-4"></div>
+														<div class="col">
+																<div class="form-check form-check-inline">
+																		<input class="form-check-input" type="checkbox" >
+																		<label class="form-check-label"><b>Zona Fondeo</b></label>
+																</div>
+														</div>
+														<div class="col">
+																<div class="form-check form-check-inline">
+																		<input class="form-check-input" type="checkbox" >
+																		<label class="form-check-label"><b>Nudismo</b></label>
+																</div>
+														</div>
+														<div class="col-4"></div>
+												</div>
+												
+										</div>
+										<br>
+										<div class="form-row">
+												<div class="col"></div>
+												<div class="col-center">
+														<button  class="btn btn-info" onclick="location.href = '/playaAdmin';">Atras</button>
+														<button  class="btn btn-info ">Siguiente</button>
+												</div>
+												<div class="col"></div>
+										</div>
+									</div>
+
+									<!--*********************************************************-->
+
+									<br><br>
+
+									<div class="form-group text-center">
+											<div class="jumbotron jumbotron-fluid">
+													<div class="form-row">
+															<div class="col"></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+															  <input class="form-check-input" type="checkbox" >
+															  <label class="form-check-label"><b>Vegetación</b></label>
+															</div></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+															  <input class="form-check-input" type="checkbox" >
+															  <label class="form-check-label"><b>Espacio Protegeido</b></label>
+															</div></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+															  <input class="form-check-input" type="checkbox" >
+															  <label class="form-check-label"><b>Actuaciones</b></label>
+															</div></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+																	<input class="form-check-input" type="checkbox">
+																	<label class="form-check-label"><b>Bandera Azul</b></label>
+															</div></div>
+															<div class="col"></div>
+													  </div>
+											</div>
+											<br>
+											<div class="form-row ">
+													<div class="col-3"></div>
+													<div class="col">
+															<label>Nombre del Hospital:</label>
+															<input type="text" class="form-control">
+													</div>
+													<div class="col-3"></div>
+												</div>
+												<br><br>
+												<div class="form-row">
+														<div class="col-2"></div>
+														<div class="col">
+																<label>Longitud:</label>
+																<input type="text" class="form-control">
+														</div>
+														<div class="col">
+																<label>Latitud:</label>
+																<input type="text" class="form-control">
+														</div>
+														<div class="col-2"></div>
+														
+												</div>
+												<br><br>
+												<div class="form-row">
+														<div class="col"></div>
+														<div class="col-center">
+																<button  class="btn btn-info" onclick="location.href = '/playaAdmin';">Atras</button>
+																<button  class="btn btn-info ">Siguiente</button>
+														</div>
+														<div class="col"></div>
+												</div>
+									</div>
+
+									<!--************************************************-->
+									<br><br>
+
+									<div class="form-group">
+											<div class="jumbotron jumbotron-fluid">
+													<div class="form-row">
+															<div class="col"></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+															  <input class="form-check-input" type="checkbox" >
+															  <label class="form-check-label"><b>Coche</b></label>
+															</div></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+															  <input class="form-check-input" type="checkbox" >
+															  <label class="form-check-label"><b>Vehiculos de Emergencia</b></label>
+															</div></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+															  <input class="form-check-input" type="checkbox" >
+															  <label class="form-check-label"><b>Acceso Helicopteros</b></label>
+															</div></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+																	<input class="form-check-input" type="checkbox">
+																	<label class="form-check-label"><b>Señalización de Accesos</b></label>
+															</div></div>
+															<div class="col"></div>
+													  </div>
+											</div>
+											<br><br>
+												<div class="form-row">
+														<div class="col"></div>
+														<div class="col-center">
+																<button  class="btn btn-info" onclick="location.href = '/playaAdmin';">Atras</button>
+																<button  class="btn btn-info ">Siguiente</button>
+														</div>
+														<div class="col"></div>
+												</div>
+									</div>
+
+									<!--*************************************************-->
+
+									<div class="form-group">
+											<div class="jumbotron jumbotron-fluid">
+													<div class="form-row">
+															<div class="col"></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+															  <input class="form-check-input" type="checkbox" >
+															  <label class="form-check-label"><b>Accesibilidad de Vehículos de Emergencias</b></label>
+															</div></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+															  <input class="form-check-input" type="checkbox" >
+															  <label class="form-check-label"><b>Accesibilidad Embarcaciones de Rescate</b></label>
+															</div></div>
+															<div class="col"></div>
+															
+													  </div>
+													  <br>
+													  <div class="form-row">
+															<div class="col"></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+															  <input class="form-check-input" type="checkbox" >
+															  <label class="form-check-label"><b>Accesibilidad para Helipuerto Provisional</b></label>
+															</div></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+															  <input class="form-check-input" type="checkbox" >
+															  <label class="form-check-label"><b>Base de Operaciones</b></label>
+															</div></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+																	<input class="form-check-input" type="checkbox">
+																	<label class="form-check-label"><b>Banderas</b></label>
+															</div></div>
+															<div class="col"></div>
+															
+													  </div>
+													  <br>
+													  <div class="form-row">
+															<div class="col"></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+																	<input class="form-check-input" type="checkbox">
+																	<label class="form-check-label"><b>Balizamiento Acuático</b></label>
+															</div></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+																	<input class="form-check-input" type="checkbox">
+																	<label class="form-check-label"><b>Señalización de Peligro</b></label>
+															</div></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+																	<input class="form-check-input" type="checkbox">
+																	<label class="form-check-label"><b>Auxilio y Salvamento</b></label>
+															</div></div>
+															<div class="col"></div>
+													  </div>
+													  <br>
+													  <div class="form-row">
+															<div class="col"></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+															  <input class="form-check-input" type="checkbox" >
+															  <label class="form-check-label"><b>Carteles Informativos</b></label>
+															</div></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+															  <input class="form-check-input" type="checkbox" >
+															  <label class="form-check-label"><b>Megafonía</b></label>
+															</div></div>
+															<div class="col-auto"><div class="form-check form-check-inline">
+															  <input class="form-check-input" type="checkbox" >
+															  <label class="form-check-label"><b>Balizamiento Terrestre</b></label>
+															</div></div>
+															<div class="col"></div>
+													  </div>
+											</div>
+
+											
+											<div class="form-row">
+													<div class="col"></div>
+													<div class="col-center">
+															<button  class="btn btn-info" onclick="location.href = '/playaAdmin';">Atras</button>
+															<button  class="btn btn-info ">Siguiente</button>
+													</div>
+													<div class="col"></div>
+											</div>
+
+									</div>
+
+
+									
+									<!--************************************************-->
+									<br><br>
+
+
+									<div class="form-group text-center">
+										<div class="form-row">
+											<div class="col-3"></div>
+											<div class="col">
+												<label>Carretera más Proxima:</label>
+												<input type="text" class="form-control">
+											</div>
+											<div class="col-3"></div>
+										</div>
+										<br>
+										<div class="form-row">
+											<div class="col-1"></div>
+											<div class="col">
+												<label>Observaciones Autobus:</label>
+												<input type="text" class="form-control">
+											</div>
+											<div class="col">
+												<label>Tipo de Aparcamiento:</label>
+												<select class="form-control">
+													<option disabled selected>Seleccione una Opción</option>
+													<option>Libre</option>
+													<option>Privado</option>
+												</select>
+											</div>
+											<div class="col-1"></div>
+										</div>
+										<br><br>
+										<div class="form-row">
+												<div class="col"></div>
+												<div class="col-center">
+														<button  class="btn btn-info" onclick="location.href = '/playaAdmin';">Atras</button>
+														<button  class="btn btn-info ">Siguiente</button>
+												</div>
+												<div class="col"></div>
+										</div>
+									</div>
+
+									<!--****************************************************-->
+									<br><br>
+
+									<div class="form-group text-center">
+										<div class="form-row">
+												<div class="col-1"></div>
+												<div class="col">
+														<label>Puerto Deportivo:</label>
+														<input type="text" class="form-control">
+												</div>
+												<div class="col">
+														<label>Distancia Puerto - Playa:</label>
+														<input type="text" class="form-control">
+												</div>
+												<div class="col-1"></div>
+										</div>
+										<br>
+										<div class="form-row">
+												<div class="col-1"></div>
+												<div class="col">
+														<label>Descripción:</label>
+														<textarea class="form-control" rows="3"></textarea>
+												</div>
+												<div class="col-1"></div>
+										</div>
+										<br><br>
+										<div class="form-row">
+												<div class="col"></div>
+												<div class="col-center">
+														<button  class="btn btn-info" onclick="location.href = '/playaAdmin';">Atras</button>
+														<button  class="btn btn-info ">Siguiente</button>
+												</div>
+												<div class="col"></div>
+										</div>
+									</div>
+
+
+
+
+								</div>
+						</div>
+				</div>
+
+
+			
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!--<div class="container">
 		<header class="text-center">
 			<h1>Modificar Playa</h1>
 
@@ -54,14 +688,14 @@
 						<p>
 							<a href="/PlayaAdmin">Volver</a>
 						</p>
-
+						
 					</div>
 				</div>
 			</div>
 
 
 
-		</div>
+		</div>-->
 
 </body>
 
