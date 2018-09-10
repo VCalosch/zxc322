@@ -24,6 +24,7 @@ const risRoutes = require('./app/riesgosRoutes');
 const socRoutes = require('./app/socorristasRoutes');
 const eventRoutes = require('./app/IncidenteIntRoutes');
 const coorRoutes = require('./app/coordinadorRoutes');
+const serviceRoutes = require('./app/servicioRoutes');
 
 
 //setings 
@@ -52,6 +53,7 @@ app.use(risRoutes);
 app.use(socRoutes);
 app.use(eventRoutes);
 app.use(coorRoutes);
+app.use(serviceRoutes);
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')));

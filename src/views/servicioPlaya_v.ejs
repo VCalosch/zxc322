@@ -1,0 +1,44 @@
+<head>
+    <title>Servicios</title>
+    <% include partials/head %>
+</head>
+
+<div class="dashboard_container top-container">
+    <div class="tab-content" id="myTabContent">
+                <div class="card">
+                        <div class="card-body Margenes">
+
+                                <!-- <select name="experiencia" class="form-control" id="vExperiencia">
+                                        <option disabled="" selected="" value="">Seleccionar un Servicio:</option>
+                                        <option value="playa">Playas</option> 
+                                        <option value="piscina">Piscinas</option> 
+                                        <option value="playaYpiscina">Playa y Piscina</option> 
+                                </select> -->
+
+                                <!-- <form action="/ss" method="post">
+                                        <input type="text" name="servicio">
+                                        <button class="btn btn-primary">Agregar</button>
+                                </form> -->
+
+                        <div class="form-row">
+                                <div class="col">
+                                <select id="volume" class="form-control">
+                                        <%          
+                                        for ( var i = 0; i < Servicio.length; i++ )
+                                                {
+                                                    var selected = ( Servicio[0].servicio == i ) ? "selected" : "";
+                                                    %><option value="<%=Servicio[ i ].servicio %>" <%=selected %>><%=Servicio[i].servicio %></option><%
+                                                }
+                                        %>
+                                </select></div>
+                                <div class="col"></div>
+                        </div>
+
+
+
+
+
+                        </div>
+                </div>
+    </div>
+</div>            
