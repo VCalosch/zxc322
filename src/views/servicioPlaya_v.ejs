@@ -3,37 +3,141 @@
     <% include partials/head %>
 </head>
 
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3d6OC5uV4aQlVClt97CEULYxOvY7b1GU&callback=initMap">
+</script>
+<script>
+    var map;
+    var currentLatitud;
+    var currentLongitud;
+
+    var isMarcador = false;
+    var isPoligono;
+    var Marcador = 0;
+    var latitud, longitud;
+    var cerrarPoligono = 0;
+    var poligono;
+    var marker;
+    var insertarPoligono = true;
+
+
+    var list = [];
+    var numeros = [];
+
+    var listPolygon = [];
+    var numerosPolygon = [];
+
+    function EliminarMarcador() {
+        marker.setMap(null);
+        Marcador = 0;
+        longitud = null;
+        latitud = null;
+
+        marcadorCounter=0;
+ 
+    }
+
+
+    function initMap(position) {
+
+        //Valores Iniciales para Mapa
+        var latlng = new google.maps.LatLng(43.477373, -3.787489);
+        var options = {
+                zoom: 15,
+                center: latlng
+            }
+            // Defininar Mapa
+        map = new google.maps.Map(document.getElementById('map'), options);
+
+
+
+        
+        google.maps.event.addListener(map, 'click', function(event) {
+            
+            if (Marcador == 0) {
+                marker = addMarker({
+                    coords: event.latLng
+                });
+                latitud = event.latLng.lat();
+                longitud = event.latLng.lng();
+                marcadorCounter=1;
+                console.log("ssss");
+                
+                Marcador = 1;
+
+                document.getElementById("latitudPost").value = latitud ;
+                document.getElementById("longitudPost").value = longitud ;
+                } 
+                
+                marker.addListener('dragend', function(event) {
+                    latitud = event.latLng.lat();
+                    longitud = event.latLng.lng();
+                    document.getElementById("latitudPost").value = latitud ;
+                document.getElementById("longitudPost").value = longitud ;
+                });
+
+        });
+
+        function addMarker(props) {
+            var marker = new google.maps.Marker({
+                position: props.coords,
+                map: map,
+                draggable:true
+            });
+            return marker;
+        }
+
+
+
+    }
+
+    //---------------------------------------------ELIMINAR MARCADOR------------------------------------------------------------------------
+</script>
+
 <div class="dashboard_container top-container">
     <div class="tab-content" id="myTabContent">
                 <div class="card">
                         <div class="card-body Margenes">
 
-                                <!-- <select name="experiencia" class="form-control" id="vExperiencia">
-                                        <option disabled="" selected="" value="">Seleccionar un Servicio:</option>
-                                        <option value="playa">Playas</option> 
-                                        <option value="piscina">Piscinas</option> 
-                                        <option value="playaYpiscina">Playa y Piscina</option> 
-                                </select> -->
-
-                                <!-- <form action="/ss" method="post">
-                                        <input type="text" name="servicio">
-                                        <button class="btn btn-primary">Agregar</button>
-                                </form> -->
 
                         <div class="form-row">
                                 <div class="col">
-                                <select id="volume" class="form-control">
-                                        <%          
+
+                                        <select id="volume" class="form-control">
+                                                        <option disabled selected>Seleccione un Servicio</option>  
+                                        <% 
+                                           
                                         for ( var i = 0; i < Servicio.length; i++ )
                                                 {
-                                                    var selected = ( Servicio[0].servicio == i ) ? "selected" : "";
-                                                    %><option value="<%=Servicio[ i ].servicio %>" <%=selected %>><%=Servicio[i].servicio %></option><%
+                                                    Servicio[0].servicio == i;%>
+                                                    <option value="<%=Servicio[ i ].servicio %>"><%=Servicio[i].servicio %></option><%
                                                 }
                                         %>
-                                </select></div>
+                                        </select>
+                                </div>
                                 <div class="col"></div>
                         </div>
+                        <br><br>
+                        <div id="map"></div>
 
+
+                        <br>
+                        <div class="form-row">
+                                <div class="col"><button  class="btn btn-info ">Guardar</button></div>
+                                <div class="col"><input class="form-control" placeholder="Playa"></div>
+                                <div class="col"><input class="form-control" placeholder="Latitud" id="latitudPost"></div>
+                                <div class="col"><input class="form-control" placeholder="Longitud" id="longitudPost"></div>
+                                <div class="col"><input class="form-control" placeholder="Servicio" id="mytext"></div>
+                                
+                        </div>
+
+                        <script>
+                                        $("#volume").change(function() {
+                                                var val = $(this).val();
+                                                console.log(val);
+                                                document.getElementById("mytext").value = val ;
+                                                
+                                        });
+                        </script>
 
 
 

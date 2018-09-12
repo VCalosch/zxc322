@@ -3,8 +3,8 @@ const routServicio = express.Router(); //crear un objeto de tipo express con nom
 const ServicioModel = require('../app/models/ServicioPlaya'); //llamar al modelo del base de datos
 
 //::::::::::render serviciosPlaya::::::::::
-routServicio.get('/ss', isLoggedIn, (req, res) => {
-	ServicioModel.find({}, (err, servicio) => {
+routServicio.get('/ss/:id', isLoggedIn, (req, res) => {
+	ServicioModel.findById({ _id: id }, (err, servicio) => {
 	if (err) throw err;
 	res.render('servicioPlaya_v', {Servicio: servicio, isLoggedIn: req.isAuthenticated()});
 	});
