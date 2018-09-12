@@ -152,6 +152,9 @@ function initCoords() {
         <li class="nav-item">
             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#DarAltaNuevoUsuario" role="tab" aria-controls="profile" aria-selected="false">Dar de Alta a un Nuevo Usuario</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#UsuariosAsociados" role="tab" aria-controls="profile" aria-selected="false">Usuarios Asociados</a>
+        </li>
     </ul>
     <div class="tab-content" id="myTabContent">
         <!--Escoger Playa-->
@@ -193,7 +196,7 @@ function initCoords() {
                             
                         <div class="card">
                           <div class="card-body">
-                                <a href="/GestionEventos/<%= Playas[i]._id%>"><img src="img/playa.JPG" style="border-radius: 50%; width: 35px; height: 35px;"></a><br><br>
+                                <a href="/ss/<%= Playas[i]._id%>"><img src="img/playa.JPG" style="border-radius: 50%; width: 35px; height: 35px;"></a><br><br>
                                 <small class="text-muted"><%= Playas[i].nombre %></small>
                           </div>
                         </div>
@@ -432,6 +435,42 @@ function initCoords() {
 
         </div>
 
+        <div class="tab-pane fade" id="UsuariosAsociados" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="card">
+                <div class="card-body Margenes">
+
+                        <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Rol</th>
+                                    <th scope="col">Playa</th>
+                                    <th scope="col">E-mail</th>
+                                    <th scope="col">Experiencia</th>
+                                    <th scope="col">Formación</th>
+                                    <th scope="col">Entidad Formadora</th>
+                                    <th scope="col">Sexo</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  
+                                <% lista.forEach(function (user) { %>
+                                    <tr>  
+                                        <td><%= user.local.email %></td>
+                                        <td><%= user.local.role %></td>   
+                                    </tr>                                 
+                                <% }) %>
+
+ 
+    
+                                </tbody>
+                              </table>
+
+                              
+
+                </div>
+            </div>
+        </div>
 
         <script>
             $('#vUsuario').blur(function() {

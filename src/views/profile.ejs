@@ -19,6 +19,9 @@
 			<div class="col-sm6">
 				<div class="card">
 					<div class="card-body">
+						
+						<% var UserType= user.local.role; %>
+						<% if (UserType == 1) { %>
 						<h3>
 							<span class="fa fa-user"></span> Datos </h3>
 						<p>
@@ -37,6 +40,33 @@
 						<a href="/riegosAdmin" class="btn btn-light">Administrar Riesgos </a>
 						<a href="/socorrista" class="btn btn-light">Socorristas</a>
 						<a href="/logout" class="btn btn-light">Salir </a>
+						<% } else{ %>
+							<p>Hello There</p>
+						<% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					</div>
 				</div>
 			</div>

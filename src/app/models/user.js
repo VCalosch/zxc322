@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
 	local:{
 		email:String,
 		password: String,
+		role: Number
 		
 	} //, <-- poner coma
 	

@@ -125,7 +125,7 @@ module.exports = (app, passport) => {
 
 	app.get('/signup', (req, res) => {
 		res.render('signup', {
-			message: req.flash('signupMessage')
+			message: req.flash('signupMessage'), isLoggedIn: req.isAuthenticated()
 		});
 	});
 
@@ -203,6 +203,7 @@ function isLoggedIn(req, res, next) {
 	res.redirect('/');
 }
 
-
+//********* Rutas implementadas en la vista Coordinador *******************
+//Listar informacion de los usuarios en la tabla USUARIOS ASOCIADOS 
 
 
