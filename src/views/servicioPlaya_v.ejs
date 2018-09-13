@@ -6,6 +6,31 @@
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3d6OC5uV4aQlVClt97CEULYxOvY7b1GU&callback=initMap">
 </script>
+
+
+ <h2 style="display:none;" id="bringLatitud"><%=UbicarServicio.Latitud %></h2>
+<h2 style="display:none;" id="bringLongitud"><%=UbicarServicio.Longitud %></h2>
+<h2 style="display:none;" id="UbicarServicio"><%=UbicarServicio%></h2>
+
+<script type="text/javascript">
+        $(document).ready(function() {
+
+            var bringLatitud = $("#bringLatitud").html();
+            var bringLongitud = $("#bringLongitud").html();
+            var UbicarServicio = $("#UbicarServicio").html();   
+        
+          
+           
+            //var arrayservicios =  JSON.parse(UbicarServicio);
+            // console.log(arrayservicios);
+            //     arrayservicios.forEach(function(element) {
+            //         console.log(element);
+            //     });
+    });
+</script> 
+
+
+
 <script>
     var map;
     var currentLatitud;
@@ -49,7 +74,14 @@
             // Defininar Mapa
         map = new google.maps.Map(document.getElementById('map'), options);
 
-
+          
+        //for(var i=0; i<UbicarServicio.length; i++) {
+            
+            marker = addMarker({
+                    //coords: new google.maps.LatLng(bringLatitud[0], bringLongitud[0])
+                    coords: new google.maps.LatLng(43.476968161034065, -3.7867379814758806)
+                });
+        //}
 
         
         google.maps.event.addListener(map, 'click', function(event) {
@@ -58,15 +90,20 @@
                 marker = addMarker({
                     coords: event.latLng
                 });
+
+                
+                
+                
                 latitud = event.latLng.lat();
                 longitud = event.latLng.lng();
                 marcadorCounter=1;
-                console.log("ssss");
+                
                 
                 Marcador = 1;
 
                 document.getElementById("latitudPost").value = latitud ;
                 document.getElementById("longitudPost").value = longitud ;
+                
                 } 
                 
                 marker.addListener('dragend', function(event) {
@@ -122,14 +159,14 @@
 
 
                         <br>
-                        <div class="form-row">
+                        <form class="form-row" action="/ss" method="post">
                                 <div class="col"><button  class="btn btn-info ">Guardar</button></div>
-                                <div class="col"><input class="form-control" placeholder="Playa" id="NombrePlaya"></div>
-                                <div class="col"><input class="form-control" placeholder="Latitud" id="latitudPost"></div>
-                                <div class="col"><input class="form-control" placeholder="Longitud" id="longitudPost"></div>
-                                <div class="col"><input class="form-control" placeholder="Servicio" id="mytext"></div>
+                                <div class="col"><input class="form-control" placeholder="Playa" id="NombrePlaya" name="Playa"></div>
+                                <div class="col"><input class="form-control" placeholder="Latitud" id="latitudPost" name="Latitud"></div>
+                                <div class="col"><input class="form-control" placeholder="Longitud" id="longitudPost" name="Longitud"></div>
+                                <div class="col"><input class="form-control" placeholder="Servicio" id="mytext" name="Servicio"></div>
                                 
-                        </div>
+                        </form>
                         
                         
                         
@@ -137,11 +174,13 @@
                         <script type="text/javascript">
                             $(document).ready(function() {
                                 var x = $("#uid").html(); 
+                                console.log(x);
                                 document.getElementById("NombrePlaya").value = x ;
+                                
                             });
                         </script>
                         
-                        <h2 style="display:none;" id="uid"><%=Playas.nombre %></h2>
+                        <h2 style="display:none;" id="uid"><%=UbicarServicio[0].Latitud %></h2>
                         
                        
                         <script>
@@ -149,9 +188,13 @@
                                                 var val = $(this).val();
                                                 console.log(val);
                                                 document.getElementById("mytext").value = val ;
-                                                
+                                               
+                                               console.log(x);
+                                                //Codigo Encargado de llenar Array
+
                                         });
                         </script>
+
 
 
 
