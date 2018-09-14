@@ -8,26 +8,60 @@
 </script>
 
 
- <h2 style="display:none;" id="bringLatitud"><%=UbicarServicio.Latitud %></h2>
+ <h2 style="display:none;" id="UbicarServicioSize"><%UbicarServicio.length %></h2>
 <h2 style="display:none;" id="bringLongitud"><%=UbicarServicio.Longitud %></h2>
 <h2 style="display:none;" id="UbicarServicio"><%=UbicarServicio%></h2>
 
-<script type="text/javascript">
-        $(document).ready(function() {
+<script>
+    var ServiciosLatitud = [];
+    var ServiciosLongitud = [];
+</script>
 
-            var bringLatitud = $("#bringLatitud").html();
-            var bringLongitud = $("#bringLongitud").html();
-            var UbicarServicio = $("#UbicarServicio").html();   
+<% var PlayaNombre = Playas.nombre; var test=0; %>
+
+                        <% var latt = 0;
+                         for(var i = 0; i< UbicarServicio.length; i++ ) {%>
+                            <% var x = UbicarServicio[i].Playa 
+                            if(PlayaNombre === x){
+                                 var LatitudF = UbicarServicio[i].Latitud;
+                                 var LongitudF = UbicarServicio[i].Longitud; %>
+                                
+                                
+                                <script>
+                                        var getLatitudF = <%= LatitudF  %>;
+                                        var getLongitudF = <%= LongitudF  %>;
+                                        ServiciosLatitud.push(getLatitudF);
+                                        ServiciosLongitud.push(getLongitudF);
+                                        
+                                
+                                </script>>
+                            <%}
+                            %>
+                            
+                            
+                        <% } %>
+
+<script type="text/javascript">
         
-          
+
+            var UbicarServicioSize = $("#UbicarServicioSize").html();
+              
+           console.log(ServiciosLatitud);
+            console.log(ServiciosLongitud);
            
             //var arrayservicios =  JSON.parse(UbicarServicio);
             // console.log(arrayservicios);
             //     arrayservicios.forEach(function(element) {
             //         console.log(element);
             //     });
-    });
+    
 </script> 
+
+<% var test = 101; %> // variable created by ejs
+        <script>
+           var getTest = <%= test  %>;  //var test is now assigned to getTest which will only work on browsers
+           console.log(getTest);  // successfully prints 101 on browser
+        </script>
 
 
 
@@ -75,15 +109,19 @@
         map = new google.maps.Map(document.getElementById('map'), options);
 
           
-        //for(var i=0; i<UbicarServicio.length; i++) {
-            
+          for(var i=0; i<=ServiciosLongitud.length; i++){
             marker = addMarker({
-                    //coords: new google.maps.LatLng(bringLatitud[0], bringLongitud[0])
-                    coords: new google.maps.LatLng(43.476968161034065, -3.7867379814758806)
-                });
-        //}
+                coords: new google.maps.LatLng(ServiciosLatitud[i], ServiciosLongitud[i])
+            });
+          }
+           
+               
+            
+            
+            
+       
 
-        
+
         google.maps.event.addListener(map, 'click', function(event) {
             
             if (Marcador == 0) {
@@ -180,9 +218,11 @@
                             });
                         </script>
                         
-                        <h2 style="display:none;" id="uid"><%=UbicarServicio[0].Latitud %></h2>
+                        <h2 style="display:none;" id="uid"><%=PlayaNombre %></h2>
+                        <h2><%=test %></h2>
                         
-                       
+                        
+
                         <script>
                                         $("#volume").change(function() {
                                                 var val = $(this).val();
