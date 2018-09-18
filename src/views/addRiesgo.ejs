@@ -7,14 +7,8 @@
 	<% include partials/head %>
 </head>
 
-<body>
 
-
-</body>
-
-
-
-<body>
+<!-- <body>
 	<div class="container">
 		<div class="col-sm-6 mx-auto">
 			<div class="card mt-5">
@@ -57,6 +51,67 @@
 			</div>
 		</div>
 	</div>
-</body>
+</body> -->
+
+<div class="dashboard_container top-container">
+    <div class="tab-content" id="myTabContent">
+                <div class="card">
+                        <div class="card-body Margenes">
+
+							<div class="form-row">
+								<div class="col">
+									<Label>[Agregar un Switch]</Label>
+								</div>
+								<div class="col">
+										<div class="form-group">
+												<select class="form-control">
+												  <option disabled selected>Selecciona un Riesgo</option>
+												   <% 
+													
+												  for ( var i = 0; i < Riesgos.length; i++ )
+														  {
+															Riesgos[0].Riesgo == i;%>
+															  <option value="<%=Riesgos[ i ].Riesgo %>"><%=Riesgos[i].Riesgo %></option><%
+														  }
+												  %> 
+
+												</select>
+											  </div>
+								</div>
+								<div class="col">
+										<div class="form-group">
+
+												<select class="form-control">
+												  <option disabled selected>Selecciona una Tipología</option>
+												</select>
+											  </div>
+								</div>
+							</div>
+
+						</div>
+				</div>
+	</div>
+</div>
+
+<select>
+<%
+	for(var i=0; i< 11; i++ ){
+		 
+		%>
+		<option><%= Ubicar[i].Playa; %></option>
+		<%
+	}
+%>
+</select>
+<!-- <form action="/Tipologia" method="post">
+	<div class="form-group">
+	  <input class="form-control"
+	  type="text"
+	  name="Riesgo">
+	</div>
+	<button type="submit" class="btn btn-primary btn-block">Entrar</button>
+</form>  -->
+
+
 
 </html>
