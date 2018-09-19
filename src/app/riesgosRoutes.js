@@ -4,6 +4,7 @@ const routRiesgos = express.Router();
 const modelRiesgos = require('../app/models/riesgos');
 const TipologiaRiesgos = require('../app/models/TipologiaRiesgo');
 const RiesgosNombres = require('../app/models/RiesgosNombres');
+const RiesgosVariables = require('../app/models/RiesgosVariables');
 const UbicarServiciosModel = require('../app/models/UbicarServicios');
 
 
@@ -27,14 +28,18 @@ routRiesgos.get('/addRiesgo', isLoggedIn, (req, res) => {
 	RiesgosNombres.find({}, (err, riesgo) => {
 		if (err)  throw err;
 		UbicarServiciosModel.find({}, (err, UbicarServiciosModel) => {
-			if (err)  throw err; 
-		else {
+			if (err)  throw err;
+			RiesgosVariables.find({}, (err, RiesgosVariables) => {
+				if (err)  throw err;
+				else {
 			res.render('addRiesgo', {
 				Riesgos: riesgo,
 				Ubicar: UbicarServiciosModel,
+				Variables: RiesgosVariables,
 				isLoggedIn: req.isAuthenticated() 
 			});
 		}
+	});
 	});
 	});
 	//res.render('addRiesgo',{isLoggedIn: req.isAuthenticated() });
@@ -95,11 +100,11 @@ routRiesgos.post('/riegosAdmin/modRiesgo/:id', isLoggedIn, (req, res) => {
 // ---------------------- Riesgos CV --------------------------------
 
 //Agregar TipologiaRiesgos
-routRiesgos.post('/Tipologia', isLoggedIn, (req, res) => {
+routRiesgos.post('/Variables', isLoggedIn, (req, res) => {
 	let body = req.body;
 	body.status = false;
 
-	RiesgosNombres.create(body, (err, ss) => {
+	RiesgosVariables.create(body, (err, ss) => {
 		if (err) throw err;
 		res.redirect('back');
 	});

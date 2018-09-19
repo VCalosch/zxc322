@@ -8,8 +8,7 @@ if (!db) {
 }
 
  var RiesgosNombres = new Schema({
-        Riesgo: String,
-        valores 
+        Riesgo: String
     });
 
 module.exports = mongoose.model('RiesgosNombres', RiesgosNombres);
