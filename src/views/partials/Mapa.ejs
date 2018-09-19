@@ -1,0 +1,95 @@
+<!-- <script>
+		var map;
+		function initMap() {
+			map = new google.maps.Map(document.getElementById('map'), {
+				center: {lat: -34.397, lng: 150.644},
+				zoom: 8
+			});
+		}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3d6OC5uV4aQlVClt97CEULYxOvY7b1GU&callback=initMap"async defer></script> -->
+
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3d6OC5uV4aQlVClt97CEULYxOvY7b1GU&callback=initMap">
+</script>
+
+
+
+<script>
+    var map;
+    var currentLatitud;
+    var currentLongitud;
+
+    var isMarcador = false;
+    var isPoligono;
+    var Marcador = 0;
+    var latitud, longitud;
+    var cerrarPoligono = 0;
+    var poligono;
+    var marker;
+    var insertarPoligono = true;
+
+
+    var list = [];
+    var numeros = [];
+
+    var listPolygon = [];
+    var numerosPolygon = [];
+
+
+
+    function initMap(position) {
+
+        //Valores Iniciales para Mapa
+        var latlng = new google.maps.LatLng(43.477373, -3.787489);
+        var options = {
+                zoom: 15,
+                center: latlng
+            }
+            // Defininar Mapa
+        map = new google.maps.Map(document.getElementById('map'), options);
+           
+        google.maps.event.addListener(map, 'click', function(event) {
+            
+            if (Marcador == 0) {
+                marker = addMarker({
+                    coords: event.latLng
+                });
+
+     
+                latitud = event.latLng.lat();
+                longitud = event.latLng.lng();
+                marcadorCounter=1;
+                
+                
+                Marcador = 1;
+
+                document.getElementById("latitudPost").value = latitud ;
+                document.getElementById("longitudPost").value = longitud ;
+                
+                } 
+                
+                marker.addListener('dragend', function(event) {
+                    latitud = event.latLng.lat();
+                    longitud = event.latLng.lng();
+                    document.getElementById("latitudPost").value = latitud ;
+                document.getElementById("longitudPost").value = longitud ;
+                });
+
+        });
+
+        function addMarker(props) {
+            var marker = new google.maps.Marker({
+                position: props.coords,
+                map: map,
+                draggable:true
+            });
+            return marker;
+        }
+
+
+
+    }
+
+    //---------------------------------------------ELIMINAR MARCADOR------------------------------------------------------------------------
+</script>

@@ -1,12 +1,11 @@
-<!DOCTYPE html>
 <html>
 
-<head>
-	<meta charset="utf-8">
-	<title>Nuevo Riesgo</title>
-	<% include partials/head %>
-</head>
-
+		<head>
+				<title>Agregar Riesgo</title>
+				<% include partials/head %>
+				<% include partials/Mapa %>
+				
+		</head>
 
 <!-- <body>
 	<div class="container">
@@ -53,12 +52,51 @@
 	</div>
 </body> -->
 
-
 <div class="dashboard_container top-container">
     <div class="tab-content" id="myTabContent">
                 <div class="card">
                         <div class="card-body Margenes">
 
+												<div id="Contenido1">
+														<button type="button" class="btn btn-secondary btn-sm float-right" style="display: none;" id="eliminarMarcador" onclick="EliminarMarcador()">Eliminar Marcador</button>
+														<div id="map"></div>
+														<br><br>
+														<div class="form-row">
+															<div class="col"></div>
+															<div class="col">
+																<input class="form-control" placeholder="Nombre del Riesgo para Identificarlo">
+															</div>
+															<div class="col"></div>
+														</div>	
+												</div>		
+												<br>
+
+
+												<script>
+													var ContenidoActual = 1;
+													function ContenidoSiguiente(){
+														ContenidoActual++;
+														$("#Contenido1").hide();
+														$("#Contenido2").show();
+													}
+													
+														
+
+												</script>
+
+
+
+
+
+
+
+
+												<div id="Contenido2" style="display:none;">
+
+
+
+
+											
 							<div class="form-row">
 								<div class="col">
 									<Label>[Agregar un Switch]</Label>
@@ -89,31 +127,7 @@
 								</div>
 							</div>
 
-							<br><br><br><br><br>
-
-
-							<script>
-
-									function VientoShowHide(){
-										if($('#Check1').is(":checked"))   
-										$("#Number1").show();
-									else
-										$("#Number1").hide();
-									}
-									function OleajeShowHide(){
-										if($('#Check2').is(":checked"))   
-										$("#Number2").show();
-									else
-										$("#Number2").hide();
-									}
-									function MareaShowHide(){
-										if($('#Check3').is(":checked"))   
-										$("#Number3").show();
-									else
-										$("#Number3").hide();
-									}
-							</script>
-
+							<br><br>
 							<div class="form-row">
 								<div class="col-5"></div>
 								<div class="col">
@@ -139,12 +153,10 @@
 								<div class="col-5"></div>
 							</div>
 
-
-							<br><br>
 							<div class="form-row" id="Number1" style="display: none;">
 									<div class="col">
 										<label>Nudos</label>
-										<select class="form-control" id="slProbabilidad">
+										<select class="form-control" >
 											<option disabled selected>Seleccione una opción</option>	
 											<%  for ( var i = 0; i < 15; i++ )
 													{
@@ -155,7 +167,7 @@
 									</div>
 									<div class="col">
 										<label>Dirección</label>
-										<select class="form-control" id="slSeveridad">
+										<select class="form-control" >
 											<option disabled selected>Seleccione una opción</option>
 											<%  for ( var i = 0; i < 19; i++ )
 											{
@@ -171,7 +183,7 @@
 							<div class="form-row" id="Number2" style="display: none;">
 									<div class="col">
 										<label>Tipo</label>
-										<select class="form-control" id="slProbabilidad">
+										<select class="form-control" >
 											<option disabled selected>Seleccione una opción</option>	
 											<%  for ( var i = 0; i < 10; i++ )
 													{
@@ -182,7 +194,7 @@
 									</div>
 									<div class="col">
 										<label>Dirección</label>
-										<select class="form-control" id="slSeveridad">
+										<select class="form-control" >
 											<option disabled selected>Seleccione una opción</option>
 											<%  for ( var i = 0; i < 19; i++ )
 											{
@@ -198,7 +210,7 @@
 							<div class="form-row" id="Number3" style="display: none;">
 									<div class="col">
 										<label>Altura</label>
-										<select class="form-control" id="slProbabilidad">
+										<select class="form-control" >
 											<option disabled selected>Seleccione una opción</option>	
 											<%  for ( var i = 0; i < 7; i++ )
 													{
@@ -210,7 +222,7 @@
 
 									<div class="col">
 										<label>Coeficiente</label>
-										<select class="form-control" id="slSeveridad">
+										<select class="form-control" >
 											<option disabled selected>Seleccione una opción</option>
 											<%  for ( var i = 0; i < 1; i++ )
 											{
@@ -222,7 +234,7 @@
 
 									<div class="col">
 											<label>Momento</label>
-											<select class="form-control" id="slSeveridad">
+											<select class="form-control" >
 												<option disabled selected>Seleccione una opción</option>
 												<%  for ( var i = 0; i < 5; i++ )
 												{
@@ -259,50 +271,82 @@
 									</div>
 								</div>
 
-								<!-- <form method="post" action="/Variables">
-									<input name="Nudos">
-									<button type="submit">ss</button>
-								</form> -->
+								<br><br>
+								</div>
 
-
-
-
-
-
-
-
+								<div class="form-row">
+										<div class="col"></div>
+										<div class="col d-flex justify-content-center">
+												<button type="button" class="btn btn-info" onclick="ContenidoSiguiente()">Siguiente</button>
+										</div>
+										<div class="col"></div>
+								</div>
 
 						</div>
 				</div>
 	</div>
 </div>
 
-<script>
-	       $("#slSeveridad, #slProbabilidad").change(function(){
-             var resultado = parseInt($( "#slSeveridad option:selected" ).val()) + parseInt($( "#slProbabilidad option:selected" ).val());
-             if($( "#slSeveridad option:selected" ).val() == "0" || $( "#slProbabilidad option:selected" ).val() == "0"){
-               $('#txtEval').val("Introdusca ambos valores.");
-             }
-             else if(resultado == 2){
-               $('#txtEval').val("Flojo");
-             }
-             else if(resultado == 3){
-               $('#txtEval').val("Tolerable");
-             }
-             else if(resultado == 4){
-               $('#txtEval').val("Moderado");
-             }
-             else if(resultado == 5){
-               $('#txtEval').val("Importante");
-             }
-             else if(resultado == 6){
-               $('#txtEval').val("Grave");
-             }
-             else{
-               $('#txtEval').val("Hubo un error");
-             }
 
-         });
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+		function VientoShowHide(){
+			if($('#Check1').is(":checked"))   
+			$("#Number1").show();
+			else
+			$("#Number1").hide();
+		}
+		function OleajeShowHide(){
+			if($('#Check2').is(":checked"))   
+			$("#Number2").show();
+			else
+			$("#Number2").hide();
+		}
+		function MareaShowHide(){
+			if($('#Check3').is(":checked"))   
+			$("#Number3").show();
+			else
+			$("#Number3").hide();
+		}
+
+		$("#slSeveridad, #slProbabilidad").change(function(){
+				var resultado = parseInt($( "#slSeveridad option:selected" ).val()) + parseInt($( "#slProbabilidad option:selected" ).val());
+				if($( "#slSeveridad option:selected" ).val() == "0" || $( "#slProbabilidad option:selected" ).val() == "0"){
+					$('#txtEval').val("Introdusca ambos valores.");
+				}
+				else if(resultado == 2){
+					$('#txtEval').val("Flojo");
+				}
+				else if(resultado == 3){
+					$('#txtEval').val("Tolerable");
+				}
+				else if(resultado == 4){
+					$('#txtEval').val("Moderado");
+				}
+				else if(resultado == 5){
+					$('#txtEval').val("Importante");
+				}
+				else if(resultado == 6){
+					$('#txtEval').val("Grave");
+				}
+				else{
+					$('#txtEval').val("Hubo un error");
+				}
+
+		});
+		
 </script>
 
 
