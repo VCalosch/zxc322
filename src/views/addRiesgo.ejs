@@ -4,7 +4,7 @@
 				<title>Agregar Riesgo</title>
 				<% include partials/head %>
 				<% include partials/Mapa %>
-				
+
 		</head>
 
 <!-- <body>
@@ -70,7 +70,7 @@
 														</div>	
 												</div>		
 												<br>
-
+												
 
 												<script>
 													var ContenidoActual = 1;
@@ -85,25 +85,21 @@
 												</script>
 
 
-
-
-
-
-
-
 												<div id="Contenido2" style="display:none;">
 
-
-
-
+												
 											
 							<div class="form-row">
 								<div class="col">
-									<Label>[Agregar un Switch]</Label>
+									<select class="form-control">
+										<option disabled selected>Selecciona un Tipo</option>
+										<option value="1">Fijo</option>
+										<option value="2">Puntual</option>
+									</select>
 								</div>
 								<div class="col">
 										<div class="form-group">
-												<select class="form-control">
+												<select class="form-control" id="RiesgoSelect">
 												  <option disabled selected>Selecciona un Riesgo</option>
 												   <% 
 													
@@ -117,17 +113,88 @@
 												</select>
 											  </div>
 								</div>
+
+
+								<script>
+                                        $("#RiesgoSelect").change(function() {
+												var valRiesgo = $(this).val();
+												console.log(valRiesgo);
+										});
+										
+                        		</script>
+
+
+
+
 								<div class="col">
 										<div class="form-group">
 
 												<select class="form-control">
 												  <option disabled selected>Selecciona una Tipología</option>
+												  <% 
+												  
+													if('Rocas'==='Rocas'){
+														for(var x=0; x < 4; x++){
+															%>	<option value="<%=Tipologias[ x ].Rocas %>"><%=Tipologias[ x ].Rocas %></option><% 
+														}
+													}
+												  
+													
+												  %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 												</select>
 											  </div>
 								</div>
 							</div>
 
+							
+
+
 							<br><br>
+							<div class="jumbotron">
+							<div class="form-row">
+								<div class="col-1"></div>
+								<div class="col d-flex justify-content-center">
+									<h6>*En caso de que el riesgo sea afectado por variables metereológicas</h6>
+								</div>
+								<div class="col-1"></div>
+							</div>
+
+							<br>
+
 							<div class="form-row">
 								<div class="col-5"></div>
 								<div class="col">
@@ -243,6 +310,7 @@
 												} %>
 											</select>
 										</div>
+							</div>
 							</div>
 
 								<br>

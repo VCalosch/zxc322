@@ -36,7 +36,13 @@
     var listPolygon = [];
     var numerosPolygon = [];
 
-
+    function EliminarMarcador(){
+        marker.setMap(null);
+        Marcador = 0;
+        longitud = null;
+        latitud = null;
+        $("#eliminarMarcador").hide();
+        }
 
     function initMap(position) {
 
@@ -48,6 +54,8 @@
             }
             // Defininar Mapa
         map = new google.maps.Map(document.getElementById('map'), options);
+
+        
            
         google.maps.event.addListener(map, 'click', function(event) {
             
@@ -63,6 +71,7 @@
                 
                 
                 Marcador = 1;
+                $("#eliminarMarcador").show();
 
                 document.getElementById("latitudPost").value = latitud ;
                 document.getElementById("longitudPost").value = longitud ;

@@ -31,14 +31,18 @@ routRiesgos.get('/addRiesgo', isLoggedIn, (req, res) => {
 			if (err)  throw err;
 			RiesgosVariables.find({}, (err, RiesgosVariables) => {
 				if (err)  throw err;
+				TipologiaRiesgos.find({}, (err, TipologiaRiesgos) => {
+					if (err)  throw err;
 				else {
 			res.render('addRiesgo', {
 				Riesgos: riesgo,
 				Ubicar: UbicarServiciosModel,
 				Variables: RiesgosVariables,
+				Tipologias: TipologiaRiesgos,
 				isLoggedIn: req.isAuthenticated() 
 			});
 		}
+	});
 	});
 	});
 	});
@@ -109,6 +113,8 @@ routRiesgos.post('/Variables', isLoggedIn, (req, res) => {
 		res.redirect('back');
 	});
 });
+
+
 
 
 
