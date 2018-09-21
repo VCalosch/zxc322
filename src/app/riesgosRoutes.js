@@ -25,6 +25,7 @@ routRiesgos.get('/riegosAdmin', isLoggedIn, (req, res) => {
 
 //render de riesgos
 routRiesgos.get('/addRiesgo', isLoggedIn, (req, res) => {
+
 	RiesgosNombres.find({}, (err, riesgo) => {
 		if (err)  throw err;
 		UbicarServiciosModel.find({}, (err, UbicarServiciosModel) => {

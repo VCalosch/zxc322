@@ -67,10 +67,10 @@
 																<input class="form-control" placeholder="Nombre del Riesgo para Identificarlo">
 															</div>
 															<div class="col"></div>
-														</div>	
-												</div>		
+														</div>
+												</div>
 												<br>
-												
+
 
 												<script>
 													var ContenidoActual = 1;
@@ -79,16 +79,16 @@
 														$("#Contenido1").hide();
 														$("#Contenido2").show();
 													}
-													
-														
+
+
 
 												</script>
 
 
 												<div id="Contenido2" style="display:none;">
 
-												
-											
+
+
 							<div class="form-row">
 								<div class="col">
 									<select class="form-control">
@@ -101,14 +101,14 @@
 										<div class="form-group">
 												<select class="form-control" id="RiesgoSelect">
 												  <option disabled selected>Selecciona un Riesgo</option>
-												   <% 
-													
+												   <%
+
 												  for ( var i = 0; i < Riesgos.length; i++ )
 														  {
 															Riesgos[0].Riesgo == i;%>
 															  <option value="<%=Riesgos[ i ].Riesgo %>"><%=Riesgos[i].Riesgo %></option><%
 														  }
-												  %> 
+												  %>
 
 												</select>
 											  </div>
@@ -118,69 +118,102 @@
 								<script>
                                         $("#RiesgoSelect").change(function() {
 												var valRiesgo = $(this).val();
-												console.log(valRiesgo);
+
+												document.getElementById("valRiesgo").value = valRiesgo ;
 										});
-										
+
                         		</script>
 
+								<input  id="valRiesgo" >
 
+
+
+								<script>
+									    $("#RiesgoSelect").change(function() {
+											var RiesgoValue = document.getElementById('valRiesgo').value;
+										});
+
+								</script>
+
+
+								 <script>
+									$(document).ready(function () {
+										$("#RiesgoSelect").change(function () {
+
+												var val = $(this).val();
+												if (val == "Rocas") {
+													$("#Riesgos_Tipologias").html(" <% for(var x=0; x < 4; x++) { %><option value='<%=Tipologias[ x ].Rocas %>'><%=Tipologias[ x ].Rocas %></option> <% } %> ");
+												} else if (val == "Corrientes") {
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 6; x++) { %><option value='<%=Tipologias[ x ].Corrientes %>'><%=Tipologias[ x ].Corrientes %></option> <% } %>");
+												}
+												 else if (val == "Zona de Rompiente (Olas)") {
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 2; x++) { %><option value='<%=Tipologias[ x ].ZonaRompiente %>'><%=Tipologias[ x ].ZonaRompiente %></option> <% } %>");
+												}
+												 else if (val == "Actividades Deportivas y de Recreo") {
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 12; x++) { %><option value='<%=Tipologias[ x ].ActividadesDeportivasRecreos %>'><%=Tipologias[ x ].ActividadesDeportivasRecreos %></option> <% } %>");
+												}
+												else if (val == "Zambullidas desde Rocas") {
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 3; x++) { %><option value='<%=Tipologias[ x ].ZambullidasRocas %>'><%=Tipologias[ x ].ZambullidasRocas %></option> <% } %>");
+												}
+												else if (val == "Estructura Fondo de Zona de Baño") {
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 3; x++) { %><option value='<%=Tipologias[ x ].EstructuraFondo %>'><%=Tipologias[ x ].EstructuraFondo %></option> <% } %>");
+												}
+												else if (val == "Rayos UVA/Efectos del Sol Sobre el Cuerpo") {
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 2; x++) { %><option value='<%=Tipologias[ x ].RayosUVA %>'><%=Tipologias[ x ].RayosUVA %></option> <% } %>");
+												}
+												else if (val == "Animales Acuáticos y Terrestres") {
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 8; x++) { %><option value='<%=Tipologias[ x ].AnimalesAcuaticos %>'><%=Tipologias[ x ].AnimalesAcuaticos %></option> <% } %>");
+												}
+												else if (val == "Arena") {
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 3; x++) { %><option value='<%=Tipologias[ x ].Arena %>'><%=Tipologias[ x ].Arena %></option> <% } %>");
+												}
+												else if (val == "Objetos Hinchables/Sombrillas Voladizos") {
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 3; x++) { %><option value='<%=Tipologias[ x ].ObjetosHinchables %>'><%=Tipologias[ x ObjetosHinchables %></option> <% } %>");
+												}
+												else if (val == "Riesgos por Alta Afluencia de Personas") {
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 4; x++) { %><option value='<%=Tipologias[ x ].RiesgosAfluenciaPersonas %>'><%=Tipologias[ x ].RiesgosAfluenciaPersonas %></option> <% } %>");
+												}
+												else if (val == "Acceso Embarcaciones") {
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 4; x++) { %><option value='<%=Tipologias[ x ].AccesoEmbarcacio %>'><%=Tipologias[ x ].AccesoEmbarcacio %></option> <% } %>");
+												}
+												else if (val == "Condiciones Meteorológicas y Marinas Adversas") {
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 1; x++) { %><option value='<%=Tipologias[ x ].CondicionesMetereologicas %>'><%=Tipologias[ x ].CondicionesMetereologicas %></option> <% } %>");
+												}
+												else if (val == "Desprendimientos") {
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 2; x++) { %><option value='<%=Tipologias[ x ].Desprendimientos %>'><%=Tipologias[ x ].Desprendimientos %></option> <% } %>");
+												}
+												else if (val == "Focos Contaminación") {
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 3; x++) { %><option value='<%=Tipologias[ x ].FocosContaminacion %>'><%=Tipologias[ x ].FocosContaminacion %></option> <% } %>");
+												}
+												else if (val == "Morfología/Accidentes Geográficos") {
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 2; x++) { %><option value='<%=Tipologias[ x ].Morfologia %>'><%=Tipologias[ x ].Morfologia %></option> <% } %>");
+												}
+
+
+
+
+
+											});
+									});
+
+
+								</script>
 
 
 								<div class="col">
-										<div class="form-group">
 
-												<select class="form-control">
+												<select class="form-control" id="Riesgos_Tipologias">
 												  <option disabled selected>Selecciona una Tipología</option>
-												  <% 
-												  
-													if('Rocas'==='Rocas'){
-														for(var x=0; x < 4; x++){
-															%>	<option value="<%=Tipologias[ x ].Rocas %>"><%=Tipologias[ x ].Rocas %></option><% 
-														}
-													}
-												  
-													
-												  %>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+¡¡¡
 
 
 												</select>
-											  </div>
+
 								</div>
 							</div>
 
-							
+
 
 
 							<br><br>
@@ -224,7 +257,7 @@
 									<div class="col">
 										<label>Nudos</label>
 										<select class="form-control" >
-											<option disabled selected>Seleccione una opción</option>	
+											<option disabled selected>Seleccione una opción</option>
 											<%  for ( var i = 0; i < 15; i++ )
 													{
 													  Variables[0].Nudos == i;%>
@@ -251,7 +284,7 @@
 									<div class="col">
 										<label>Tipo</label>
 										<select class="form-control" >
-											<option disabled selected>Seleccione una opción</option>	
+											<option disabled selected>Seleccione una opción</option>
 											<%  for ( var i = 0; i < 10; i++ )
 													{
 													  Variables[0].Tipo == i;%>
@@ -278,7 +311,7 @@
 									<div class="col">
 										<label>Altura</label>
 										<select class="form-control" >
-											<option disabled selected>Seleccione una opción</option>	
+											<option disabled selected>Seleccione una opción</option>
 											<%  for ( var i = 0; i < 7; i++ )
 													{
 													  Variables[0].Altura == i;%>
@@ -371,19 +404,19 @@
 <script>
 
 		function VientoShowHide(){
-			if($('#Check1').is(":checked"))   
+			if($('#Check1').is(":checked"))
 			$("#Number1").show();
 			else
 			$("#Number1").hide();
 		}
 		function OleajeShowHide(){
-			if($('#Check2').is(":checked"))   
+			if($('#Check2').is(":checked"))
 			$("#Number2").show();
 			else
 			$("#Number2").hide();
 		}
 		function MareaShowHide(){
-			if($('#Check3').is(":checked"))   
+			if($('#Check3').is(":checked"))
 			$("#Number3").show();
 			else
 			$("#Number3").hide();
@@ -414,7 +447,7 @@
 				}
 
 		});
-		
+
 </script>
 
 

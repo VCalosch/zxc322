@@ -10,6 +10,7 @@ const morgan = require('morgan');//dfinir los metodos http
 const cookieParser = require('cookie-parser');//administrar cookies
 const bodyParser = require('body-parser');//body
 const session = require('express-session');
+const $ = require('jquery');
 /*const bootstrap = require('bootstrap');
 const jquery = require('jquery');
 const popper = require('popper');*/
