@@ -12,6 +12,12 @@ const Actuacionesreactivas = require('../app/models/Actuacionesreactivas');
 const request = require('request');
 
 
+//********************************------- CV --------------********************************************************* */
+const UbicarServiciosModel = require('../app/models/UbicarServicios');
+const CoordinadorRoutes = express.Router();
+/******************************************************************************************************************* */
+
+
 socoRoutes.get('/coordinador', (req, res) => { //Listar Todo
 	modelPlaya.find({}, (err, playa) => {
 		if (err) throw err;
@@ -127,4 +133,28 @@ socoRoutes.post('/FormServiCoor', (req, res) => {
 		res.redirect('/FormServiCoor');
 	});
 });
+
+
+//**************************************************-------- VC -------------************************************************** */
+
+//Coordinador -> MostrarMapa
+
+socoRoutes.get('/MostrarMapa', (req, res) => {
+	UbicarServiciosModel.find({}, (err, UbicarServicio) => {
+		if (err) throw err;
+		res.render('MostrarMapa', {
+			UbicarServicio: UbicarServicio,
+			isLoggedIn: req.isAuthenticated()
+		});
+	});
+});
+
+function isLoggedIn(req, res, next) {
+	if (req.isAuthenticated()) {
+		return next();
+	}
+	res.redirect('/');
+}
+
+
 module.exports = socoRoutes;

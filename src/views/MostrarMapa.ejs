@@ -1,0 +1,60 @@
+<head>
+    <title>Servicios</title>
+    <% include partials/head %>
+    <% include partials/Mapa %>
+</head>
+
+<div class="dashboard_container top-container">
+    <div class="tab-content" id="myTabContent">
+                <div class="card">
+                        <div class="card-body Margenes">
+
+                            <div class="form-row">
+                                    <div class="col-2"></div>
+                                    <div class="col">
+                                            <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" id="Riesgos">
+                                                    <label class="form-check-label" for="Riesgos">Riesgos</label>
+                                            </div>
+                                    </div>
+                                    <div class="col">
+                                            <div class="form-check ">
+                                                    <input type="checkbox" class="form-check-input" id="Servicios">
+                                                    <label class="form-check-label" for="Servicios">Servicios</label>
+                                            </div>
+                                    </div>
+                                    <div class="col">
+                                            <div class="form-check ">
+                                                    <input type="checkbox" class="form-check-input" id="Avisos">
+                                                    <label class="form-check-label" for="Avisos">Avisos</label>
+                                            </div>
+                                    </div>
+                                    <div class="col">
+                                            <div class="form-check ">
+                                                    <input type="checkbox" class="form-check-input" id="Sucesos">
+                                                    <label class="form-check-label" for="Sucesos">Sucesos</label>
+                                            </div>
+                                    </div>
+                                    <div class="col-2"></div>
+                            </div>
+                            
+                            <br><br>
+
+                            <div id="map"></div>
+                            
+                            <script>
+                                
+                                $('#Servicios').change(function(){
+                                    if (this.checked) {
+                                    carlos = 1;
+                                    initMap();
+                                    }else
+                                        carlos = 0; initMap();
+
+                                });
+                            </script>
+                            
+                        </div>
+                </div>
+    </div>
+</div>

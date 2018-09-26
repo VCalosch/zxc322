@@ -5,10 +5,21 @@ const userSchema = new mongoose.Schema({
 	//se definen los tipos de inicio de seccion 
 	//1- LOCAL
 	local:{
-		email:String,
-		password: String,
-		role: Number
-		
+		Usuario:String,
+		Password: String,
+		Role: Number,
+		Sexo:String,
+		Playa:String,
+		NTemporadas:String,
+		Experiencia:String,
+		Descripcion1:String,
+		HorasFormacion:String,
+		UltimaFormacion:String,
+		EntidadFormadora:String,
+		Descripcion2:String,
+		Email:String,
+		Codigo:String,
+		InicioContrato:String	
 	} //, <-- poner coma
 	
 	// Para configurar inicio de secion por Redes:
