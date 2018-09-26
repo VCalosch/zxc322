@@ -137,6 +137,9 @@
 
 
 								 <script>
+
+								//******************************
+
 									$(document).ready(function () {
 										$("#RiesgoSelect").change(function () {
 
@@ -168,13 +171,13 @@
 													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 3; x++) { %><option value='<%=Tipologias[ x ].Arena %>'><%=Tipologias[ x ].Arena %></option> <% } %>");
 												}
 												else if (val == "Objetos Hinchables/Sombrillas Voladizos") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 3; x++) { %><option value='<%=Tipologias[ x ].ObjetosHinchables %>'><%=Tipologias[ x ObjetosHinchables %></option> <% } %>");
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 3; x++) { %><option value='<%=Tipologias[ x ].ObjetosHinchables %>'><%=Tipologias[ x ].ObjetosHinchables %></option> <% } %>");
 												}
 												else if (val == "Riesgos por Alta Afluencia de Personas") {
 													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 4; x++) { %><option value='<%=Tipologias[ x ].RiesgosAfluenciaPersonas %>'><%=Tipologias[ x ].RiesgosAfluenciaPersonas %></option> <% } %>");
 												}
 												else if (val == "Acceso Embarcaciones") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 4; x++) { %><option value='<%=Tipologias[ x ].AccesoEmbarcacio %>'><%=Tipologias[ x ].AccesoEmbarcacio %></option> <% } %>");
+													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 4; x++) { %><option value='<%=Tipologias[ x ].AccesoEmbarcaciones %>'><%=Tipologias[ x ].AccesoEmbarcaciones %></option> <% } %>");
 												}
 												else if (val == "Condiciones Meteorológicas y Marinas Adversas") {
 													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 1; x++) { %><option value='<%=Tipologias[ x ].CondicionesMetereologicas %>'><%=Tipologias[ x ].CondicionesMetereologicas %></option> <% } %>");
@@ -188,13 +191,14 @@
 												else if (val == "Morfología/Accidentes Geográficos") {
 													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 2; x++) { %><option value='<%=Tipologias[ x ].Morfologia %>'><%=Tipologias[ x ].Morfologia %></option> <% } %>");
 												}
-
-
-
-
+												
+												
 
 											});
 									});
+
+
+								//******************************
 
 
 								</script>

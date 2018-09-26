@@ -6,20 +6,9 @@ const userSchema = new mongoose.Schema({
 	//1- LOCAL
 	local:{
 		Usuario:String,
-		Password: String,
-		Role: Number,
-		Sexo:String,
-		Playa:String,
-		NTemporadas:String,
-		Experiencia:String,
-		Descripcion1:String,
-		HorasFormacion:String,
-		UltimaFormacion:String,
-		EntidadFormadora:String,
-		Descripcion2:String,
-		Email:String,
-		Codigo:String,
-		InicioContrato:String	
+		password: String,
+		role: Number,
+		email:String	
 	} //, <-- poner coma
 	
 	// Para configurar inicio de secion por Redes:

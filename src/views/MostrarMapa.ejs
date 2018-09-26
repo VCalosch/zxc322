@@ -1,6 +1,31 @@
 <head>
     <title>Servicios</title>
     <% include partials/head %>
+
+    <script>
+        var ServiciosLatitud = [];
+        var ServiciosLongitud = [];
+    </script>
+    
+    <% var PlayaNombre = "El Sardinero"; var test=0; %>
+    
+                            <% 
+                            var latt = 0;
+                            for(var i = 0; i< UbicarServicio.length; i++ ) {
+    
+                                    var x = UbicarServicio[i].Playa 
+                                    if(PlayaNombre === x){
+                                    var LatitudF = UbicarServicio[i].Latitud;
+                                    var LongitudF = UbicarServicio[i].Longitud; %>
+                                        <script>
+                                                var getLatitudF = <%= LatitudF  %>;
+                                                var getLongitudF = <%= LongitudF  %>;
+                                                ServiciosLatitud.push(getLatitudF);
+                                                ServiciosLongitud.push(getLongitudF);
+                                        </script> <%} %>
+                            <% } %>
+
+
     <% include partials/Mapa %>
 </head>
 

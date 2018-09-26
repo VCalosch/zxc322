@@ -13,28 +13,7 @@
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3d6OC5uV4aQlVClt97CEULYxOvY7b1GU&callback=initMap">
 </script>
 
-<script>
-        var ServiciosLatitud = [];
-        var ServiciosLongitud = [];
-    </script>
-    
-    <% var PlayaNombre = "El Sardinero"; var test=0; %>
-    
-                            <% 
-                            var latt = 0;
-                            for(var i = 0; i< UbicarServicio.length; i++ ) {
-    
-                                    var x = UbicarServicio[i].Playa 
-                                    if(PlayaNombre === x){
-                                    var LatitudF = UbicarServicio[i].Latitud;
-                                    var LongitudF = UbicarServicio[i].Longitud; %>
-                                        <script>
-                                                var getLatitudF = <%= LatitudF  %>;
-                                                var getLongitudF = <%= LongitudF  %>;
-                                                ServiciosLatitud.push(getLatitudF);
-                                                ServiciosLongitud.push(getLongitudF);
-                                        </script> <%} %>
-                            <% } %>
+
 
 <script>
     var carlos=0;
