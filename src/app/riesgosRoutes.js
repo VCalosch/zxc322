@@ -58,7 +58,7 @@ routRiesgos.post('/addRiesgo', isLoggedIn, (req, res) => {
 
 	modelRiesgos.create(body, (err, riesgo) => {
 		if (err) { throw err; }
-		res.redirect('/riegosAdmin');
+		res.redirect('back');
 	});
 });
 

@@ -64,17 +64,34 @@
 														<div class="form-row">
 															<div class="col"></div>
 															<div class="col">
-																<input class="form-control" placeholder="Nombre del Riesgo para Identificarlo">
+																	
+																<input class="form-control" placeholder="Nombre del Riesgo para Identificarlo" id="NombreRiesgo">
 															</div>
 															<div class="col"></div>
 														</div>
+
+														<br>
+
+														<div class="form-row">
+															<div class="col"></div>
+															<div class="col d-flex justify-content-center">
+																	<form id="uploader" action="/addRiesgo" method="post">
+																		<input name="nombre" id="NombreRiesgoPOST">
+																		<input type="hidden"  name="latitud" id="latitudPost">
+																		<input type="hidden"  name="longitud" id="longitudPost">
+																		<button type="submit" class="btn btn-info" onclick="ContenidoSiguiente()">Siguiente</button>
+																	</form>
+																</div>
+															<div class="col"></div>
+														</div>
 												</div>
-												<br>
+												
 
 
 												<script>
 													var ContenidoActual = 1;
 													function ContenidoSiguiente(){
+														document.getElementById("NombreRiesgoPOST").value = document.getElementById("NombreRiesgo").value;
 														ContenidoActual++;
 														$("#Contenido1").hide();
 														$("#Contenido2").show();
@@ -124,7 +141,7 @@
 
                         		</script>
 
-								<input  id="valRiesgo" >
+								<input  id="valRiesgo" type="hidden">
 
 
 
@@ -379,13 +396,7 @@
 								<br><br>
 								</div>
 
-								<div class="form-row">
-										<div class="col"></div>
-										<div class="col d-flex justify-content-center">
-												<button type="button" class="btn btn-info" onclick="ContenidoSiguiente()">Siguiente</button>
-										</div>
-										<div class="col"></div>
-								</div>
+								
 
 						</div>
 				</div>

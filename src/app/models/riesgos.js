@@ -9,8 +9,25 @@ if (!db) {
 
  var Riesgos = new Schema({
         nombre: String,
-        descripcion: String,
-        ubicacion: String
+        latitud: Number,
+        longitud: Number,
+        tipo: String,
+        riesgo: String,
+        tipologia: String,
+        viento: String,
+        oleaje: String,
+        marea: String,
+        v_nudos: String,
+        v_direccion: String,
+        o_tipo: String,
+        o_direccion: String,
+        m_altura: String,
+        m_coeficiente: String,
+        m_momento: String,
+        probabilidad: String,
+        severidad: String,
+        evaluacion: String,
+        fecha: Date
     });
 
 module.exports = mongoose.model('Riesgos', Riesgos);
