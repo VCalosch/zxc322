@@ -43,8 +43,9 @@
         longitud = null;
         latitud = null;
         $("#eliminarMarcador").hide();
-        document.getElementById("latitudPost").value = "" ;
-        document.getElementById("longitudPost").value = "" ;
+        document.getElementById("latitudRiesgo").value = "" ;
+        document.getElementById("longitudRiesgo").value = "" ;
+        
         }
 
     function initMap(position) {
@@ -84,16 +85,16 @@
                 Marcador = 1;
                 $("#eliminarMarcador").show();
 
-                document.getElementById("latitudPost").value = latitud ;
-                document.getElementById("longitudPost").value = longitud ;
-                
+                document.getElementById("latitudRiesgo").value = latitud ;
+                document.getElementById("longitudRiesgo").value = longitud ;
+
                 } 
                 
                 marker.addListener('dragend', function(event) {
                     latitud = event.latLng.lat();
                     longitud = event.latLng.lng();
-                    document.getElementById("latitudPost").value = latitud ;
-                document.getElementById("longitudPost").value = longitud ;
+                    document.getElementById("latitudRiesgo").value = latitud ;
+                    document.getElementById("longitudRiesgo").value = longitud ;
                 });
 
         });

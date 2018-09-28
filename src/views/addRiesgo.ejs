@@ -73,16 +73,10 @@
 														<br>
 
 														<div class="form-row">
-															<div class="col"></div>
 															<div class="col d-flex justify-content-center">
-																	<form id="uploader" action="/addRiesgo" method="post">
-																		<input name="nombre" id="NombreRiesgoPOST">
-																		<input type="hidden"  name="latitud" id="latitudPost">
-																		<input type="hidden"  name="longitud" id="longitudPost">
-																		<button type="submit" class="btn btn-info" onclick="ContenidoSiguiente()">Siguiente</button>
-																	</form>
-																</div>
-															<div class="col"></div>
+
+																		<button type="button" class="btn btn-info" onclick="ContenidoSiguiente()">Siguiente</button>
+															</div>
 														</div>
 												</div>
 												
@@ -91,7 +85,7 @@
 												<script>
 													var ContenidoActual = 1;
 													function ContenidoSiguiente(){
-														document.getElementById("NombreRiesgoPOST").value = document.getElementById("NombreRiesgo").value;
+														document.getElementById("NombreRiesgoPOST").value = document.getElementById("NombreRiesgo").value ;
 														ContenidoActual++;
 														$("#Contenido1").hide();
 														$("#Contenido2").show();
@@ -108,10 +102,10 @@
 
 							<div class="form-row">
 								<div class="col">
-									<select class="form-control">
+									<select class="form-control" id="TipoExistenteSelect">
 										<option disabled selected>Selecciona un Tipo</option>
-										<option value="1">Fijo</option>
-										<option value="2">Puntual</option>
+										<option value="Fijo">Fijo</option>
+										<option value="Puntual">Puntual</option>
 									</select>
 								</div>
 								<div class="col">
@@ -123,7 +117,7 @@
 												  for ( var i = 0; i < Riesgos.length; i++ )
 														  {
 															Riesgos[0].Riesgo == i;%>
-															  <option value="<%=Riesgos[ i ].Riesgo %>"><%=Riesgos[i].Riesgo %></option><%
+															  <option value="<%=Riesgos[ i ].Riesgo %>"><%=Riesgos[i].Riesgo%></option><%
 														  }
 												  %>
 
@@ -132,25 +126,7 @@
 								</div>
 
 
-								<script>
-                                        $("#RiesgoSelect").change(function() {
-												var valRiesgo = $(this).val();
-
-												document.getElementById("valRiesgo").value = valRiesgo ;
-										});
-
-                        		</script>
-
-								<input  id="valRiesgo" type="hidden">
-
-
-
-								<script>
-									    $("#RiesgoSelect").change(function() {
-											var RiesgoValue = document.getElementById('valRiesgo').value;
-										});
-
-								</script>
+								
 
 
 								 <script>
@@ -225,10 +201,6 @@
 
 												<select class="form-control" id="Riesgos_Tipologias">
 												  <option disabled selected>Selecciona una Tipología</option>
-
-¡¡¡
-
-
 												</select>
 
 								</div>
@@ -277,7 +249,7 @@
 							<div class="form-row" id="Number1" style="display: none;">
 									<div class="col">
 										<label>Nudos</label>
-										<select class="form-control" >
+										<select class="form-control" id="V_NudosSelect">
 											<option disabled selected>Seleccione una opción</option>
 											<%  for ( var i = 0; i < 15; i++ )
 													{
@@ -288,7 +260,7 @@
 									</div>
 									<div class="col">
 										<label>Dirección</label>
-										<select class="form-control" >
+										<select class="form-control" id="V_DireccionSelect">
 											<option disabled selected>Seleccione una opción</option>
 											<%  for ( var i = 0; i < 19; i++ )
 											{
@@ -304,7 +276,7 @@
 							<div class="form-row" id="Number2" style="display: none;">
 									<div class="col">
 										<label>Tipo</label>
-										<select class="form-control" >
+										<select class="form-control" id="O_TipoSelect">
 											<option disabled selected>Seleccione una opción</option>
 											<%  for ( var i = 0; i < 10; i++ )
 													{
@@ -315,7 +287,7 @@
 									</div>
 									<div class="col">
 										<label>Dirección</label>
-										<select class="form-control" >
+										<select class="form-control" id="O_DireccionSelect">
 											<option disabled selected>Seleccione una opción</option>
 											<%  for ( var i = 0; i < 19; i++ )
 											{
@@ -331,7 +303,7 @@
 							<div class="form-row" id="Number3" style="display: none;">
 									<div class="col">
 										<label>Altura</label>
-										<select class="form-control" >
+										<select class="form-control" id="M_AlturaSelect">
 											<option disabled selected>Seleccione una opción</option>
 											<%  for ( var i = 0; i < 7; i++ )
 													{
@@ -343,7 +315,7 @@
 
 									<div class="col">
 										<label>Coeficiente</label>
-										<select class="form-control" >
+										<select class="form-control" id="M_CoeficienteSelect">
 											<option disabled selected>Seleccione una opción</option>
 											<%  for ( var i = 0; i < 1; i++ )
 											{
@@ -355,7 +327,7 @@
 
 									<div class="col">
 											<label>Momento</label>
-											<select class="form-control" >
+											<select class="form-control" id="M_MomentoSelect">
 												<option disabled selected>Seleccione una opción</option>
 												<%  for ( var i = 0; i < 5; i++ )
 												{
@@ -394,7 +366,87 @@
 								</div>
 
 								<br><br>
+
+								<!-- Llenar Formularios -->
+								<script>
+                                        $("#RiesgoSelect").change(function() {
+												var valRiesgo = $(this).val();
+												document.getElementById("existenteRiesgo").value = valRiesgo ;
+										});
+										
+										$("#TipoExistenteSelect").change(function() {
+												var valor = $(this).val();
+												document.getElementById("tipoRiesgo").value = valor ;
+										});
+										
+										$("#Riesgos_Tipologias").change(function() {
+												var valor = $(this).val();
+												document.getElementById("tipologiaRiesgo").value = valor ;
+										});
+										$("#V_NudosSelect").change(function() {
+												var valor = $(this).val();
+												document.getElementById("V_NudosRiesgo").value = valor ;
+										});
+										$("#V_DireccionSelect").change(function() {
+												var valor = $(this).val();
+												document.getElementById("V_DireccionRiesgo").value = valor ;
+										});
+										$("#O_TipoSelect").change(function() {
+												var valor = $(this).val();
+												document.getElementById("O_TipoRiesgo").value = valor ;
+										});
+										$("#O_DireccionSelect").change(function() {
+												var valor = $(this).val();
+												document.getElementById("O_DireccionRiesgo").value = valor ;
+										});
+										$("#M_AlturaSelect").change(function() {
+												var valor = $(this).val();
+												document.getElementById("M_AlturaRiesgo").value = valor ;
+										});
+										$("#M_CoeficienteSelect").change(function() {
+												var valor = $(this).val();
+												document.getElementById("M_CoeficienteRiesgo").value = valor ;
+										});
+										$("#M_MomentoSelect").change(function() {
+												var valor = $(this).val();
+												document.getElementById("M_MomentoRiesgo").value = valor ;
+										});
+
+
+                        		</script>
+
+								<div class="form-row">
+									<div class="col d-flex justify-content-center">
+
+												<form action="/addRiesgo" method="post">
+													<input type="hidden" name="latitud" id="latitudRiesgo">
+													<input type="hidden" name="longitud" id="longitudRiesgo">
+													<input type="hidden" name="nombre" id="NombreRiesgoPOST" >
+													<input type="hidden" name="viento" id="VientoRiesgo">
+													<input type="hidden" name="oleaje" id="OleajeRiesgo">
+													<input type="hidden" name="marea" id="MareaRiesgo">
+													<input type="hidden" name="v_nudos" id="V_NudosRiesgo"> 
+													<input type="hidden" name="v_direccion" id="V_DireccionRiesgo">
+													<input type="hidden" name="o_tipo" id="O_TipoRiesgo">
+													<input type="hidden" name="o_direccion" id="O_DireccionRiesgo">
+													<input type="hidden" name="m_altura" id="M_AlturaRiesgo">
+													<input type="hidden" name="m_coeficiente" id="M_CoeficienteRiesgo">
+													<input type="hidden" name="m_momento" id="M_MomentoRiesgo">
+													<input type="hidden" name="probabilidad" id="probabilidad">
+													<input type="hidden" name="severidad" id="severidad">
+													<input type="hidden" name="evaluacion" id="evaluacion">
+													<input type="hidden" name="tipo" id="tipoRiesgo">
+													<input type="hidden" name="riesgo" id="existenteRiesgo">
+													<input type="hidden" name="tipologia" id="tipologiaRiesgo">
+													<input type="hidden" name="fecha" id="fechaRiesgo">
+													<button type="submit" class="btn btn-info">Guardar</button>
+												</form>
+									</div>
 								</div>
+
+
+								</div>
+								
 
 								
 
@@ -420,21 +472,21 @@
 
 		function VientoShowHide(){
 			if($('#Check1').is(":checked"))
-			$("#Number1").show();
+			{$("#Number1").show();	document.getElementById("VientoRiesgo").value = "1";}
 			else
-			$("#Number1").hide();
+			{$("#Number1").hide(); 	document.getElementById("VientoRiesgo").value = "0";}
 		}
 		function OleajeShowHide(){
 			if($('#Check2').is(":checked"))
-			$("#Number2").show();
+			{$("#Number2").show(); 	document.getElementById("OleajeRiesgo").value = "1";}
 			else
-			$("#Number2").hide();
+			{$("#Number2").hide(); 	document.getElementById("OleajeRiesgo").value = "1";}
 		}
 		function MareaShowHide(){
 			if($('#Check3').is(":checked"))
-			$("#Number3").show();
+			{$("#Number3").show(); 	document.getElementById("MareaRiesgo").value = "1";}
 			else
-			$("#Number3").hide();
+			{$("#Number3").hide(); 	document.getElementById("MareaRiesgo").value = "1";}
 		}
 
 		$("#slSeveridad, #slProbabilidad").change(function(){
@@ -442,20 +494,48 @@
 				if($( "#slSeveridad option:selected" ).val() == "0" || $( "#slProbabilidad option:selected" ).val() == "0"){
 					$('#txtEval').val("Introdusca ambos valores.");
 				}
-				else if(resultado == 2){
-					$('#txtEval').val("Flojo");
-				}
-				else if(resultado == 3){
-					$('#txtEval').val("Tolerable");
-				}
-				else if(resultado == 4){
-					$('#txtEval').val("Moderado");
-				}
-				else if(resultado == 5){
-					$('#txtEval').val("Importante");
-				}
-				else if(resultado == 6){
-					$('#txtEval').val("Grave");
+				else if(resultado >= 2 && resultado <=6){
+						document.getElementById("probabilidad").value = $( "#slSeveridad option:selected" ).val();
+						document.getElementById("severidad").value = $( "#slProbabilidad option:selected" ).val();
+						
+
+						var today = new Date();
+						var dd = today.getDate();
+						var mm = today.getMonth()+1; 
+						var yyyy = today.getFullYear();
+
+						if(dd<10) {
+							dd = '0'+dd
+						} 
+
+						if(mm<10) {
+							mm = '0'+mm
+						} 
+
+						today = dd + '/' + mm + '/' + yyyy;
+						
+						$('#fechaRiesgo').val(today);
+
+						if(resultado == 2){
+							$('#txtEval').val("Flojo");
+							$('#evaluacion').val("Flojo");
+						}
+						else if(resultado == 3){
+							$('#txtEval').val("Tolerable");
+							$('#evaluacion').val("Tolerable");
+						}
+						else if(resultado == 4){
+							$('#txtEval').val("Moderado");
+							$('#evaluacion').val("Moderado");
+						}
+						else if(resultado == 5){
+							$('#txtEval').val("Importante");
+							$('#evaluacion').val("Importante");
+						}
+						else if(resultado == 6){
+							$('#txtEval').val("Grave");
+							$('#evaluacion').val("Grave");
+						}
 				}
 				else{
 					$('#txtEval').val("Hubo un error");

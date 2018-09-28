@@ -27,7 +27,7 @@ if (!db) {
         probabilidad: String,
         severidad: String,
         evaluacion: String,
-        fecha: Date
+        fecha: String
     });
 
 module.exports = mongoose.model('Riesgos', Riesgos);
