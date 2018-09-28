@@ -15,6 +15,7 @@ const request = require('request');
 //********************************------- CV --------------********************************************************* */
 const UbicarServiciosModel = require('../app/models/UbicarServicios');
 const CoordinadorRoutes = express.Router();
+const riesgoModel = require('../app/models/riesgos');
 /******************************************************************************************************************* */
 
 
@@ -139,15 +140,37 @@ socoRoutes.post('/FormServiCoor', (req, res) => {
 
 //Coordinador -> MostrarMapa
 
-socoRoutes.get('/MostrarMapa', (req, res) => {
+// socoRoutes.get('/MostrarMapa', (req, res) => {
+// 	UbicarServiciosModel.find({}, (err, UbicarServicio) => {
+// 		if (err) throw err;
+// 		res.render('MostrarMapa', {
+// 			UbicarServicio: UbicarServicio,
+// 			isLoggedIn: req.isAuthenticated()
+// 		});
+// 	});
+// });
+
+socoRoutes.get('/MostrarMapa/:id', (req, res) => {
+	let id = req.params.id;
+	modelPlaya.findById({_id:id}, (err, playa) =>{
+		if (err) throw err;
 	UbicarServiciosModel.find({}, (err, UbicarServicio) => {
+		if (err) throw err;
+		riesgoModel.find({}, (err, riesgo) => {
 		if (err) throw err;
 		res.render('MostrarMapa', {
 			UbicarServicio: UbicarServicio,
+			Playas: playa,
+			Riesgos: riesgo,
 			isLoggedIn: req.isAuthenticated()
 		});
 	});
+	});
+	});
 });
+
+
+
 
 function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated()) {

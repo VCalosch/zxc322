@@ -5,9 +5,12 @@
     <script>
         var ServiciosLatitud = [];
         var ServiciosLongitud = [];
+
+        var RiesgosLatitud = [];
+        var RiesgosLongitud = [];
     </script>
     
-    <% var PlayaNombre = "El Sardinero"; var test=0; %>
+    <% var PlayaNombre = Playas.nombre; var test=0; %>
     
                             <% 
                             var latt = 0;
@@ -24,6 +27,24 @@
                                                 ServiciosLongitud.push(getLongitudF);
                                         </script> <%} %>
                             <% } %>
+
+                            <% 
+        
+                            for(var i =0; i < Riesgos.length; i++){
+                                    var latitudRiesgos = Riesgos[i].latitud;
+                                    var longitudRiesgos = Riesgos[i].longitud;
+                            %>
+                                <script>
+                                        var getLatitudRiesgos = <%= latitudRiesgos  %>;
+                                        var getLongitudRiesgos = <%= longitudRiesgos  %>;
+                                        RiesgosLatitud.push(getLatitudRiesgos);
+                                        RiesgosLongitud.push(getLongitudRiesgos);
+                                </script>
+                            <%
+                            }
+                            
+                            
+                            %>
 
 
     <% include partials/Mapa %>

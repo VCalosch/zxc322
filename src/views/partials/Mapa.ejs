@@ -64,7 +64,12 @@
             marker = addMarker({
                 coords: new google.maps.LatLng(ServiciosLatitud[i], ServiciosLongitud[i])
             });
-          }
+            }
+            for(var i=0; i<=RiesgosLongitud.length; i++){
+            marker = addMarker({
+                coords: new google.maps.LatLng(RiesgosLatitud[i], RiesgosLongitud[i])
+            });
+            }
         } else {
             console.log("Hello There");
         }

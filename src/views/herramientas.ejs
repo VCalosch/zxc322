@@ -1,0 +1,81 @@
+<html>
+    <head>
+            <meta charset="utf-8">
+            <title>Herramientas</title>
+            <% include partials/head %>
+    </head>
+    <body>
+            <div class="dashboard_container top-container">
+                    <div class="row">
+                      
+                      <!--SideBar Coordinador/Socorrista-->
+                      <div class="col-2">
+                          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Coordinador</a>
+                                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Socorrista</a>
+                          </div>
+                      </div>
+                
+                        <div class="col">
+                
+
+                            
+                
+                            <div class="tab-content" id="v-pills-tabContent">
+                
+                
+                              
+                                  <!--Herramientas de Coordinador-->
+                                  <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                
+                                      <div class="card ">
+                                          <div class="card-header text-center">
+                                            COORDINADOR DE PLAYA
+                                          </div>
+                                          
+                                          <div class="card-body">
+                                            <div class="list-group">
+                                                
+                                              <!-- <a href="/playaAdmin/" class="list-group-item list-group-item-action"><img src="../icons/tool.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Modificar Playa</a>
+                                              <a href="/ss/" class="list-group-item list-group-item-action"><img src="../icons/location.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Ubicar Servicios en Playa</a>
+                                              <a href="/coordinador" class="list-group-item list-group-item-action"><img src="../icons/up.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Dar de Alta un Riesgo</a> -->
+                                              <!-- <a href="MostrarMapa/<%= Playas.id%>"><img src="img/playa.JPG" style="border-radius: 50%; width: 35px; height: 35px;"></a><br><br> -->
+                                              <a href="/MostrarMapa/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/location.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Mostrar Mapa</a>
+                                              <a href="/ubicarServicios/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/edit.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Editar Servicios de Playa</a>
+                                              <a href="/addRiesgo/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/warning.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Gestión de Riesgos</a>
+                                              <a href="" class="list-group-item list-group-item-action"><img src="../icons/error.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Editar Características de Playa</a>
+                                              <a href="" class="list-group-item list-group-item-action"><img src="../icons/informe.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Generar Informes</a>
+                                              <a href="" class="list-group-item list-group-item-action"><img src="../icons/note.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Registro de Actuaciones en Playa</a>
+                                              <a href="" class="list-group-item list-group-item-action"><img src="../icons/history.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Histórico de Eventos Registrados (Visualización/Edición)</a>
+                                              <a href="" class="list-group-item list-group-item-action"><img src="../icons/history.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Histórico de Avisos Registrados (Visualización/Edición)</a>
+                                            </div>
+                                          </div>
+                              
+                                        </div>
+                
+                
+                
+                
+                                  </div>
+                                  <!--Herramientas de Socorrista-->
+                                  <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                
+                                      <div class="card ">
+                                          <div class="card-header text-center">
+                                            SOCORRISTA DE PLAYA
+                                          </div>
+                                          <div class="card-body">
+                                            <div class="list-group">
+                                              <a href="#" class="list-group-item list-group-item-action"><img src="../icons/tool.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Modificar Playa</a>
+                                              <a href="#" class="list-group-item list-group-item-action"><img src="../icons/location.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Ubicar Servicios en Playa</a>
+                                              <a href="#" class="list-group-item list-group-item-action"><img src="../icons/up.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Dar de Alta un Riesgo</a>
+                                            </div>
+                                          </div>
+                              
+                                        </div>
+                
+                                  </div>
+                            </div>
+                </div></div>
+    </body>
+</html>
