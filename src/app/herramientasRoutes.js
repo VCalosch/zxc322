@@ -3,6 +3,8 @@ const herraRoutes = express.Router(); //crear un objeto de tipo express con nomb
 const ServicioModel = require('../app/models/ServicioPlaya'); //llamar al modelo del base de datos
 const UbicarServiciosModel = require('../app/models/UbicarServicios');
 const modelPlaya = require('../app/models/playa');
+const Actuacionesactivas = require('../app/models/Actuacionesactivas');
+const Actuacionesreactivas = require('../app/models/Actuacionesreactivas');
 
 
 //::::::::::render serviciosPlaya::::::::::
@@ -14,15 +16,23 @@ herraRoutes.get('/herramientas/:id/', (req,res) =>{
 			if (err) throw err;
 			UbicarServiciosModel.find({ }, (err,UbicarServicio) =>{
 			if (err) throw err;
+			Actuacionesactivas.find({},(err, ActActivas) => {
+				if(err){ throw err;}
+				Actuacionesreactivas.find({},(err, ActReactivas) =>{
+					if(err){ throw err;}
 		  	 else{
 		  	 	res.render('herramientas', {
 					Playas: playa,
 					Servicio: servicio,
+					Actuacionesactivas : ActActivas,
 					UbicarServicio: UbicarServicio,
+					ActuacionesReactivas:ActReactivas,
 					isLoggedIn: req.isAuthenticated()});
 				   }
 		  	 })
 		  });
+		});
+		});
 	})
 });
 
