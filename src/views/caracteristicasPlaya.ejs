@@ -12,18 +12,43 @@
 
 
                                         <script>
-                                            var contenido = 0;
+                                            var contenido = 1;
                                             $( document ).ready(function() {
                                                 $('#Contenido2, #Contenido3, #Contenido4, #Contenido5, #Contenido6, #Contenido7, #Contenido8').hide();
+                                              
                                             });
                                             function Siguiente(){
-                                                for(var i=0; i<=8; i++){
-                                                    
-                                                }
+                                                
+                                                if(contenido==1){
+                                                $('#Contenido2').show(); 
+                                                $('#Contenido1, #Contenido3, #Contenido4, #Contenido5, #Contenido6, #Contenido7, #Contenido8').hide();contenido++; }
+                                                else if(contenido==2){
+                                                $('#Contenido3').show(); 
+                                                $('#Contenido1, #Contenido2, #Contenido4, #Contenido5, #Contenido6, #Contenido7, #Contenido8').hide();contenido++; }
+                                                else if(contenido==3){
+                                                $('#Contenido4').show(); 
+                                                $('#Contenido1, #Contenido3, #Contenido2, #Contenido5, #Contenido6, #Contenido7, #Contenido8').hide();contenido++; }
+                                                else if(contenido==4){
+                                                $('#Contenido5').show(); 
+                                                $('#Contenido1, #Contenido3, #Contenido4, #Contenido2, #Contenido6, #Contenido7, #Contenido8').hide();contenido++; }
+                                                else if(contenido==5){
+                                                $('#Contenido6').show(); 
+                                                $('#Contenido1, #Contenido3, #Contenido4, #Contenido5, #Contenido2, #Contenido7, #Contenido8').hide();contenido++; }
+                                                else if(contenido==6){
+                                                $('#Contenido7').show(); 
+                                                $('#Contenido1, #Contenido3, #Contenido4, #Contenido5, #Contenido6, #Contenido2, #Contenido8').hide();contenido++; }
+                                                else if(contenido==7){
+                                                $('#Contenido8').show(); 
+                                                $('#Contenido1, #Contenido3, #Contenido4, #Contenido5, #Contenido6, #Contenido7, #Contenido2').hide();contenido++; }   
                                             }
                                             
                                             function Atras(){
-
+                                                contenido=contenido-2;
+                                                Siguiente();
+                                                if(contenido==0){
+                                                $('#Contenido1').show(); 
+                                                $('#Contenido2, #Contenido3, #Contenido4, #Contenido5, #Contenido6, #Contenido7, #Contenido8').hide();contenido++;}
+                                                
                                             }
 
                                         </script>
@@ -33,7 +58,7 @@
 
 
 
-                                        <div id="1">
+                                        <div id="Contenido1">
                                             <div class="form-row" >
                                                     <div class="col"><input class="form-control" formControlName="Municipio" placeholder="Municipio" ></div>
                                                     <div class="col"><input class="form-control" formControlName="Provincia" placeholder="Provincia"></div>
