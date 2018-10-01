@@ -51,16 +51,16 @@ socoRoutes.get('/coordPlayas', (req, res) => {
     res.render('coordPlayas');
 });
 
-socoRoutes.post('/SolicitarPlaya' , (req, res) =>{ //Agregar solicitud playa ̈́
-	let body = req.body;
-	body.status = false;
-	COOsolcPlaya.create(body, (err, newSolPlaya) =>{
-		if(err){ throw err;}
-		else{
-			res.redirect('/coordinador');
-		}
-	})
-});
+// socoRoutes.post('/ss' , (req, res) =>{ //Agregar solicitud playa ̈́
+// 	let body = req.body;
+// 	body.status = false;
+// 	modelPlaya.create(body, (err, newSolPlaya) =>{
+// 		if(err){ throw err;}
+// 		else{
+// 			res.redirect('back');
+// 		}
+// 	})
+// });
 
 
 
@@ -169,6 +169,15 @@ socoRoutes.get('/MostrarMapa/:id', (req, res) => {
 	});
 });
 
+socoRoutes.post('/addPlaya', isLoggedIn, (req, res) => {
+	let body = req.body;
+	body.status = false;
+
+	socoRoutes.create(body, (err, Playa) => {
+		if (err) throw err;
+		res.redirect('back');
+	});
+});
 
 
 

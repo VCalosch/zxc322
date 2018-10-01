@@ -16,7 +16,8 @@
 
 
 <script>
-    var carlos=0;
+    var marcadoresServicios=0;
+    var marcadoresRiesgos=0;
     var map;
     var currentLatitud;
     var currentLongitud;
@@ -59,20 +60,22 @@
             // Defininar Mapa
         map = new google.maps.Map(document.getElementById('map'), options);
 
-        if(carlos == 1){
+        if(marcadoresServicios == 1){
             for(var i=0; i<=ServiciosLongitud.length; i++){
             marker = addMarker({
                 coords: new google.maps.LatLng(ServiciosLatitud[i], ServiciosLongitud[i])
             });
             }
+        }
+
+        if(marcadoresRiesgos == 1){
             for(var i=0; i<=RiesgosLongitud.length; i++){
             marker = addMarker({
                 coords: new google.maps.LatLng(RiesgosLatitud[i], RiesgosLongitud[i])
             });
             }
-        } else {
-            console.log("Hello There");
         }
+
            
         google.maps.event.addListener(map, 'click', function(event) {
             

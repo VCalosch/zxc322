@@ -81,11 +81,18 @@
 												</div>
 												
 
-
+												<% var nombrePlayaPOST = Playas.nombre; %>
+												<script>
+													var xxs = "<%=nombrePlayaPOST%>";
+													
+												</script>
+												
 												<script>
 													var ContenidoActual = 1;
+
 													function ContenidoSiguiente(){
 														document.getElementById("NombreRiesgoPOST").value = document.getElementById("NombreRiesgo").value ;
+														document.getElementById("playaRiesgo").value = xxs ;
 														ContenidoActual++;
 														$("#Contenido1").hide();
 														$("#Contenido2").show();
@@ -413,12 +420,15 @@
 										});
 
 
-                        		</script>
+								</script>
+								
+								
 
 								<div class="form-row">
 									<div class="col d-flex justify-content-center">
 
 												<form action="/addRiesgo" method="post">
+													<input type="hidden" name="playa" id="playaRiesgo">
 													<input type="hidden" name="latitud" id="latitudRiesgo">
 													<input type="hidden" name="longitud" id="longitudRiesgo">
 													<input type="hidden" name="nombre" id="NombreRiesgoPOST" >
@@ -498,6 +508,7 @@
 						document.getElementById("probabilidad").value = $( "#slSeveridad option:selected" ).val();
 						document.getElementById("severidad").value = $( "#slProbabilidad option:selected" ).val();
 						
+						
 
 						var today = new Date();
 						var dd = today.getDate();
@@ -515,6 +526,7 @@
 						today = dd + '/' + mm + '/' + yyyy;
 						
 						$('#fechaRiesgo').val(today);
+						$('#playaRiesgo').val(today);
 
 						if(resultado == 2){
 							$('#txtEval').val("Flojo");

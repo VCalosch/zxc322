@@ -116,7 +116,7 @@ routPlaya.post('/addPlaya', isLoggedIn, (req, res) => {
 
 	modelPlaya.create(body, (err, Playa) => {
 		if (err) throw err;
-		res.redirect('/playaAdmin');
+		res.redirect('back');
 	});
 });
 

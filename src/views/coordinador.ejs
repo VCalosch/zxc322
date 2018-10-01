@@ -219,14 +219,14 @@ function initCoords() {
             <div class="card">
                 <div class="card-body Margenes">
 
-                    <form action="/SolicitarPlaya" method="post" name="SolicitarPlayaForm">
+                    <form action="/addPlaya" method="post" name="SolicitarPlayaForm">
                         <div class="form-row">
                             <div class="col">
-                                <input onkeyup="SolicitarPlayaValidity();" required="required" type="text" class="form-control" placeholder="Nombre de la Playa" name="nombrePlaya" id="vPlaya">
+                                <input onkeyup="SolicitarPlayaValidity();" required="required" type="text" class="form-control" placeholder="Nombre de la Playa" name="nombre" id="vPlaya">
                             </div>
 
                             <div class="col">
-                                <input onkeyup="SolicitarPlayaValidity();" required="required" type="email" class="form-control" placeholder="Correo Electronico" name="CorreoElectronico" id="vMail">
+                                <input onkeyup="SolicitarPlayaValidity();" required="required" type="email" class="form-control" placeholder="Correo Electronico" name="mail" id="vMail">
                             </div>
                         </div>
                         <br>
@@ -260,15 +260,19 @@ function initCoords() {
 
                         <div class="form-row">
                             <label for="exampleFormControlTextarea1">Comentarios:</label>
-                            <textarea onkeyup="SolicitarPlayaValidity();" required="required" class="form-control" rows="3" name="Comentarios" id="vComentarios"></textarea>
+                            <textarea onkeyup="SolicitarPlayaValidity();" required="required" class="form-control" rows="3" name="comentarios" id="vComentarios"></textarea>
                         </div>
                         <br>
+
+
                         <div class="form-row">
 
                             <div class="col"></div>
                             <div class="col-auto">
-                                <button type="submit" class="btn btn-primary btn-lg" id="SolicitarPlaya_btn">Solicitar</button></div>
-                            <div class="col"></div>
+                                
+                                    <button type="submit" class="btn btn-primary btn-lg" id="SolicitarPlaya_btn">Solicitar</button></div>
+                                
+                                <div class="col"></div>
 
                         </div>
                     </form>

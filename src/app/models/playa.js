@@ -9,9 +9,10 @@ if (!db) {
 
 var Playa = new Schema({
 	nombre: String,
-	descripcion: String,
-	tipoarena: String,
-	ubicacion: String
+	mail: String,
+	latitud: String,
+	longitud: String,
+	comentarios: String
 });
 
 module.exports = mongoose.model('Playa', Playa);

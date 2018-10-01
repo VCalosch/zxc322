@@ -10,21 +10,37 @@ const modelPlaya = require('../app/models/playa');
 
 
 //Listar riesgos
-routRiesgos.get('/riegosAdmin', isLoggedIn, (req, res) => {
+// routRiesgos.get('/riegosAdmin', isLoggedIn, (req, res) => {
+// 	modelRiesgos.find({}, (err, riesgo) => {
+// 		if (err) { throw err; }
+// 		else {
+// 			res.render('riegosAdmin', {
+// 				Riesgos: riesgo,
+// 				isLoggedIn: req.isAuthenticated() 
+// 			});
+// 		}
+// 	});
+// });
+
+//Listar Riesgos
+routRiesgos.get('/riesgos/:id', isLoggedIn, (req, res) => {
+	let id = req.params.id;
+	modelPlaya.findById({_id:id}, (err, playa) =>{
+		if (err)  throw err;
 	modelRiesgos.find({}, (err, riesgo) => {
 		if (err) { throw err; }
 		else {
 			res.render('riegosAdmin', {
 				Riesgos: riesgo,
+				Playas: playa,
 				isLoggedIn: req.isAuthenticated() 
 			});
 		}
 	});
+	});
 });
 
-
-
-//render de riesgos
+//Agregar Riesgos
 routRiesgos.get('/addRiesgo/:id', isLoggedIn, (req, res) => {
 	let id = req.params.id;
 	modelPlaya.findById({_id:id}, (err, playa) =>{
@@ -70,42 +86,42 @@ routRiesgos.post('/addRiesgo', isLoggedIn, (req, res) => {
 
 
 //Eliminar Riesgo
-routRiesgos.get('/riegosAdmin/delete/:id', isLoggedIn, (req, res) => {
-	let id = req.params.id;
-	modelRiesgos.findByIdAndRemove({ _id: id }, (err, riesgo) => {
-		if (err) { throw err; }
-		else {
-			res.redirect('/riegosAdmin');
-		}
-	});
-});
+// routRiesgos.get('/riegosAdmin/delete/:id', isLoggedIn, (req, res) => {
+// 	let id = req.params.id;
+// 	modelRiesgos.findByIdAndRemove({ _id: id }, (err, riesgo) => {
+// 		if (err) { throw err; }
+// 		else {
+// 			res.redirect('/riegosAdmin');
+// 		}
+// 	});
+// });
 
 
 //render de modificar riesgos
-routRiesgos.get('/riegosAdmin/modRiesgo/:id', isLoggedIn, (req, res) => {
-	let id = req.params.id;
-	modelRiesgos.findById({ _id: id }, (err, riesgo) => {
-		if (err) { throw err; }
-		else {
-			res.render('modRiesgo', {
-				Riesgos: riesgo,
-				isLoggedIn: req.isAuthenticated() 
-			});
-		}
-	});
-});
+// routRiesgos.get('/riegosAdmin/modRiesgo/:id', isLoggedIn, (req, res) => {
+// 	let id = req.params.id;
+// 	modelRiesgos.findById({ _id: id }, (err, riesgo) => {
+// 		if (err) { throw err; }
+// 		else {
+// 			res.render('modRiesgo', {
+// 				Riesgos: riesgo,
+// 				isLoggedIn: req.isAuthenticated() 
+// 			});
+// 		}
+// 	});
+// });
 
 //modificar riesgos
-routRiesgos.post('/riegosAdmin/modRiesgo/:id', isLoggedIn, (req, res) => {
-	let id = req.params.id;
-	let body = req.body;
-	modelRiesgos.findByIdAndUpdate({ _id: id }, body, (err, riesgo) => {
-		if (err) { throw err; }
-		else {
-			res.redirect('/riegosAdmin');
-		}
-	});
-});
+// routRiesgos.post('/riegosAdmin/modRiesgo/:id', isLoggedIn, (req, res) => {
+// 	let id = req.params.id;
+// 	let body = req.body;
+// 	modelRiesgos.findByIdAndUpdate({ _id: id }, body, (err, riesgo) => {
+// 		if (err) { throw err; }
+// 		else {
+// 			res.redirect('/riegosAdmin');
+// 		}
+// 	});
+// });
 
 // ---------------------- Riesgos CV --------------------------------
 

@@ -8,6 +8,7 @@ if (!db) {
 }
 
  var Riesgos = new Schema({
+        playa: String,
         nombre: String,
         latitud: Number,
         longitud: Number,

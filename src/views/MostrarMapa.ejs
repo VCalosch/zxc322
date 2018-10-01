@@ -92,11 +92,18 @@
                                 
                                 $('#Servicios').change(function(){
                                     if (this.checked) {
-                                    carlos = 1;
+                                        marcadoresServicios = 1;
                                     initMap();
                                     }else
-                                        carlos = 0; initMap();
+                                    marcadoresServicios = 0; initMap();
+                                });
 
+                                $('#Riesgos').change(function(){
+                                    if (this.checked) {
+                                        marcadoresRiesgos = 1;
+                                    initMap();
+                                    }else
+                                    marcadoresRiesgos = 0; initMap();
                                 });
                             </script>
                             
