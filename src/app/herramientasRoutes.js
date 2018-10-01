@@ -26,6 +26,25 @@ herraRoutes.get('/herramientas/:id/', (req,res) =>{
 	})
 });
 
+herraRoutes.get('/caracteristicasPlaya/:id/', (req,res) =>{
+	let id = req.params.id;
+	modelPlaya.findById({_id: id}, (err, playa) =>{
+		if(err) throw err;
+		  ServicioModel.find({ }, (err,servicio) =>{
+			if (err) throw err;
+			UbicarServiciosModel.find({ }, (err,UbicarServicio) =>{
+			if (err) throw err;
+		  	 else{
+		  	 	res.render('caracteristicasPlaya', {
+					Playas: playa,
+					Servicio: servicio,
+					UbicarServicio: UbicarServicio,
+					isLoggedIn: req.isAuthenticated()});
+				   }
+		  	 })
+		  });
+	})
+});
 
 	
 
