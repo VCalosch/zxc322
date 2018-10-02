@@ -316,28 +316,57 @@ function initCoords() {
             <div class="card">
                 <div class="card-body Margenes">
 
-                    <form action="/AgregarUsuario" action="/signup" method="post" name="AgregarUsuario">
+
+
+                    <form action="/signup" method="post">
                         <div class="form-row">
-                            <div class="col">
-                                <input onkeyup="checkFormsValidity();" type="text" class="form-control validador" placeholder="Usuario" name="email" id="vUsuario" required="required">
+                                <div class="col">
+                                    <input class="form-control" placeholder="Usuario" name="usuario">
+                                </div>
+
+                                <div class="col">
+                                    <input type="password" class="form-control validador" placeholder="Password" name="password">
+                                </div>
+
+                                <div class="col">
+                                    <select class="form-control validador" id="vRol">
+                                        <option selected disabled value="">Rol de Usuario</option>
+                                        <option value='1'>Encargado</option> 
+                                        <option value='0'>Socorrista</option> 
+                                    </select>
+                                </div>
+
+                                <div class="col">
+                                    <select class="form-control validador" id="vSexo">
+                                        <option selected disabled value="">Sexo</option>
+                                        <option value="Hombre">Hombre</option> 
+                                        <option value="Mujer">Mujer</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
+                                </div>
+                        </div>
+
+
+                        <!-- <div class="col">
+                                <input  type="text" class="form-control validador" placeholder="Usuario" name="usuario">
                             </div>
                             <div class="col">
-                                <input onkeyup="checkFormsValidity();" required="required" type="password" class="form-control validador" placeholder="Password" name="password" id="vPassword">
+                                <input type="password" class="form-control validador" placeholder="Password" name="password">
                             </div>
                             <div class="col">
-                                <select class="form-control validador" name="rol" id="vRol">
+                                <select class="form-control validador" id="vRol">
                           <option selected disabled value="">Rol de Usuario</option>
-                          <option id="Encargado" value='Encargado'>Encargado</option> 
-                          <option id="Socorrista" value='Socorrista'>Socorrista</option> 
+                          <option value='1'>Encargado</option> 
+                          <option value='0'>Socorrista</option> 
 
                         </select>
                             </div>
                             <div class="col">
-                                <select class="form-control validador" name="sexo" id="vSexo">
+                                <select class="form-control validador" id="vSexo">
                           <option selected disabled value="">Sexo</option>
-                          <option id="Hombre" value='Hombre'>Hombre</option> 
-                          <option id="Mujer" value='Mujer'>Mujer</option>
-                          <option id="Otro" value='Otro'>Otro</option>
+                          <option value="Hombre">Hombre</option> 
+                          <option value="Mujer">Mujer</option>
+                          <option value="Otro">Otro</option>
                         </select>
                             </div>
                         </div>
@@ -352,33 +381,26 @@ function initCoords() {
                         </div>
                         <div class="form-row">
 
-                            <div class="card-columns">
-                                <% for(var i=0; i<Playas.length; i++) {%>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <label for="nombre">Nombre: </label>
-                                                <%= Playas[i].nombre %>
-                                                    <input onchange="checkBoxValidation(this.checked)" type="checkbox" id="ChecPlaya" name="ChecPlaya" value="<%= Playas[i].nombre %>">
-                                            </h5>
-                                        </div>
-                                    </div>
-                                    <% }%>
-                            </div>
+                            <select class="form-control" id="SelectPlaya">
+                                <option disabled selected>Selecciona una Playa</option>
+                                <% for(var i=0; i<Playas.length; i++) { %>
+                                        <option value="<%=Playas[i].nombre%>"><%=Playas[i].nombre%></option>
+                                        <% }%>
+                            </select>
 
                         </div>
-                        <input type="hidden">
+                        
                         <br>
                         <div class="form-row">
                             <div class="col">
-                                <input onkeyup="checkFormsValidity();" required="required" type="text" class="form-control validador" placeholder="Nº de Temporadas como Socorrista" name="number" id="vTemporadas">
+                                <input type="text" class="form-control validador" placeholder="Nº de Temporadas como Socorrista" name="numeroTemporadas">
                             </div>
                             <div class="col">
-                                <select name="experiencia" class="form-control validador" id="vExperiencia">
-                          <option disabled selected value="">Experiencia en:</option>
-                         <option value='playa'>Playas</option> 
-                         <option value='piscina'>Piscinas</option> 
-                          <option  value='playaYpiscina'>Playa y Piscina</option> 
+                                <select class="form-control validador" id="vExperiencia">
+                                    <option disabled selected value="">Experiencia en:</option>
+                                    <option value='playa'>Playas</option> 
+                                    <option value='piscina'>Piscinas</option> 
+                                    <option  value='playa y piscina'>Playa y Piscina</option> 
                        </select>
                             </div>
                         </div>
@@ -387,22 +409,22 @@ function initCoords() {
 
                         <div class="form-row">
                             <label for="exampleFormControlTextarea1">Descricpión:</label>
-                            <textarea onkeyup="checkFormsValidity();" required="required" class="form-control validador" rows="3" name="descripcion" id="vDescripcion"></textarea>
+                            <textarea class="form-control validador" rows="3" name="descripcion1"></textarea>
                         </div>
 
                         <br>
 
                         <div class="form-row">
                             <div class="col">
-                                <input onkeyup="checkFormsValidity();" required="required" type="text" class="form-control validador" placeholder="Horas de Formación" name="horasForm" id="vHorasFormacion">
+                                <input type="text" class="form-control validador" placeholder="Horas de Formación" name="horasFormacion">
                             </div>
 
                             <div class="col">
-                                <input onkeyup="checkFormsValidity();" required="required" type="text" class="form-control validador" placeholder="Ultima Actualización de Formación" name="LastActForm" id="vActualizacionFormacion">
+                                <input type="text" class="form-control validador" placeholder="Ultima Actualización de Formación" name="ultimaActualizacion">
                             </div>
 
                             <div class="col">
-                                <input type="text" class="form-control validador" placeholder="Entidad Formadora" name="entidadForma" id="vEntidadFormadora">
+                                <input type="text" class="form-control validador" placeholder="Entidad Formadora" name="entidadFormadora">
                             </div>
 
                         </div>
@@ -411,28 +433,55 @@ function initCoords() {
 
                         <div class="form-row">
                             <label for="exampleFormControlTextarea1">Descripción:</label>
-                            <textarea onkeyup="checkFormsValidity();" required="required" class="form-control validador" rows="3" name="descripcion2" id="vDescripcion2"></textarea>
+                            <textarea class="form-control validador" rows="3" name="descripcion2"></textarea>
                         </div>
 
                         <br>
 
                         <div class="form-row">
                             <div class="col">
-                                <input onkeyup="checkFormsValidity();" required="required" type="email" class="form-control validador" placeholder="Correo Electronico" name="correo" id="vCorreo" >
+                                <input type="email" class="form-control validador" placeholder="Correo Electronico" name="email" >
                             </div>
                             <div class="col">
-                                <input onkeyup="checkFormsValidity();" required="required" type="text" class="form-control validador" placeholder="Codigo" name="codigo" id="vCodigo">
+                                <input type="text" class="form-control validador" placeholder="Codigo" name="codigo" >
                             </div>
                             <div class="col">
-                                <input onkeyup="checkFormsValidity();" required="required" type="text" class="form-control validador" placeholder="Fecha de Inicio de Contrato" name="fecha" id="vFecha">
+                                <input type="text" class="form-control validador" placeholder="Fecha de Inicio de Contrato" name="fechaInicioContrato" >
                             </div>
                         </div>
 
                         <br>
+
+                        <script>
+                                $("#vSexo").change(function() {
+                                    var val = $(this).val();
+                                    document.getElementById("sexoPOST").value = val;
+                                });
+                                $("#vRol").change(function() {
+                                    var val = $(this).val();
+                                    document.getElementById("rolPOST").value = val;
+                                });
+   
+                                $("#SelectPlaya").change(function() {
+                                    var val = $(this).val();
+                                    document.getElementById("playaPOST").value = val;
+                                });
+                                
+                                $("#vExperiencia").change(function() {
+                                    var val = $(this).val();
+                                    document.getElementById("experienciaPOST").value = val;
+                                });
+                                
+                        </script>
+                        <input type="hidden" name="sexo" id="sexoPOST">
+                        <input type="hidden" name="role" id="rolPOST">
+                        <input type="hidden" name="playa" id="playaPOST">
+                        <input type="hidden" name="experiencia" id="experienciaPOST"> -->
+                        
 
                         <div class="form-row">
                             <div class="col"></div>
-                            <div class="col-auto"><button type="submit" name="submit_name" id="SubmitButton" class="btn btn-primary btn-lg">Registrar</button></div>
+                            <div class="col-auto"><button type="submit" class="btn btn-primary btn-lg">Registrar</button></div>
                             <div class="col"></div>
                         </div>
                     </form>

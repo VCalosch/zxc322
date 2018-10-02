@@ -33,6 +33,22 @@ module.exports = function(passport){ //recive los datos de parssport
 				var newUser = new User();
 				newUser.local.email = email;
 				newUser.local.password = newUser.generateHash(password);
+
+				newUser.local.role = req.body.role;
+				newUser.local.sexo = req.body.sexo;
+				newUser.local.playa = req.body.playa;
+				newUser.local.numeroTemporadas = req.body.numeroTemporadas;
+				newUser.local.experiencia = req.body.experiencia;
+				newUser.local.descripcion1 = req.body.descripcion1;
+				newUser.local.horasFormacion = req.body.horasFormacion;
+				newUser.local.ultimaActualizacion = req.body.ultimaActualizacion;
+				newUser.local.entidadFormadora = req.body.entidadFormadora;
+				newUser.local.descripcion2 = req.body.descripcion2;
+				newUser.local.usuario = req.body.usuario;
+				newUser.local.codigo = req.body.codigo;
+				newUser.local.fechaInicioContrato = req.body.fechaInicioContrato;
+				newUser.local.date = req.body.date;
+
 				newUser.save(function (err){
 					if(err){throw err;}
 				return done(null, newUser);
