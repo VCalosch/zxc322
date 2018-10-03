@@ -5,6 +5,26 @@
             <% include partials/head %>
     </head>
     <body>
+
+        <script type="text/javascript">
+          window.eventos = <%- JSON.stringify(Eventos) %>
+        </script>
+        <script>
+            function onChange() {
+              var id = document.getElementById("eventosSelect").value; 
+           
+        
+              const event = eventos.filter((ev) => ev._id == id)
+             
+              let descriptionsHTML = ''
+              event[0].descripcion.forEach(des => {
+                descriptionsHTML += `<option value=${des.name}> ${des.name} </option>`
+              })
+              document.getElementById("descripcionSelect").innerHTML = descriptionsHTML;
+            }
+        </script>
+
+
             <div class="dashboard_container top-container">
                     <div class="row">
                       
@@ -22,34 +42,51 @@
                               
                                   <!--Herramientas de Coordinador-->
                                   <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                
+
+                                      <% var TipoUsuario = user.local.role; %>
                                       <div class="card ">
                                           <div class="card-header text-center">
-                                            COORDINADOR DE PLAYA
+                                            <%  if( TipoUsuario === 0 ) { %>
+                                              COORDINADOR DE PLAYA
+                                            <% } else if(TipoUsuario === 2) { %>
+                                             
+                                            SOCORRISTA DE PLAYA
+                                            <% } %>   
                                           </div>
                                           
                                           <div class="card-body">
                                             <div class="list-group">
-                                                
-                                              <!-- <a href="/playaAdmin/" class="list-group-item list-group-item-action"><img src="../icons/tool.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Modificar Playa</a>
-                                              <a href="/ss/" class="list-group-item list-group-item-action"><img src="../icons/location.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Ubicar Servicios en Playa</a>
-                                              <a href="/coordinador" class="list-group-item list-group-item-action"><img src="../icons/up.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Dar de Alta un Riesgo</a> -->
-                                              <!-- <a href="MostrarMapa/<%= Playas.id%>"><img src="img/playa.JPG" style="border-radius: 50%; width: 35px; height: 35px;"></a><br><br> -->
+
+                                              <%
+                                                 
+                                                if( TipoUsuario === 0 ) { %> 
+                                              
+
                                               <a href="/MostrarMapa/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/location.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Mostrar Mapa</a>
                                               <a href="/ubicarServicios/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/edit.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Editar Servicios de Playa</a>
                                               <a href="/riesgos/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/warning.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Gestión de Riesgos</a>
                                               <a href="/caracteristicasPlaya/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/error.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Editar Características de Playa</a>
-                                              <a href="" class="list-group-item list-group-item-action"><img src="../icons/informe.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Generar Informes</a>
+                                              <a href="" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#exampleModal1"><img src="../icons/informe.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Generar Informes</a>
                                               <a href="" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#exampleModal"> <img src="../icons/note.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Registro de Actuaciones en Playa</a>
                                               <a href="" class="list-group-item list-group-item-action"><img src="../icons/history.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Histórico de Eventos Registrados (Visualización/Edición)</a>
-                                              <a href="" class="list-group-item list-group-item-action"><img src="../icons/history.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Histórico de Avisos Registrados (Visualización/Edición)</a>
+                                              <a href="/avisos/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/history.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Histórico de Avisos Registrados (Visualización/Edición)</a>
+                                              
+                                            <% }
+                                            else if(TipoUsuario === 2) { %>
+                                              <a href="" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#exampleModal"> <img src="../icons/note.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Registro de Actuaciones en Playa</a>
+                                              <a href="" class="list-group-item list-group-item-action"><img src="../icons/history.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Histórico de Eventos Registrados (Visualización/Edición)</a>
+                                              <a href="/avisos/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/history.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Histórico de Avisos Registrados (Visualización/Edición)</a>
+                                            <% } %>
                                             </div>
                                           </div>
                               
                                         </div>
-                                        <a href='/exporttocsv/<%= Playas.id%>'>Crear CSV </a>
+                                       
                 
                                   </div>
+<script>
+  var playaActual = "<%=Playas.nombre %>";
+</script>
 
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -64,16 +101,31 @@
       <div class="modal-body">
         <div class="form-row">
           <div class="col">
-          <select class="form-control">
+          <select class="form-control" id="AccionesPreventivasSelect">
             <option selected disabled>Selecciona una Actuación Activa</option>
             <%
             for(var i =0; i < Actuacionesactivas.length; i++){ 
               %> <option><%=Actuacionesactivas[i].ActuacionActivas%></option> <%  }
             %>
           </select>
+          <script>
+              $("#AccionesPreventivasSelect").change(function() {
+                  var val = $(this).val();
+                  document.getElementById("ActuacionActivaPost").value = val;
+                  document.getElementById("ActuacionActivaPlaya").value = playaActual;
+                  document.FormActuacionActiva.submit();
+                  
+              });
+            
+          </script>
+          <form action="/addActivas" method="post" name="FormActuacionActiva">
+            <input type="hidden" name="ActuacionActiva" id="ActuacionActivaPost">
+            <input type="hidden" name="playa" id="ActuacionActivaPlaya">
+          </form>
+
           </div>
           <div class="col">
-              <select class="form-control">
+              <select class="form-control" id="ActuacionReactivaSelect">
                   <option selected disabled>Selecciona una Actuación Reactiva</option>
                   <%
                   for(var i =0; i < ActuacionesReactivas.length; i++){ 
@@ -81,6 +133,21 @@
                   %>
                 </select>
           </div>
+
+          <script>
+                $("#ActuacionReactivaSelect").change(function() {
+                  var val = $(this).val();
+                  document.getElementById("ActuacionReactivaPost").value = val;
+                  document.getElementById("ActuacionReactivaPlaya").value = playaActual;
+                  document.theFormActuacionReactiva.submit();
+              });
+          </script>
+
+          <form action="/addReactivas" method="post" name="theFormActuacionReactiva">
+            <input type="hidden" name="ActuacionReactiva" id="ActuacionReactivaPost">
+            <input type="hidden" name="playa" id="ActuacionReactivaPlaya">
+          </form>
+
         </div>
         <br><hr>
         <div class="form-row">
@@ -98,18 +165,32 @@
         <br>
         <div class="form-row">
             <div class="col">
-                <select class="form-control" id="SelectEvento">
+                <select class="form-control" id="eventosSelect" onchange="onChange()">
                     <option disabled selected>Evento</option>
+                    <% for(var i=0; i<Eventos.length; i++) {%>
+                        <option value='<%= Eventos[i]._id %>'>
+                          <%= Eventos[i].evento %>
+  
+                        </option>
+                        <% } %>
                   </select>
             </div>
             <div class="col">
-                <select class="form-control" id="SelectDescripcion">
+                <select class="form-control" id="descripcionSelect">
                     <option disabled selected>Descripción</option>
                   </select>
             </div>
             <div class="col">
                 <select class="form-control" id="SelectConsecuencias">
                     <option disabled selected>Consecuencias</option>
+                    <option value="Sin consecuencias">Sin consecuencias</option>
+                    <option value="Recomendación de observación posterior">Recomendación de observación posterior</option>
+                    <option value="Traslado a Centro Hospitalario">Traslado a Centro Hospitalario</option>
+                    <option value="Ahogamiento mortal sin aspiración">Ahogamiento mortal sin aspiración</option>
+                    <option value="Ahogamiento mortal con aspiración">Ahogamiento mortal con aspiración</option>
+                    <option value="Fallecimiento sin ahogamiento">Fallecimiento sin ahogamiento</option>
+                    <option value="Lesiones">Lesiones</option>
+                    <option value="PCR recuperada y traslado a centro hospitalario">PCR recuperada y traslado a centro hospitalario</option>
                   </select>
             </div>
           </div>
@@ -121,6 +202,46 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+<!--MODAL2-->
+
+<div class="modal fade bd-example-modal-lg" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Acciones Preventivas / Avisos Preventivos</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-row">
+            
+              <div class="col"></div>
+              <div class="form-row">
+                  <div class="col"><button type="button" class="btn btn-primary" onclick="location='/exporttocsv/<%= Playas.id%>'">Crear CSV Playa Actual</button></div>
+                  <div class="col"><button type="button" class="btn btn-primary" onclick="location='/exporttocsv'">Crear CSV Todas las Playas</button></div>
+              </div>
+              <div class="col"></div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div></div></div>
+
+
+
+
+
 
                                   <!--Herramientas de Socorrista-->
                                   <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">

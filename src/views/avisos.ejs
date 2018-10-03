@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>Avisos Registrados</title>
+        <% include partials/head %> 
+    </head>
+
+    <body>
+        <div class="dashboard_container top-container">
+                <div class="tab-content" id="myTabContent">
+                            <div class="card">
+                                    <div class="card-body" style="margin-top: 60px; margin-bottom: 60px; margin-left: 20px; margin-right: 20px;">
+
+                                        <div class="form-row">
+                                            <div class="col-1"></div>
+                                            <div class="col">
+                                                    <div class="form-row">
+                                                            <div class="col"></div><div class="col-auto"><h5>Acciones Preventivas</h5></div><div class="col"></div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <%
+                                                            for(var i=0; i < ActuacionActiva.length; i++){
+                                                                if(Playas.nombre === ActuacionActiva[i].playa ){
+                                                            %><button type="button" class="btn btn-primary btn-sm btn-block"><%=ActuacionActiva[i].ActuacionActiva%></button><%
+                                                            } }
+                                                        %>
+                                                    </div>
+                                            </div>
+                                            <div class="col-1"></div>
+                                            <div class="col">
+                                                    <div class="form-row">
+                                                            <div class="col"></div><div class="col-auto"><h5>Avisos Preventivos</h5></div><div class="col"></div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                            <%
+                                                                for(var i=0; i < ActuacionReactiva.length; i++){
+                                                                    if(Playas.nombre === ActuacionReactiva[i].playa ){
+                                                                %><button type="button" class="btn btn-primary btn-sm btn-block"><%=ActuacionReactiva[i].ActuacionReactiva%></button> <%
+                                                                } }
+                                                            %>
+                                                        </div>
+                                            </div>
+                                            <div class="col-1"></div>
+                                        </div>
+
+
+
+
+                                    </div>
+                            </div>
+                </div>
+        </div>
+    </body>
+
+</html>

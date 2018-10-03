@@ -119,7 +119,7 @@ module.exports = (app, passport) => {
 		failureRedirect: '/login', // Error y te quedas en el login
 		failureFlash: true
 	}), function (req, res) {
-		res.redirect('/profile');
+		res.redirect('/coordinador');
 	});
 
 

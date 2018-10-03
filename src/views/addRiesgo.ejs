@@ -474,7 +474,9 @@
 
 
 
-
+<script>
+	var PlayasNombre= "<%= Playas.nombre %>";
+</script>
 
 
 
@@ -526,7 +528,7 @@
 						today = dd + '/' + mm + '/' + yyyy;
 						
 						$('#fechaRiesgo').val(today);
-						$('#playaRiesgo').val(today);
+						$('#playaRiesgo').val(PlayasNombre);
 
 						if(resultado == 2){
 							$('#txtEval').val("Flojo");

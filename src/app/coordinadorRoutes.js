@@ -16,10 +16,12 @@ const request = require('request');
 const UbicarServiciosModel = require('../app/models/UbicarServicios');
 const CoordinadorRoutes = express.Router();
 const riesgoModel = require('../app/models/riesgos');
+const ActuacionActiva = require('../app/models/addActuacionActiva');
+const ActuacionReactiva = require('../app/models/addActuacionReactiva');
 /******************************************************************************************************************* */
 
 
-socoRoutes.get('/coordinador', (req, res) => { //Listar Todo
+socoRoutes.get('/coordinador',  (req, res) => { //Listar Todo
 	modelPlaya.find({}, (err, playa) => {
 		if (err) throw err;
 		User.find({},(err,users) =>{
@@ -32,6 +34,7 @@ socoRoutes.get('/coordinador', (req, res) => { //Listar Todo
 							if(err){throw err;}
 							else{
 							res.render('coordinador', {
+							user: req.user,
 							Playas: playa,
 							lista: users,
 							Actuaciones: Act, //SOLO CAMBIE ESTOOO ME VOY ALV
@@ -169,6 +172,25 @@ socoRoutes.get('/MostrarMapa/:id', (req, res) => {
 	});
 });
 
+socoRoutes.get('/avisos/:id', (req, res) => {
+	let id = req.params.id;
+	modelPlaya.findById({_id:id}, (err, playa) =>{
+		if (err) throw err;
+		ActuacionActiva.find({}, (err, ActuacionActiva) => {
+			if (err) throw err;
+			ActuacionReactiva.find({}, (err, ActuacionReactiva) => {
+				if (err) throw err;
+		res.render('avisos', {
+			ActuacionActiva: ActuacionActiva,
+			ActuacionReactiva: ActuacionReactiva,
+			Playas: playa,
+			isLoggedIn: req.isAuthenticated()
+		});
+	});
+});
+});
+});
+
 socoRoutes.post('/addPlaya', isLoggedIn, (req, res) => {
 	let body = req.body;
 	body.status = false;
@@ -178,6 +200,37 @@ socoRoutes.post('/addPlaya', isLoggedIn, (req, res) => {
 		res.redirect('back');
 	});
 });
+
+// socoRoutes.post('/addAviso', isLoggedIn, (req, res) => {
+// 	let body = req.body;
+// 	body.status = false;
+
+// 	Avisos.create(body, (err, Aviso) => {
+// 		if (err) throw err;
+// 		res.redirect('back');
+// 	});
+// });
+
+socoRoutes.post('/addActivas', isLoggedIn, (req, res) => {
+		let body = req.body;
+		body.status = false;
+	
+		ActuacionActiva.create(body, (err, Aviso) => {
+			if (err) throw err;
+			res.redirect('back');
+		});
+});
+
+socoRoutes.post('/addReactivas', isLoggedIn, (req, res) => {
+	let body = req.body;
+	body.status = false;
+
+	ActuacionReactiva.create(body, (err, Aviso) => {
+		if (err) throw err;
+		res.redirect('back');
+	});
+});
+
 
 
 

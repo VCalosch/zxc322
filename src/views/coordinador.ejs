@@ -142,19 +142,36 @@ function initCoords() {
 
             </div>-->
                 <div class="col">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#EscogerPlaya" role="tab" aria-controls="home" aria-selected="true">Escoger Playa</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="home-tab" data-toggle="tab" href="#SolicitarNuevaPlaya" role="tab" aria-controls="home" aria-selected="true">Solicitar una Nueva Playa</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#DarAltaNuevoUsuario" role="tab" aria-controls="profile" aria-selected="false">Dar de Alta a un Nuevo Usuario</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#UsuariosAsociados" role="tab" aria-controls="profile" aria-selected="false">Usuarios Asociados</a>
-        </li>
+    
+
+            <% var TipoUsuario = user.local.role; %>    
+        <%  if( TipoUsuario === 0 ) { %>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#EscogerPlaya" role="tab" aria-controls="home" aria-selected="true">Escoger Playa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#SolicitarNuevaPlaya" role="tab" aria-controls="home" aria-selected="true">Solicitar una Nueva Playa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#DarAltaNuevoUsuario" role="tab" aria-controls="profile" aria-selected="false">Dar de Alta a un Nuevo Usuario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#UsuariosAsociados" role="tab" aria-controls="profile" aria-selected="false">Usuarios Asociados</a>
+                    </li>
+                </ul>
+              <% } else if(TipoUsuario === 2) { %>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#EscogerPlaya" role="tab" aria-controls="home" aria-selected="true">Escoger Playa</a>
+                    </li>
+                </ul>
+              <% } %>   
+
+
+    
+    
+    
     </ul>
     <div class="tab-content" id="myTabContent">
         <!--Escoger Playa-->
@@ -194,8 +211,8 @@ function initCoords() {
 
                     <div class="form-row">
                             <% for(var i=0; i< Playas.length; i++) {%>
-                            <div class="col s6 m4 l2 ">
-                                <a href="herramientas/<%= Playas[i]._id%>"><img src="img/playa.JPG" style="border-radius: 50%; width: 60px; height: 60px;"></a><br><br><h5><%= Playas[i].nombre %></h5></div>
+                            <div class="col">
+                                <a href="herramientas/<%= Playas[i]._id%>"><img  src="img/playa.JPG" style="border-radius: 50%; width: 60px; height: 60px;"></a><br><br><h5><%= Playas[i].nombre %></h5></div>
                                 <% }%>
                             </div>
                     
@@ -324,7 +341,7 @@ function initCoords() {
                                     <select class="form-control validador" id="vRol">
                                         <option selected disabled value="">Rol de Usuario</option>
                                         <option value='1'>Encargado</option> 
-                                        <option value='0'>Socorrista</option> 
+                                        <option value='2'>Socorrista</option> 
                                     </select>
                                 </div>
 
@@ -456,7 +473,7 @@ function initCoords() {
                                     <th scope="col">Playa</th>
                                     <th scope="col">E-mail</th>
                                     <th scope="col">Experiencia</th>
-                                    <th scope="col">Formación</th>
+                                    <th scope="col">Horas de Formación</th>
                                     <th scope="col">Entidad Formadora</th>
                                     <th scope="col">Sexo</th>
                                   </tr>
@@ -465,8 +482,14 @@ function initCoords() {
                                   
                                 <% lista.forEach(function (user) { %>
                                     <tr>  
+                                        <td><%= user.local.usuario %></td>
+                                        <td><%= user.local.role %></td>
+                                        <td><%= user.local.playa %></td>
                                         <td><%= user.local.email %></td>
-                                        <td><%= user.local.role %></td>   
+                                        <td><%= user.local.experiencia %></td>
+                                        <td><%= user.local.horasFormacion %></td>
+                                        <td><%= user.local.entidadFormadora %></td>
+                                        <td><%= user.local.sexo %></td>                
                                     </tr>                                 
                                 <% }) %>
 
