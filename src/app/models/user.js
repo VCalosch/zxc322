@@ -5,19 +5,19 @@ const userSchema = new mongoose.Schema({
 	//se definen los tipos de inicio de seccion 
 	//1- LOCAL
 	local:{
-		usuario:String,
+		email:String,
 		password: String,
 		role: Number,
 		sexo: String,
 		playa: String,
 		numeroTemporadas: String,
-		experiencia: String,
 		descripcion1: String,
+		experiencia: String,
 		horasFormacion: String,
 		ultimaActualizacion: String,
 		entidadFormadora: String,
 		descripcion2: String,
-		email:String,
+		usuario:String,
 		codigo: String,
 		fechaInicioContrato: String,
 		date: {

@@ -158,12 +158,13 @@
 
                         <br>
                         <form class="form-row" action="/ubicarServicios" method="post">
-                                <div class="col"><button  class="btn btn-info ">Guardar</button></div>
-                                <div class="col"><input class="form-control" placeholder="Playa" id="NombrePlaya" name="Playa"></div>
-                                <div class="col"><input class="form-control" placeholder="Latitud" id="latitudPost" name="Latitud"></div>
-                                <div class="col"><input class="form-control" placeholder="Longitud" id="longitudPost" name="Longitud"></div>
-                                <div class="col"><input class="form-control" placeholder="Servicio" id="mytext" name="Servicio"></div>
-                                
+                            <div class="col d-flex justify-content-center">
+                                <button  class="btn btn-info ">Guardar</button>
+                                <input type="hidden" class="form-control" placeholder="Playa" id="NombrePlaya" name="Playa">
+                                <input type="hidden" class="form-control" placeholder="Latitud" id="latitudPost" name="Latitud">
+                                <input type="hidden" class="form-control" placeholder="Longitud" id="longitudPost" name="Longitud">
+                                <input type="hidden" class="form-control" placeholder="Servicio" id="mytext" name="Servicio">
+                            </div>   
                         </form>
                         
                         
