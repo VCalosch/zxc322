@@ -85,10 +85,17 @@ herraRoutes.get('/caracteristicasPlaya/:id/', (req,res) =>{
 	})
 });
 
-	
-
-
-
+herraRoutes.get('/incidentes/:id/', (req,res) =>{
+	let id = req.params.id;
+	modelPlaya.findById({_id: id}, (err, playa) =>{
+		if(err) throw err;
+		  	 else{
+		  	 	res.render('Incidentes', {
+					Playas: playa,
+					isLoggedIn: req.isAuthenticated()});
+				   }
+		  	 })
+		  });
 
 function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated()) {

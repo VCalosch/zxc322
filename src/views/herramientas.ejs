@@ -67,7 +67,8 @@
                                               <a href="/riesgos/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/warning.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Gestión de Riesgos</a>
                                               <a href="/caracteristicasPlaya/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/error.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Editar Características de Playa</a>
                                               <a href="" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#exampleModal1"><img src="../icons/informe.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Generar Informes</a>
-                                              <a href="" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#exampleModal"> <img src="../icons/note.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Registro de Actuaciones en Playa</a>
+                                              <a href="" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#exampleModal"> <img src="../icons/note.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Actuaciones Activas y Actuaciones Reactivas</a>
+                                              <a href="/incidentes/<%=Playas.id%>" class="list-group-item list-group-item-action" > <img src="../icons/note.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Incidentes</a>
                                               <a href="" class="list-group-item list-group-item-action"><img src="../icons/history.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Histórico de Eventos Registrados (Visualización/Edición)</a>
                                               <a href="/avisos/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/history.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Histórico de Avisos Registrados (Visualización/Edición)</a>
                                               
@@ -108,7 +109,7 @@
               %> <option><%=Actuacionesactivas[i].ActuacionActivas%></option> <%  }
             %>
           </select>
-          <script>
+          <script>  
               $("#AccionesPreventivasSelect").change(function() {
                   var val = $(this).val();
                   document.getElementById("ActuacionActivaPost").value = val;
@@ -147,57 +148,57 @@
             <input type="hidden" name="ActuacionReactiva" id="ActuacionReactivaPost">
             <input type="hidden" name="playa" id="ActuacionReactivaPlaya">
           </form>
+        </div>
+        
+        <br><br>
 
-        </div>
-        <br><hr>
         <div class="form-row">
-            <div class="col"></div><div class="col-auto"><h5>Horario</h5></div><div class="col"></div>
-        </div>
-        <div class="form-row">
-            <div class="col"></div><div class="col">
-              <select class="form-control" id="SelectHorario">
-                  <option disabled selected>Selecciona una Opción</option>
-                  <option value="Dentro">Dentro</option>
-                  <option value="Fuera">Fuera</option>
+            <div class="col-md-2"><input class="form-control" placeholder="Fecha"></div>
+                <div class="col-md-1"><input class="form-control" placeholder="Hora"></div>
+                <div class="col-md-1"><input class="form-control" placeholder="Minuto"></div>
+                <div class="col-md-1"><input class="form-control" placeholder="Segundo"></div>
+            
+          <div class="col-2 ">
+                <select class="form-control">
+                  <option disabled selected>Sexo</option>
+                  <option value="Hombre">Hombre</option>
+                  <option value="Mujer">Mujer</option>
+                  <option value="Otro">Otro</option>
                 </select>
-          </div><div class="col"></div>
+            </div>
         </div>
-        <br>
         <div class="form-row">
-            <div class="col">
-                <select class="form-control" id="eventosSelect" onchange="onChange()">
-                    <option disabled selected>Evento</option>
-                    <% for(var i=0; i<Eventos.length; i++) {%>
-                        <option value='<%= Eventos[i]._id %>'>
-                          <%= Eventos[i].evento %>
-  
-                        </option>
-                        <% } %>
-                  </select>
-            </div>
-            <div class="col">
-                <select class="form-control" id="descripcionSelect">
-                    <option disabled selected>Descripción</option>
-                  </select>
-            </div>
-            <div class="col">
-                <select class="form-control" id="SelectConsecuencias">
-                    <option disabled selected>Consecuencias</option>
-                    <option value="Sin consecuencias">Sin consecuencias</option>
-                    <option value="Recomendación de observación posterior">Recomendación de observación posterior</option>
-                    <option value="Traslado a Centro Hospitalario">Traslado a Centro Hospitalario</option>
-                    <option value="Ahogamiento mortal sin aspiración">Ahogamiento mortal sin aspiración</option>
-                    <option value="Ahogamiento mortal con aspiración">Ahogamiento mortal con aspiración</option>
-                    <option value="Fallecimiento sin ahogamiento">Fallecimiento sin ahogamiento</option>
-                    <option value="Lesiones">Lesiones</option>
-                    <option value="PCR recuperada y traslado a centro hospitalario">PCR recuperada y traslado a centro hospitalario</option>
-                  </select>
-            </div>
+          <div class="col">
+              <select class="form-control">
+                  <option disabled selected>Pais</option>
+                </select>
           </div>
+          <div class="col">
+              <select class="form-control">
+                  <option disabled selected>Edad</option>
+                </select>
+          </div>
+          <div class="col">
+              <select class="form-control">
+                  <option disabled selected>Actividad</option>
+                </select>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar Incidentes</button>
+        <button type="button" class="btn btn-primary">Aceptar</button>
       </div>
     </div>
   </div>
@@ -238,7 +239,70 @@
         </div>
       </div></div></div>
 
+<!--MODAL3-->
 
+<div class="modal fade bd-example-modal-lg" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Incidentes</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-row">
+          <div class="col"></div><div class="col-auto"><h5>Horario</h5></div><div class="col"></div>
+      </div>
+      <div class="form-row">
+          <div class="col"></div><div class="col">
+            <select class="form-control" id="SelectHorario">
+                <option disabled selected>Selecciona una Opción</option>
+                <option value="Dentro">Dentro</option>
+                <option value="Fuera">Fuera</option>
+              </select>
+        </div><div class="col"></div>
+      </div>
+      <br>
+      <div class="form-row">
+          <div class="col">
+              <select class="form-control" id="eventosSelect" onchange="onChange()">
+                  <option disabled selected>Evento</option>
+                  <% for(var i=0; i<Eventos.length; i++) {%>
+                      <option value='<%= Eventos[i]._id %>'>
+                        <%= Eventos[i].evento %>
+
+                      </option>
+                      <% } %>
+                </select>
+          </div>
+          <div class="col">
+              <select class="form-control" id="descripcionSelect">
+                  <option disabled selected>Descripción</option>
+                </select>
+          </div>
+          <div class="col">
+              <select class="form-control" id="SelectConsecuencias">
+                  <option disabled selected>Consecuencias</option>
+                  <option value="Sin consecuencias">Sin consecuencias</option>
+                  <option value="Recomendación de observación posterior">Recomendación de observación posterior</option>
+                  <option value="Traslado a Centro Hospitalario">Traslado a Centro Hospitalario</option>
+                  <option value="Ahogamiento mortal sin aspiración">Ahogamiento mortal sin aspiración</option>
+                  <option value="Ahogamiento mortal con aspiración">Ahogamiento mortal con aspiración</option>
+                  <option value="Fallecimiento sin ahogamiento">Fallecimiento sin ahogamiento</option>
+                  <option value="Lesiones">Lesiones</option>
+                  <option value="PCR recuperada y traslado a centro hospitalario">PCR recuperada y traslado a centro hospitalario</option>
+                </select>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div></div></div>
 
 
 
