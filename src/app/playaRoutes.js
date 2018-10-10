@@ -87,6 +87,7 @@ const routPlaya = express.Router(); //crear un objeto de tipo express con nombre
 const modelPlaya = require('../app/models/playa'); //llamar al modelo del base de datos
 
 var csv = require('csv-express');
+var nodemailer = require('nodemailer');
 
 //Crear un nuevo modelo para Relacion  de colecciones
 
@@ -112,15 +113,15 @@ routPlaya.get('/addPlaya', isLoggedIn, (req, res) => {
 
 
 //::::::::::Agregar playa ::::::::::::::
-routPlaya.post('/addPlaya', isLoggedIn, (req, res) => {
-	let body = req.body;
-	body.status = false;
+// routPlaya.post('/addPlaya', isLoggedIn, (req, res) => {
+// 	let body = req.body;
+// 	body.status = false;
 
-	modelPlaya.create(body, (err, Playa) => {
-		if (err) throw err;
-		res.redirect('back');
-	});
-});
+// 	modelPlaya.create(body, (err, Playa) => {
+// 		if (err) throw err;
+// 		res.redirect('back');
+// 	});
+// });
 
 
 //::::::::::Eliminar playa:::::::::::
@@ -189,6 +190,50 @@ routPlaya.get('/exporttocsv/:id', function(req, res, next) {
         res.setHeader("Content-Disposition", 'attachment; filename='+filename);
         res.csv(Playas, true);
     });
+});
+
+//Dentro del manejo del routes 
+//::Ejemplo para enviar correo al solisitar una playa( en este caso cada vez que se agrega una playa se envia una solicitud::::::::::::
+
+
+
+routPlaya.post('/addPlaya', isLoggedIn, (req, res) => {
+	let body = req.body;
+	body.status = false;
+
+	modelPlaya.create(body, (err, Playa) => {
+		if (err) {throw err;}
+		else{
+		var transporter = nodemailer.createTransport({
+			//EN CASO DE ERROR DE CONEXION(En consola): set NODE_TLS_REJECT_UNAUTHORIZED=0
+	  service: 'gmail',
+	  host: 'smtp.gmail.com',
+	  port: 465,
+	  secure: true,
+	  auth: {
+	    user: 'notificacionplaya@gmail.com',
+	    pass: 'Contra123'
+	  }
+	});
+
+	var mailOptions = {
+	  from: 'notificacionplaya@gmail.com',
+	  to: 'kevin.ardon@alumnos.uneatlantico.es',
+	  subject: 'Solicitud  de playa: ' + req.body.nombre,
+	  html: '<h2>' + 'Nombre: '+ req.body.nombre + '</h2>'+ '<hr>' +  'Comentarios: ' + req.body.comentarios + '<br>' + 'Mail: ' + req.body.mail + '<br>' + 'Latitud: ' + req.body.latitud + '<br>' + 'Longitud: ' + req.body.longitud
+	};
+
+	transporter.sendMail(mailOptions, function(error, info){
+	  if (error) {
+	    console.log(error);
+	    res.redirect('/playaAdmin');
+	  } else {
+	    console.log('Email sent: ' + info.response);
+	    res.redirect('coordinador');
+	  }
+	}); 
+		}
+	});
 });
 
 

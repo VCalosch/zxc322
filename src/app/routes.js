@@ -192,7 +192,9 @@ module.exports = (app, passport) => {
 	app.get('/logout', (req, res) => {
 		req.logout(); //metodo preimplementado de passport
 		res.redirect('/');
-	});
+	})
+
+	
 
 
 };

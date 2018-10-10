@@ -14,7 +14,11 @@ if (!db) {
         edad: String,
         actividad: String,
         pais: String,
-        campañasPrevencion: String,
+        fecha: String,
+        hora: String,
+        minuto: String,
+        segundo: String,
+        campañasPrevencion: Boolean,
         lat: String,
         lng: String
     });

@@ -24,6 +24,12 @@
             }
         </script>
 
+        <script>
+          $( document ).ready(function() {
+                $('#Contenido1').hide();
+            });
+        </script>
+
 
             <div class="dashboard_container top-container">
                     <div class="row">
@@ -101,14 +107,17 @@
       </div>
       <div class="modal-body">
         <div class="form-row">
-          <div class="col">
-          <select class="form-control" id="AccionesPreventivasSelect">
+          <div class="col"></div>
+          <div class="col-auto">
+          <p>Acciones Preventivas (Actuaciones Activas)</p>
+          <select class="form-control" id="AccionesPreventivasSelect" >
             <option selected disabled>Selecciona una Actuación Activa</option>
             <%
             for(var i =0; i < Actuacionesactivas.length; i++){ 
               %> <option><%=Actuacionesactivas[i].ActuacionActivas%></option> <%  }
             %>
           </select>
+          <hr>
           <script>  
               $("#AccionesPreventivasSelect").change(function() {
                   var val = $(this).val();
@@ -123,9 +132,16 @@
             <input type="hidden" name="ActuacionActiva" id="ActuacionActivaPost">
             <input type="hidden" name="playa" id="ActuacionActivaPlaya">
           </form>
-
           </div>
-          <div class="col">
+          <div class="col"></div>
+          </div>
+
+          <br>
+
+          <div class="form-row">
+          <div class="col"></div>
+          <div class="col-auto">
+            <p>Avisos Preventivos (Actuaciones Reactivas)</p>
               <select class="form-control" id="ActuacionReactivaSelect">
                   <option selected disabled>Selecciona una Actuación Reactiva</option>
                   <%
@@ -133,6 +149,9 @@
                     %> <option><%=ActuacionesReactivas[i].ActuacionreactivasNombre%></option> <%  }
                   %>
                 </select>
+                <hr>
+          </div>
+          <div class="col"></div>
           </div>
 
           <script>
@@ -140,50 +159,116 @@
                   var val = $(this).val();
                   document.getElementById("ActuacionReactivaPost").value = val;
                   document.getElementById("ActuacionReactivaPlaya").value = playaActual;
-                  document.theFormActuacionReactiva.submit();
+                  //document.theFormActuacionReactiva.submit();
+                  $('#Contenido1').show();
               });
           </script>
 
-          <form action="/addReactivas" method="post" name="theFormActuacionReactiva">
-            <input type="hidden" name="ActuacionReactiva" id="ActuacionReactivaPost">
-            <input type="hidden" name="playa" id="ActuacionReactivaPlaya">
-          </form>
+
+        <div id="Contenido1">
+            <div class="form-row">
+                <div class="col"><input class="form-control" placeholder="Fecha" name="fecha"></div>
+                    <div class="col-md-1"><input class="form-control" placeholder="Hora" name="hora"></div>
+                    <div class="col-md-1"><input class="form-control" placeholder="Minuto" name="minuto"></div>
+                    <div class="col-md-1"><input class="form-control" placeholder="Segundo" name="segundo"></div>
+                
+              <div class="col">
+                    <select class="form-control" id="Sexo">
+                      <option disabled selected>Sexo</option>
+                      <option value="Hombre">Hombre</option>
+                      <option value="Mujer">Mujer</option>
+                      <option value="Otro">Otro</option>
+                    </select>
+                </div>
+
+              <div class="col">
+                  <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                      <label class="form-check-label" for="defaultCheck1">
+                        Campaña de Prevención
+                      </label>
+                    </div>
+              </div>
         </div>
-        
-        <br><br>
+
+        <script>
+              $("#Sexo").change(function() {
+                  var val = $(this).val();
+                  document.getElementById("SexoPost").value = val;
+              });
+              $("#Pais").change(function() {
+                  var val = $(this).val();
+                  document.getElementById("PaisPost").value = val;
+              });
+              $("#Edad").change(function() {
+                  var val = $(this).val();
+                  document.getElementById("EdadPost").value = val;
+              });
+              $("#Actividad").change(function() {
+                  var val = $(this).val();
+                  document.getElementById("ActividadPost").value = val;
+              });
+        </script>
+
+        <br>
 
         <div class="form-row">
-            <div class="col-md-2"><input class="form-control" placeholder="Fecha"></div>
-                <div class="col-md-1"><input class="form-control" placeholder="Hora"></div>
-                <div class="col-md-1"><input class="form-control" placeholder="Minuto"></div>
-                <div class="col-md-1"><input class="form-control" placeholder="Segundo"></div>
-            
-          <div class="col-2 ">
-                <select class="form-control">
-                  <option disabled selected>Sexo</option>
-                  <option value="Hombre">Hombre</option>
-                  <option value="Mujer">Mujer</option>
-                  <option value="Otro">Otro</option>
-                </select>
-            </div>
+              <div class="col">
+                  <select class="form-control" id="Pais">
+                      <option disabled selected>Pais</option>
+                      <option value="Pais1">Pais1</option>
+                    </select>
+              </div>
+              <div class="col">
+                  <select class="form-control" id="Edad">
+                      <option disabled selected>Edad</option>
+                      <option value="Edad1">Edad1</option>
+                    </select>
+              </div>
+              <div class="col">
+                  <select class="form-control" id="Actividad">
+                      <option disabled selected>Actividad</option>
+                      <option value="Actividad1">Actividad1</option>
+                    </select>
+              </div>
         </div>
+        
+        <br>
+        <div id="map"></div>
+        <br>
+
+        <script>
+           function RellenarInputs(){
+            var checkedValue = $('.defaultCheck1:checked').val();
+            document.getElementById("campañaPost").value = checkedValue;
+           }
+        </script>
+
         <div class="form-row">
-          <div class="col">
-              <select class="form-control">
-                  <option disabled selected>Pais</option>
-                </select>
+          <div class="col"></div>
+          <div class="col-auto">
+              <form action="/addReactivas" method="post" >
+                <input type="hidden" name="ActuacionReactiva" id="ActuacionReactivaPost">
+                <input type="hidden" name="playa" id="ActuacionReactivaPlaya">
+                <input type="hidden" name="sexo" id="SexoPost">
+                <input type="hidden" name="edad" id="EdadPost">
+                <input type="hidden" name="actividad" id="ActividadPost">
+                <input type="hidden" name="pais" id="PaisPost">
+                <input type="hidden" name="campañasPrevencion" id="campañaPost">
+                <input type="hidden" name="lat" id="latitudRiesgo">
+                <input type="hidden" name="lng" id="longitudRiesgo">
+                <button type="submit" class="btn btn-primary" data-dismiss="modal" onclick="RellenarInputs()">Guardar y Cerrar</button>
+              </form>
+            
           </div>
-          <div class="col">
-              <select class="form-control">
-                  <option disabled selected>Edad</option>
-                </select>
-          </div>
-          <div class="col">
-              <select class="form-control">
-                  <option disabled selected>Actividad</option>
-                </select>
-          </div>
+          <div class="col"></div>
         </div>
+          
+        </div>
+
+
+
+        
 
 
 
@@ -198,7 +283,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Aceptar</button>
       </div>
     </div>
   </div>
@@ -328,4 +412,5 @@
                             </div>
                 </div></div>
     </body>
+    <% include partials/Mapa %>
 </html>
