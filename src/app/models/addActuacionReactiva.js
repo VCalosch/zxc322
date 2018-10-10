@@ -18,7 +18,7 @@ if (!db) {
         hora: String,
         minuto: String,
         segundo: String,
-        campañasPrevencion: Boolean,
+        campañasPrevencion: String,
         lat: String,
         lng: String
     });

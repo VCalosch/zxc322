@@ -7,6 +7,7 @@ const Actuacionesactivas = require('../app/models/Actuacionesactivas');
 const Actuacionesreactivas = require('../app/models/Actuacionesreactivas');
 const Eventos = require('../app/models/EventosX');
 const User = require('../app/models/user');
+const SucesoIntervencion = require('../app/models/SucesoIntervencion');
 
 
 //::::::::::render serviciosPlaya::::::::::
@@ -44,7 +45,7 @@ herraRoutes.get('/herramientas/:id/', (req,res) =>{
 	})
 });
 
-herraRoutes.post('/herramientas/:id', (req, res) => {
+herraRoutes.post('/incidentes/:id', (req, res) => {
 	let body = req.body;
 	body.status = false;
 	const id = req.params.id;
@@ -89,13 +90,27 @@ herraRoutes.get('/incidentes/:id/', (req,res) =>{
 	let id = req.params.id;
 	modelPlaya.findById({_id: id}, (err, playa) =>{
 		if(err) throw err;
+		Eventos.find({ }, (err,eventos) =>{
+			if (err) throw err;
 		  	 else{
 		  	 	res.render('Incidentes', {
 					Playas: playa,
+					Eventos: eventos,
 					isLoggedIn: req.isAuthenticated()});
 				   }
 		  	 })
 		  });
+		});
+
+		herraRoutes.post('/sxs', isLoggedIn, (req, res) => {
+			let body = req.body;
+			body.status = false;
+		
+			SucesoIntervencion.create(body, (err, Aviso) => {
+				if (err) throw err;
+				res.redirect('back');
+			});
+		});
 
 function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated()) {

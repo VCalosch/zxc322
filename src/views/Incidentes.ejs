@@ -4,14 +4,242 @@
             <title>Incidentes</title>
             <% include partials/head %>
     </head>
+
+    <script type="text/javascript">
+        window.eventos = <%- JSON.stringify(Eventos) %>
+      </script>
+      <script>
+          function onChange() {
+            var id = document.getElementById("eventosSelect").value; 
+         
+      
+            const event = eventos.filter((ev) => ev._id == id)
+           
+            let descriptionsHTML = ''
+            event[0].descripcion.forEach(des => {
+              descriptionsHTML += `<option value=${des.name}> ${des.name} </option>`
+            })
+            document.getElementById("descripcionSelect").innerHTML = descriptionsHTML;
+          }
+      </script>
+
+
     <body>
         <div class="dashboard_container top-container">
             <div class="tab-content" id="myTabContent">
                         <div class="card">
                                 <div class="card-body Margenes">
+
+
+                                        <div id="Contenido0">
+                                                <div class="form-row">
+                                                        <div class="col"></div><div class="col-auto"><h5>Horario</h5></div><div class="col"></div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col"></div><div class="col">
+                                                          <select class="form-control" id="SelectHorario">
+                                                              <option disabled selected>Selecciona una Opción</option>
+                                                              <option value="Dentro">Dentro</option>
+                                                              <option value="Fuera">Fuera</option>
+                                                            </select>
+                                                      </div><div class="col"></div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-row">
+                                                        <div class="col">
+                                                            <select class="form-control" id="eventosSelect" onchange="onChange()">
+                                                                <option disabled selected>Evento</option>
+                                                                <% for(var i=0; i< Eventos.length; i++) {%>
+                                                                    <option value='<%= Eventos[i]._id %>'>
+                                                                      <%= Eventos[i].evento %>
+                                              
+                                                                    </option>
+                                                                    <% } %>
+                                                              </select>
+                                                        </div>
+                                                        <div class="col">
+                                                            <select class="form-control" id="descripcionSelect">
+                                                                <option disabled selected>Descripción</option>
+                                                              </select>
+                                                        </div>
+                                                        <div class="col">
+                                                            <select class="form-control" id="SelectConsecuencias">
+                                                                <option disabled selected>Consecuencias</option>
+                                                                <option value="Sin consecuencias">Sin consecuencias</option>
+                                                                <option value="Recomendación de observación posterior">Recomendación de observación posterior</option>
+                                                                <option value="Traslado a Centro Hospitalario">Traslado a Centro Hospitalario</option>
+                                                                <option value="Ahogamiento mortal sin aspiración">Ahogamiento mortal sin aspiración</option>
+                                                                <option value="Ahogamiento mortal con aspiración">Ahogamiento mortal con aspiración</option>
+                                                                <option value="Fallecimiento sin ahogamiento">Fallecimiento sin ahogamiento</option>
+                                                                <option value="Lesiones">Lesiones</option>
+                                                                <option value="PCR recuperada y traslado a centro hospitalario">PCR recuperada y traslado a centro hospitalario</option>
+                                                              </select>
+                                                        </div>
+                                                      </div>
+                                                      <br>
+                                                      <div class="form-row">
+                                                          <div class="col"></div>
+                                                          <div class="col-auto">
+                                                              <button type="button" class="btn btn-primary">Continuar</button>
+                                                          </div>
+                                                          <div class="col"></div>
+                                                      </div>
+
+                                        </div>
+
+                                        <br>
+                                              <div id="Contenido1">
+                                                    <div class="form-row">
+                                                        <div class="col"><input class="form-control" placeholder="Fecha" id="fecha"></div>
+                                                            <div class="col-md-1"><input class="form-control" placeholder="Hora" id="hora"></div>
+                                                            <div class="col-md-1"><input class="form-control" placeholder="Minuto" id="minuto"></div>
+                                                            <div class="col-md-1"><input class="form-control" placeholder="Segundo" id="segundo"></div>
+                                                        
+                                                      <div class="col">
+                                                            <select class="form-control" id="Sexo">
+                                                              <option disabled selected>Sexo</option>
+                                                              <option value="Hombre">Hombre</option>
+                                                              <option value="Mujer">Mujer</option>
+                                                              <option value="Otro">Otro</option>
+                                                            </select>
+                                                        </div>
+                                        
+                                                      <div class="col">
+                                                          <div class="form-check">
+                                                              <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1">
+                                                              <label class="form-check-label" for="defaultCheck1">
+                                                                Campaña de Prevención
+                                                              </label>
+                                                            </div>
+                                                      </div>
+                                                </div>
+                                        
+                                                <br>
+                                        
+                                                <div class="form-row">
+                                                      <div class="col">
+                                                          <select class="form-control" id="Pais">
+                                                              <option disabled selected>Pais</option>
+                                                              <option value="Pais1">Pais1</option>
+                                                            </select>
+                                                      </div>
+                                                      <div class="col">
+                                                          <select class="form-control" id="Edad">
+                                                              <option disabled selected>Edad</option>
+                                                              <option value="Edad1">Edad1</option>
+                                                            </select>
+                                                      </div>
+                                                      <div class="col">
+                                                          <select class="form-control" id="Actividad">
+                                                              <option disabled selected>Actividad</option>
+                                                              <option value="Actividad1">Actividad1</option>
+                                                            </select>
+                                                      </div>
+                                                </div>
+                                        
+                                                <script>
+                                                    $("#Sexo").change(function() {
+                                                        var val = $(this).val();
+                                                        document.getElementById("SexoPost").value = val;
+                                                    });
+                                                    $("#Pais").change(function() {
+                                                        var val = $(this).val();
+                                                        document.getElementById("PaisPost").value = val;
+                                                    });
+                                                    $("#Edad").change(function() {
+                                                        var val = $(this).val();
+                                                        document.getElementById("EdadPost").value = val;
+                                                    });
+                                                    $("#Actividad").change(function() {
+                                                        var val = $(this).val();
+                                                        document.getElementById("ActividadPost").value = val;
+                                                    });
+                                        
+                                                    $('#defaultCheck1').on('change', function(){
+                                                      this.value = this.checked ? 1 : 0;
+                                                      document.getElementById("campañaPost").value = this.value;
+                                                    }).change();
+                                        
+                                                    function RellenarForms(){
+                                                      document.getElementById("FechaPost").value = document.getElementById("fecha").value;
+                                                      document.getElementById("HoraPost").value = document.getElementById("hora").value;
+                                                      document.getElementById("MinutoPost").value = document.getElementById("minuto").value;
+                                                      document.getElementById("SegundoPost").value = document.getElementById("segundo").value;
+                                                    }
+                                        
+                                              </script>
+                                                
+                                                <br>
+                                                <div id="map"></div>
+                                                <br>
+                                        
+                                        
+                                                <div class="form-row">
+                                                  <div class="col"></div>
+                                                  <div class="col-auto">
+                                                      <form action="/addReactivas" method="post" >
+                                                        <input type="hidden" name="ActuacionReactiva" id="ActuacionReactivaPost">
+                                                        <input type="hidden" name="playa" id="ActuacionReactivaPlaya">
+                                                        <input type="hidden" name="sexo" id="SexoPost">
+                                                        <input type="hidden" name="edad" id="EdadPost">
+                                                        <input type="hidden" name="actividad" id="ActividadPost">
+                                                        <input type="hidden" name="pais" id="PaisPost">
+                                                        <input type="hidden" name="fecha" id="FechaPost">
+                                                        <input type="hidden" name="hora" id="HoraPost">
+                                                        <input type="hidden" name="minuto" id="MinutoPost">
+                                                        <input type="hidden" name="segundo" id="SegundoPost">
+                                                        <input type="hidden" name="campañasPrevencion" id="campañaPost">
+                                                        <input type="hidden" name="lat" id="latitudRiesgo">
+                                                        <input type="hidden" name="lng" id="longitudRiesgo">
+                                                        <button type="submit" class="btn btn-primary" onclick="RellenarForms()">Guardar y Cerrar</button>
+                                                      </form>
+                                                    
+                                                  </div>
+                                                  <div class="col"></div>
+                                                </div>
+                                                  
+                                                </div>
+                                        
+                                           
+
+
+                                                <form action="/sxs" method="post">
+                                                    <input name="DeteccionSuceso">
+                                                    <input name="LugarAntesSuceso">
+                                                    <input name="DistanciaRecorrida">
+                                                    <input name="TipoDesplazamientoHaciaVictima">
+                                                    <input name="TipoTraslado">
+                                                    <input name="DistanciaDesplazamiento">
+                                                    <input name="ProfundidadVictima">
+                                                    <input name="MaterialesUtilizados">
+                                                    <input name="EstadoAccidentadoPrimerContacto">
+                                                    <input name="AyudaRecibidaPor">
+                                                    <input name="TipoExtraccionVictima">
+                                                    <input name="QuienInicia">
+                                                    <input name="QuienParticipa">
+
+                                                    <button type="submit">Shit</button>
+                                                </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                 </div>
                         </div>
             </div>
         </div>
     </body>
+    <% include partials/Mapa %>
 </html>
