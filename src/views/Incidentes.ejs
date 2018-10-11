@@ -25,13 +25,18 @@
 
 
     <body>
+        <!-- <script>
+            $( document ).ready(function() {
+                $("#Intervenciones").hide();
+            });
+        </script> -->
         <div class="dashboard_container top-container">
             <div class="tab-content" id="myTabContent">
                         <div class="card">
                                 <div class="card-body Margenes">
 
 
-                                        <div id="Contenido0">
+                                        <div id="Contenido0" style="display:none">
                                                 <div class="form-row">
                                                         <div class="col"></div><div class="col-auto"><h5>Horario</h5></div><div class="col"></div>
                                                     </div>
@@ -87,8 +92,9 @@
 
                                         </div>
 
-                                        <br>
-                                              <div id="Contenido1">
+                                        
+
+                                        <div id="Contenido1" style="display:none">
                                                     <div class="form-row">
                                                         <div class="col"><input class="form-control" placeholder="Fecha" id="fecha"></div>
                                                             <div class="col-md-1"><input class="form-control" placeholder="Hora" id="hora"></div>
@@ -198,12 +204,289 @@
                                                   <div class="col"></div>
                                                 </div>
                                                   
-                                                </div>
+                                        </div>
                                         
+                                        
+
+                                        <div id="Contenido2">
+                                            <div class="form-row">
+                                                <div class="col">
+                                                    <label for="DeteccionSuceso">¿Cómo se ha detectado el Suceso?</label>
+                                                    <select class="form-control" id="DeteccionSuceso">
+                                                        <option selected disabled>Seleccione una Opción</option>
+                                                      </select>
+                                                </div>
+                                                <div class="col">
+                                                        <label for="LugarAnteriorSuceso">¿Dónde estaba la víctima justo antes del suceso?</label>
+                                                        <select class="form-control" id="LugarAnteriorSuceso">
+                                                            <option selected disabled>Seleccione una Opción</option>
+                                                          </select>
+                                                </div>
+                                            </div>
+                                            <br><br>
+                                            <div class="jumbotron jumbotron-fluid">
+                                                    
+                                                      
+                                                        <div class="form-row form-check text-center">
+                                                            <input class="form-check-input" type="checkbox" value="" id="Check1">
+                                                            <label class="form-check-label" for="Check1">¿Ha sido necesaria intervención fuera del puesto?</label>   
+                                                        </div>
+
+                                                        <br>
+
+                                                        <div id="Intervenciones" style="display:none">
+                                                                <div class="form-row form-check text-center">
+                                                                    <input class="form-check-input" type="checkbox" value="" id="Check2">
+                                                                    <label class="form-check-label" for="Check2">¿Ha sido necesario un desplazamiento terrestre hacia la víctima?</label>   
+                                                                </div>
+                                                                <br>
+
+                                                                                <div id="DesplazamientoTerrestre" style="margin-left: 50px; margin-right: 50px; display: none">
+                                                                                    <div class="form-row">
+                                                                                            <div class="col">
+                                                                                                <select class="form-control" id="DesplazamientoTerrestre1">
+                                                                                                    <option selected disabled>Distancia Recorrida</option>
+                                                                                                    </select>
+                                                                                            </div>
+                                                                                            <div class="col">
+                                                                                                <select class="form-control" id="DesplazamientoTerrestre2">
+                                                                                                        <option selected disabled>Tipo Desplazamiento Hacia la Víctima</option>
+                                                                                                        </select>
+                                                                                            </div>
+                                                                                            <div class="col-2">
+                                                                                                <input class="form-control" placeholder="mm:ss">
+                                                                                            </div>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                    <div class="form-row">
+                                                                                            <div class="col"></div>
+                                                                                                    <div class="col-auto">
+                                                                                                            <select class="form-control" id="TrasladoPrimeroAuxilios">
+                                                                                                                    <option selected disabled>¿Traslado al Puesto de Primeros Auxilios?</option>
+                                                                                                                    <option value="1">Si</option><option value="0">No</option>
+                                                                                                            </select>
+                                                                                                    </div>
+                                                                                                    
+                                                                                                    <div class="col-auto" id="TipoTraslado" style="display:none">
+                                                                                                            <select class="form-control" id="">
+                                                                                                                    <option selected disabled>Tipo Traslado</option>
+                                                                                                                    
+                                                                                                            </select>
+                                                                                                    </div>
+                                                                                            <div class="col"></div>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                </div>
+
+
+                                                                <div class="form-row form-check text-center">
+                                                                    <input class="form-check-input" type="checkbox" value="" id="Check3">
+                                                                    <label class="form-check-label" for="Check3">¿Ha sido necesario un desplazamiento acuático hacia la víctima?</label>   
+                                                                </div>
+                                                                <br>
+
+                                                                                <div id="DesplazamientoAcuatico" style="margin-left: 50px; margin-right: 50px; display: none">
+                                                                                        <div class="form-row">
+                                                                                                <div class="col">
+                                                                                                    <select class="form-control" id="DistanciaDesplazamiento">
+                                                                                                        <option selected disabled>Distancia del Desplazamiento</option>
+                                                                                                        </select>
+                                                                                                </div>
+                                                                                                <div class="col">
+                                                                                                    <select class="form-control" id="ProfundidadVictima">
+                                                                                                            <option selected disabled>¿A qué profundidad se encontraba la víctima?</option>
+                                                                                                            </select>
+                                                                                                </div>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="form-row">
+                                                                                                <div class="col">
+                                                                                                    <select class="form-control" id="MaterialesUtilizados">
+                                                                                                        <option selected disabled>¿Qué materiales de apoyo se utilizaron?</option>
+                                                                                                        </select>
+                                                                                                </div>
+                                                                                                <div class="col">
+                                                                                                    <select class="form-control" id="EstadoAccidentado">
+                                                                                                            <option selected disabled>Estado del accidentado en el primer contacto</option>
+                                                                                                            </select>
+                                                                                                </div>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="form-row">
+                                                                                                <div class="col"></div>
+                                                                                                <div class="col-auto">
+                                                                                                        <select class="form-control" id="TrasladoRemolque">
+                                                                                                                <option selected disabled>¿Traslado al Puesto de Primeros Auxilios?</option>
+                                                                                                                <option value="1">Si</option><option value="0">No</option>
+                                                                                                        </select>
+                                                                                                </div>
+                                                                                                <div id="AyudaRecibidaSH" class="col-auto" style="display:none">
+                                                                                                        <select class="form-control" id="AyudaRecibida">
+                                                                                                                <option selected disabled>¿Ayuda Recibida?</option>
+                                                                                                                <option value="1">Si</option><option value="0">No</option>
+                                                                                                        </select>
+                                                                                                </div>
+                                                                                                <div id="PorQuienesSH" class="col-auto" style="display:none">
+                                                                                                        <select class="form-control" id="PorQuienes">
+                                                                                                                <option selected disabled>¿Por quienes?</option>
+                                                                                                                
+                                                                                                        </select>
+                                                                                                </div>
+                                                                                                <div class="col"></div>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="form-row">
+                                                                                                <div class="col">
+                                                                                                        <label for="TipoExtraccionVictima"><small>Tipo de extracción de la víctima en la orilla</small></label>
+                                                                                                        <select class="form-control" id="TipoExtraccionVictima">
+                                                                                                            <option selected disabled>Seleccione una Opción</option>
+                                                                                                          </select>
+                                                                                                </div>
+                                                                                                <div class="col">
+                                                                                                        <label for="DuracionEstimadaIntervencion"><small>Duración estimada de la intervención acuática</small></label>
+                                                                                                        <input id="DuracionEstimadaIntervencion" class="form-control" placeholder="mm:ss">
+                                                                                                </div>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                    </div>
+
+                                                                <div class="form-row form-check text-center">
+                                                                    <input class="form-check-input" type="checkbox" value="" id="Check4">
+                                                                    <label class="form-check-label" for="Check4">¿Ha sido necesaria la aplicación de primeros auxilios?</label>   
+                                                                </div>
+
+
+                                                                            <div id="AplicacionPrimerosAuxilios" style="margin-left: 50px; margin-right: 50px;">
+                                                                                <br><br>
+                                                                                <div class="form-row">
+                                                                                    <div class="col">
+                                                                                        <div class="custom-control custom-checkbox text-center">
+                                                                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                                                            <label class="custom-control-label" for="customCheck1"><h5>RCP</h5></label>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="form-row" id="RCPSH" style="display:none">
+                                                                                                <div class="col"></div>
+                                                                                                <div class="col-auto">
+                                                                                                        <label for="Tiempo"><small>Tiempo</small></label>
+                                                                                                        <input placeholder="mm:ss" class="form-control" id="Tiempo">
+                                                                                                </div>
+                                                                                                <div class="col"></div>
+                                                                                        </div>
+
+
+                                                                                    </div>
+                                                                                    <div class="col">
+                                                                                        <div class="custom-control custom-checkbox text-center">
+                                                                                            <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                                                                            <label class="custom-control-label" for="customCheck2"><h5>DESA</h5></label>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div id="DESASH" class="form-row" style="display:none">
+                                                                                                <div class="col-auto">
+                                                                                                        <label for="Tiempo"><small>Tiempo</small></label>
+                                                                                                        <input placeholder="mm:ss" class="form-control" id="Tiempo">
+                                                                                                </div>
+                                                                                                <div class="col-auto">
+                                                                                                        <select class="form-control" id="">
+                                                                                                                <option selected disabled>¿Descargas?</option>
+                                                                                                                <option value="1">Si</option><option value="0">No</option>
+                                                                                                        </select>
+                                                                                                </div>
+                                                                                                <div class="col-2">
+                                                                                                    <input placeholder="Nº" class="form-control">
+                                                                                                </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                                
+                                                                                <div class="form-row">
+                                                                                        <div class="col">
+                                                                                                <label for="QuienInicia"><small>Quién Inicia:</small></label>
+                                                                                                <select class="form-control" id="QuienInicia">
+                                                                                                    <option selected disabled>Seleccione una Opción</option>
+                                                                                                  </select>
+                                                                                        </div>
+                                                                                        <div class="col">
+                                                                                                <label for="QuienParticipa"><small>Quién Participa:</small></label>
+                                                                                                <select class="form-control" id="QuienParticipa">
+                                                                                                    <option selected disabled>Seleccione una Opción</option>
+                                                                                                  </select>
+                                                                                        </div>
+                                                                                </div>
+                                                                                
+                                                                                
+
+
+
+
+
+
+
+                                                                            </div>
+
+                                                        </div>
+                                                    
+                                                  </div>
+                                            
+                                            
+
+
+
+
+                                        </div>
+
+                                        <script>
+                                                $('#Check1').on('change', function(){
+                                                    this.value = this.checked ? $("#Intervenciones").show() : $("#Intervenciones").hide();}).change();
+
+                                                $('#Check2').on('change', function(){
+                                                this.value = this.checked ? $("#DesplazamientoTerrestre").show() : $("#DesplazamientoTerrestre").hide();}).change();
+                                                
+                                                $('#Check3').on('change', function(){
+                                                this.value = this.checked ? $("#DesplazamientoAcuatico").show() : $("#DesplazamientoAcuatico").hide();}).change();
+                                                
+                                                $('#Check4').on('change', function(){
+                                                this.value = this.checked ? $("#AplicacionPrimerosAuxilios").show() : $("#AplicacionPrimerosAuxilios").hide();}).change();
+                                                
+                                                $('#customCheck1').on('change', function(){
+                                                this.value = this.checked ? $("#RCPSH").show() : $("#RCPSH").hide();}).change();
+
+                                                $('#customCheck2').on('change', function(){
+                                                this.value = this.checked ? $("#DESASH").show() : $("#DESASH").hide();}).change();
+                                        
+                                        </script>
+
+                                        <script>
+                                                $("#TrasladoPrimeroAuxilios").change(function() {
+                                                    var val = $(this).val();
+                                                    if(val==1)
+                                                        $("#TipoTraslado").show();
+                                                    else
+                                                        $("#TipoTraslado").hide();
+                                                });
+
+                                                $("#TrasladoRemolque").change(function() {
+                                                    var val = $(this).val();
+                                                    if(val==1)
+                                                    $("#AyudaRecibidaSH").show();
+                                                    else
+                                                     $("#AyudaRecibidaSH").hide();
+                                                });
+
+                                                $("#AyudaRecibida").change(function() {
+                                                    var val = $(this).val();
+                                                    if(val==1)
+                                                        $("#PorQuienesSH").show();
+                                                    else
+                                                        $("#PorQuienesSH").hide();
+                                                });
+                                        </script>
                                            
+                                        
 
-
-                                                <form action="/sxs" method="post">
+                                                <!-- <form action="/sxs" method="post">
                                                     <input name="DeteccionSuceso">
                                                     <input name="LugarAntesSuceso">
                                                     <input name="DistanciaRecorrida">
@@ -219,7 +502,7 @@
                                                     <input name="QuienParticipa">
 
                                                     <button type="submit">Shit</button>
-                                                </form>
+                                                </form> -->
 
 
 
