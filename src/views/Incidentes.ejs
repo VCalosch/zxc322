@@ -35,8 +35,35 @@
                         <div class="card">
                                 <div class="card-body Margenes">
 
+                                    <script>
+                                            var contenedores = document.getElementsByClassName('contenedores'), i;
 
-                                        <div id="Contenido0" style="display:none">
+                                            function hideContenedores(){
+                                                for (var i = 0; i < contenedores.length; i ++) {
+                                                    contenedores[i].style.display = 'none';
+                                                }
+                                                
+                                            }
+
+                                            $( document ).ready(function() {
+                                                $("#Contenido0").show();
+                                                hideContenedores();
+                                            });
+
+                                            function Siguiente(){
+                                                $("#Contenido0").hide();
+                                                hideContenedores();
+                                                $("#Contenido1").show();
+
+                                            }
+
+
+                                        
+                                    </script>
+                                        
+                                    
+
+                                        <div id="Contenido0">
                                                 <div class="form-row">
                                                         <div class="col"></div><div class="col-auto"><h5>Horario</h5></div><div class="col"></div>
                                                     </div>
@@ -82,19 +109,20 @@
                                                         </div>
                                                       </div>
                                                       <br>
-                                                      <div class="form-row">
-                                                          <div class="col"></div>
-                                                          <div class="col-auto">
-                                                              <button type="button" class="btn btn-primary">Continuar</button>
-                                                          </div>
-                                                          <div class="col"></div>
-                                                      </div>
-
                                         </div>
+
+                                        <div class="form-row">
+                                                <div class="col"></div>
+                                                <div class="col-auto">
+                                                      <button type="button" class="btn btn-primary" onclick="backPage()" id="backButton">Atras</button>
+                                                    <button type="button" class="btn btn-primary" onclick="Siguiente()">Siguiente</button>
+                                                </div>
+                                                <div class="col"></div>
+                                            </div>
 
                                         
 
-                                        <div id="Contenido1" style="display:none">
+                                        <div class="contenedores" id="Contenido1" style="display:none">
                                                     <div class="form-row">
                                                         <div class="col"><input class="form-control" placeholder="Fecha" id="fecha"></div>
                                                             <div class="col-md-1"><input class="form-control" placeholder="Hora" id="hora"></div>
@@ -208,7 +236,7 @@
                                         
                                         
 
-                                        <div id="Contenido2">
+                                        <div class="contenedores" id="Contenido2" style="display:none">
                                             <div class="form-row">
                                                 <div class="col">
                                                     <label for="DeteccionSuceso">¿Cómo se ha detectado el Suceso?</label>
@@ -437,6 +465,17 @@
 
                                         </div>
 
+
+
+
+
+
+
+
+
+
+
+
                                         <script>
                                                 $('#Check1').on('change', function(){
                                                     this.value = this.checked ? $("#Intervenciones").show() : $("#Intervenciones").hide();}).change();
@@ -484,7 +523,11 @@
                                                 });
                                         </script>
                                            
-                                        
+                                        <script>
+                                        function backPage(){
+                                            window.history.back();
+                                        }
+                                        </script>
 
                                                 <!-- <form action="/sxs" method="post">
                                                     <input name="DeteccionSuceso">
