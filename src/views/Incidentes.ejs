@@ -36,34 +36,27 @@
                                 <div class="card-body Margenes">
 
                                     <script>
-                                            var contenedores = document.getElementsByClassName('contenedores'), i;
+                                        
+                                        $( document ).ready(function() {
+                                            $('div.contenedores').hide().first().show();
+                                            $("#display1").hide();
+                                            $("#guardar").hide();
 
-                                            function hideContenedores(){
-                                                for (var i = 0; i < contenedores.length; i ++) {
-                                                    contenedores[i].style.display = 'none';
-                                                }
-                                                
-                                            }
+                                            var now = new Date();
+                                            var hour = now.getHours(), min= now.getMinutes(), seg=now.getSeconds();
+                                            
+                                        });
 
-                                            $( document ).ready(function() {
-                                                $("#Contenido0").show();
-                                                hideContenedores();
-                                            });
-
-                                            function Siguiente(){
-                                                $("#Contenido0").hide();
-                                                hideContenedores();
-                                                $("#Contenido1").show();
-
-                                            }
-
-
+                                        
                                         
                                     </script>
-                                        
+
                                     
 
-                                        <div id="Contenido0">
+                                    <h4><b>INCIDENTES</b></h4>
+                                    <hr>
+                                    <br>
+                                        <div class="contenedores" id="Contenido0">
                                                 <div class="form-row">
                                                         <div class="col"></div><div class="col-auto"><h5>Horario</h5></div><div class="col"></div>
                                                     </div>
@@ -111,18 +104,7 @@
                                                       <br>
                                         </div>
 
-                                        <div class="form-row">
-                                                <div class="col"></div>
-                                                <div class="col-auto">
-                                                      <button type="button" class="btn btn-primary" onclick="backPage()" id="backButton">Atras</button>
-                                                    <button type="button" class="btn btn-primary" onclick="Siguiente()">Siguiente</button>
-                                                </div>
-                                                <div class="col"></div>
-                                            </div>
-
-                                        
-
-                                        <div class="contenedores" id="Contenido1" style="display:none">
+                                        <div class="contenedores" id="Contenido1">
                                                     <div class="form-row">
                                                         <div class="col"><input class="form-control" placeholder="Fecha" id="fecha"></div>
                                                             <div class="col-md-1"><input class="form-control" placeholder="Hora" id="hora"></div>
@@ -206,37 +188,10 @@
                                                 <br>
                                                 <div id="map"></div>
                                                 <br>
-                                        
-                                        
-                                                <div class="form-row">
-                                                  <div class="col"></div>
-                                                  <div class="col-auto">
-                                                      <form action="/addReactivas" method="post" >
-                                                        <input type="hidden" name="ActuacionReactiva" id="ActuacionReactivaPost">
-                                                        <input type="hidden" name="playa" id="ActuacionReactivaPlaya">
-                                                        <input type="hidden" name="sexo" id="SexoPost">
-                                                        <input type="hidden" name="edad" id="EdadPost">
-                                                        <input type="hidden" name="actividad" id="ActividadPost">
-                                                        <input type="hidden" name="pais" id="PaisPost">
-                                                        <input type="hidden" name="fecha" id="FechaPost">
-                                                        <input type="hidden" name="hora" id="HoraPost">
-                                                        <input type="hidden" name="minuto" id="MinutoPost">
-                                                        <input type="hidden" name="segundo" id="SegundoPost">
-                                                        <input type="hidden" name="campañasPrevencion" id="campañaPost">
-                                                        <input type="hidden" name="lat" id="latitudRiesgo">
-                                                        <input type="hidden" name="lng" id="longitudRiesgo">
-                                                        <button type="submit" class="btn btn-primary" onclick="RellenarForms()">Guardar y Cerrar</button>
-                                                      </form>
-                                                    
-                                                  </div>
-                                                  <div class="col"></div>
-                                                </div>
-                                                  
+                                                 
                                         </div>
                                         
-                                        
-
-                                        <div class="contenedores" id="Contenido2" style="display:none">
+                                        <div class="contenedores" id="Contenido2">
                                             <div class="form-row">
                                                 <div class="col">
                                                     <label for="DeteccionSuceso">¿Cómo se ha detectado el Suceso?</label>
@@ -466,8 +421,51 @@
                                         </div>
 
 
+                                        <div class="form-row">
+                                                <div class="col"></div>
+                                                <div class="col-auto"> 
+                                                        <button type="button" class="btn btn-primary" onclick="backPage()" id="backButton">Atras</button>
+                                                        <button type="button" id="display1" class="display btn btn-primary">Atras</button>
+                                                        <button type="button" id="display" class="display btn btn-primary">Siguiente</button>
+                                                        <button type="submit" id="guardar" class="display btn btn-primary">Guardar</button>
+                                                </div>
+                                                <div class="col"></div>
+                                            </div>
 
 
+                                        
+                                            <script>
+                                                    var contadorDiv=0;
+                                                    $('button.display').on('click', function(e) {
+                                                        
+                                                        e.preventDefault();
+                                                        var that = $('div.contenedores:visible'), t = $(this).text();
+                                                            
+                                                        if (t == 'Siguiente' && that.next('div.contenedores').length > 0) {
+                                                            $('div.contenedores').hide();
+                                                            $("#display1").show();
+                                                            $("#backButton").hide();
+                                                             
+                                                            that.next('div.contenedores').show()
+                                                            
+                                                            contadorDiv++; 
+                                                            if(contadorDiv==2){
+                                                                $("#display").hide(); $("#guardar").show();
+                                                            }
+                                                        }
+                                                        else if (t == 'Atras' && that.prev('div.contenedores').length > 0) {
+                                                            $('div.contenedores').hide();
+                                                            $("#guardar").hide(); $("#display").show();
+                                                            that.hide().prev('div.contenedores').show()
+                                                            contadorDiv--;
+                                                            
+                                                            if(contadorDiv==0){
+                                                                $("#display1").hide();
+                                                                $("#backButton").show();
+                                                            }
+                                                        }
+                                                    });
+                                                    </script>
 
 
 
@@ -547,6 +545,31 @@
                                                     <button type="submit">Shit</button>
                                                 </form> -->
 
+                                                
+                                                
+                                                <!-- <div class="form-row">
+                                                  <div class="col"></div>
+                                                  <div class="col-auto">
+                                                      <form action="" method="" >
+                                                        <input type="hidden" name="ActuacionReactiva" id="ActuacionReactivaPost">
+                                                        <input type="hidden" name="playa" id="ActuacionReactivaPlaya">
+                                                        <input type="hidden" name="sexo" id="SexoPost">
+                                                        <input type="hidden" name="edad" id="EdadPost">
+                                                        <input type="hidden" name="actividad" id="ActividadPost">
+                                                        <input type="hidden" name="pais" id="PaisPost">
+                                                        <input type="hidden" name="fecha" id="FechaPost">
+                                                        <input type="hidden" name="hora" id="HoraPost">
+                                                        <input type="hidden" name="minuto" id="MinutoPost">
+                                                        <input type="hidden" name="segundo" id="SegundoPost">
+                                                        <input type="hidden" name="campañasPrevencion" id="campañaPost">
+                                                        <input type="hidden" name="lat" id="latitudRiesgo">
+                                                        <input type="hidden" name="lng" id="longitudRiesgo">
+                                                        
+                                                      </form>
+                                                    
+                                                  </div>
+                                                  <div class="col"></div>
+                                                </div>
 
 
 
