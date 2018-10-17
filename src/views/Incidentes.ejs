@@ -41,10 +41,20 @@
                                             $('div.contenedores').hide().first().show();
                                             $("#display1").hide();
                                             $("#guardar").hide();
+                                            $("#GuardarSalir").hide();
 
                                             var now = new Date();
-                                            var hour = now.getHours(), min= now.getMinutes(), seg=now.getSeconds();
-                                            
+                                            var hour = now.getHours(), min= now.getMinutes(), seg=now.getSeconds(), date = now.getDate()+"/"+(now.getMonth()+1)+"/"+now.getFullYear();
+
+                                            document.getElementById("fecha").value = date;
+                                            document.getElementById("hora").value = hour+" h";
+                                            document.getElementById("minuto").value = min+" minutos";
+                                            document.getElementById("segundo").value = seg+" Segundos";
+                                            document.getElementById("FechaPost").value = document.getElementById("fecha").value;
+                                            document.getElementById("HoraPost").value = document.getElementById("hora").value;
+                                            document.getElementById("MinutoPost").value = document.getElementById("minuto").value;
+                                            document.getElementById("SegundoPost").value = document.getElementById("segundo").value;
+                                              
                                         });
 
                                         
@@ -153,34 +163,15 @@
                                                       </div>
                                                 </div>
                                         
-                                                <script>
-                                                    $("#Sexo").change(function() {
-                                                        var val = $(this).val();
-                                                        document.getElementById("SexoPost").value = val;
-                                                    });
-                                                    $("#Pais").change(function() {
-                                                        var val = $(this).val();
-                                                        document.getElementById("PaisPost").value = val;
-                                                    });
-                                                    $("#Edad").change(function() {
-                                                        var val = $(this).val();
-                                                        document.getElementById("EdadPost").value = val;
-                                                    });
-                                                    $("#Actividad").change(function() {
-                                                        var val = $(this).val();
-                                                        document.getElementById("ActividadPost").value = val;
-                                                    });
+                                                <script>                                        
+                                                    
                                         
-                                                    $('#defaultCheck1').on('change', function(){
-                                                      this.value = this.checked ? 1 : 0;
-                                                      document.getElementById("campañaPost").value = this.value;
-                                                    }).change();
-                                        
-                                                    function RellenarForms(){
-                                                      document.getElementById("FechaPost").value = document.getElementById("fecha").value;
-                                                      document.getElementById("HoraPost").value = document.getElementById("hora").value;
-                                                      document.getElementById("MinutoPost").value = document.getElementById("minuto").value;
-                                                      document.getElementById("SegundoPost").value = document.getElementById("segundo").value;
+                                                    function SubmitForm(){
+                                                        document.getElementById("FechaPost").value = document.getElementById("fecha").value;
+                                                        document.getElementById("HoraPost").value = document.getElementById("hora").value;
+                                                        document.getElementById("MinutoPost").value = document.getElementById("minuto").value;
+                                                        document.getElementById("SegundoPost").value = document.getElementById("segundo").value;
+                                                        document.formIncidente.submit();
                                                     }
                                         
                                               </script>
@@ -420,12 +411,76 @@
 
                                         </div>
 
+                                        <form action="/addIncidente" method="POST" name="formIncidente">
+                                            <input type="hidden" id="HorarioPOST" name="Horario">
+                                            <input type="hidden" id="eventosPOST" name="Evento">
+                                            <input type="hidden" id="descripcionPOST" name="Descripcion">
+                                            <input type="hidden" id="consecuenciasPOST" name="Consecuencias">
+                                            <input type="hidden" id="FechaPost" name="Fecha">
+                                            <input type="hidden" id="HoraPost" name="Hora">
+                                            <input type="hidden" id="MinutoPost" name="Minuto">
+                                            <input type="hidden" id="SegundoPost" name="Segundo">
+                                            <input type="hidden" id="SexoPost" name="Sexo">
+                                            <input type="hidden" id="PaisPost" name="Pais">
+                                            <input type="hidden" id="EdadPost" name="Edad">
+                                            <input type="hidden" id="ActividadPost" name="Actividad">
+                                            <input type="hidden" name="campañaPrevencion" id="campañaPost">
+                                            <input type="hidden" id="latitudRiesgo" name="Latitud">
+                                            <input type="hidden" id="longitudRiesgo" name="Longitud">
+                                        </form>
+                                        
+                                        <script>
+                                                $("#SelectHorario").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("HorarioPOST").value = val;
+                                                });
+                                                $("#descripcionSelect").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("descripcionPOST").value = val;
+                                                });
+                                                $("#eventosSelect").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("eventosPOST").value = val;
+                                                });
+                                                $("#eventosSelect").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("eventosPOST").value = val;
+                                                });
+                                                $("#SelectConsecuencias").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("consecuenciasPOST").value = val;
+                                                });
+                                                $("#Sexo").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("SexoPost").value = val;
+                                                });
+                                                $("#Pais").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("PaisPost").value = val;
+                                                });
+                                                $("#Edad").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("EdadPost").value = val;
+                                                });
+                                                $("#Actividad").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("ActividadPost").value = val;
+                                                });
+
+                                                $('#defaultCheck1').on('change', function(){
+                                                      this.value = this.checked ? 1 : 0;
+                                                      document.getElementById("campañaPost").value = this.value;
+                                                }).change();
+                                                
+                                                
+                                        </script>
 
                                         <div class="form-row">
                                                 <div class="col"></div>
                                                 <div class="col-auto"> 
                                                         <button type="button" class="btn btn-primary" onclick="backPage()" id="backButton">Atras</button>
                                                         <button type="button" id="display1" class="display btn btn-primary">Atras</button>
+                                                        <button type="button" id="GuardarSalir" class="display btn btn-primary" onclick="SubmitForm()">Guardar y Salir</button>
                                                         <button type="button" id="display" class="display btn btn-primary">Siguiente</button>
                                                         <button type="submit" id="guardar" class="display btn btn-primary">Guardar</button>
                                                 </div>
@@ -445,22 +500,23 @@
                                                             $('div.contenedores').hide();
                                                             $("#display1").show();
                                                             $("#backButton").hide();
-                                                             
+                                                            $("#GuardarSalir").show();
                                                             that.next('div.contenedores').show()
                                                             
                                                             contadorDiv++; 
                                                             if(contadorDiv==2){
-                                                                $("#display").hide(); $("#guardar").show();
+                                                                $("#display").hide(); $("#guardar").show(); $("#GuardarSalir").hide();
                                                             }
                                                         }
                                                         else if (t == 'Atras' && that.prev('div.contenedores').length > 0) {
                                                             $('div.contenedores').hide();
-                                                            $("#guardar").hide(); $("#display").show();
+                                                            $("#guardar").hide(); $("#display").show(); $("#GuardarSalir").show();
                                                             that.hide().prev('div.contenedores').show()
                                                             contadorDiv--;
                                                             
                                                             if(contadorDiv==0){
                                                                 $("#display1").hide();
+                                                                $("#GuardarSalir").hide();
                                                                 $("#backButton").show();
                                                             }
                                                         }

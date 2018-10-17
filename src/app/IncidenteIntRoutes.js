@@ -13,6 +13,7 @@ const IncIntSave = require('../app/models/IncIntSave');
 const modelPlaya = require('../app/models/playa');
 const Paises = require('../app/models/Paises'); 
 const ActividadDrp = require('../app/models/ActividadDrp'); 
+const Incidente = require('../app/models/Incidente'); 
 
 //DROP EVENTOS Y CONSECUENCIAS
 IncidenteInter.get('/GestionEventos/:id', (req, res) => {
@@ -113,6 +114,18 @@ IncidenteInter.post('/addEvento/update/:id', (req, res) => {
 
 	})
 });
+
+IncidenteInter.post('/addIncidente', (req, res) => {
+	let body = req.body;
+	body.status = false;
+
+	Incidente.create(body, (err, consecu) => {
+		if (err) throw err;
+		res.redirect('back');
+	});
+});
+
+
 
 //FIN DE LA ADMINISTRACION DE EVENTOS
 

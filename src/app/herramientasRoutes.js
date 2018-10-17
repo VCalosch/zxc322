@@ -8,8 +8,9 @@ const Actuacionesreactivas = require('../app/models/Actuacionesreactivas');
 const Eventos = require('../app/models/EventosX');
 const User = require('../app/models/user');
 const SucesoIntervencion = require('../app/models/SucesoIntervencion');
-
-
+const modelRiesgos = require('../app/models/riesgos');
+const Incidente = require('../app/models/Incidente');
+  
 //::::::::::render serviciosPlaya::::::::::
 
 herraRoutes.get('/herramientas/:id/', (req,res) =>{
@@ -26,6 +27,10 @@ herraRoutes.get('/herramientas/:id/', (req,res) =>{
 				if(err){ throw err;}
 				Actuacionesreactivas.find({},(err, ActReactivas) =>{
 					if(err){ throw err;}
+					modelRiesgos.find({}, (err, riesgo) => {
+						if (err) { throw err; }
+						Incidente.find({},(err, incidente) =>{
+							if(err){ throw err;}
 		  	 else{
 		  	 	res.render('herramientas', {
 					user: req.user,
@@ -35,13 +40,38 @@ herraRoutes.get('/herramientas/:id/', (req,res) =>{
 					Actuacionesactivas : ActActivas,
 					UbicarServicio: UbicarServicio,
 					ActuacionesReactivas:ActReactivas,
+					Incidente: incidente,
+					Riesgos: riesgo,
 					isLoggedIn: req.isAuthenticated()});
 				   }
 		  	 })
 		  });
 		});
+	});
+	});
 		});
 	});
+	})
+});
+
+
+herraRoutes.get('/eventos/:id', (req,res) =>{
+	let id = req.params.id;
+	modelPlaya.findById({_id: id}, (err, playa) =>{
+		if(err) throw err;
+		  ServicioModel.find({ }, (err,servicio) =>{
+			if (err) throw err;
+			UbicarServiciosModel.find({ }, (err,UbicarServicio) =>{
+			if (err) throw err;
+		  	 else{
+		  	 	res.render('eventos', {
+					Playas: playa,
+					Servicio: servicio,
+					UbicarServicio: UbicarServicio,
+					isLoggedIn: req.isAuthenticated()});
+				   }
+		  	 })
+		  });
 	})
 });
 
@@ -90,27 +120,28 @@ herraRoutes.get('/incidentes/:id/', (req,res) =>{
 	let id = req.params.id;
 	modelPlaya.findById({_id: id}, (err, playa) =>{
 		if(err) throw err;
-		Eventos.find({ }, (err,eventos) =>{
+		Incidente.find({ }, (err,incidente) =>{
 			if (err) throw err;
 		  	 else{
 		  	 	res.render('Incidentes', {
 					Playas: playa,
-					Eventos: eventos,
+					Incidente: incidente,
 					isLoggedIn: req.isAuthenticated()});
 				   }
 		  	 })
 		  });
 		});
 
-		herraRoutes.post('/sxs', isLoggedIn, (req, res) => {
-			let body = req.body;
-			body.status = false;
+
+		// herraRoutes.post('/sxs', isLoggedIn, (req, res) => {
+		// 	let body = req.body;
+		// 	body.status = false;
 		
-			SucesoIntervencion.create(body, (err, Aviso) => {
-				if (err) throw err;
-				res.redirect('back');
-			});
-		});
+		// 	SucesoIntervencion.create(body, (err, Aviso) => {
+		// 		if (err) throw err;
+		// 		res.redirect('back');
+		// 	});
+		// });
 
 function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated()) {

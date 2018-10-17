@@ -71,6 +71,36 @@ routRiesgos.get('/addRiesgo/:id', isLoggedIn, (req, res) => {
 	//res.render('addRiesgo',{isLoggedIn: req.isAuthenticated() });
 });
 
+//::::::::::::::::::CSV Riesgos ::::::::::::::::
+routRiesgos.get('/exporttocsvRiesgos/:id', function(req, res, next) {
+    let filename   = "Riesgos.csv"; //Nombre del doc
+    let dataArray;
+    let id = req.params.id;
+	let body = req.body;
+    modelRiesgos.find({ _id: id }, body).lean().exec({}, function(err, Playas) {
+        if (err) res.send(err);
+        
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/csv');
+        res.setHeader("Content-Disposition", 'attachment; filename='+filename);
+        res.csv(Playas, true);
+    });
+});
+//::::::::::Generar CSV::::::::::
+routRiesgos.get('/exporttocsvRiesgos', function(req, res, next) {
+    let filename = "Riesgos.csv"; //Nombre del documento
+    let dataArray;
+	//Se llama al modelo (Igual que antes)
+    modelRiesgos.find().lean().exec({}, function(err, Playas) {
+        if (err) res.send(err);
+        
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/csv');
+        res.setHeader("Content-Disposition", 'attachment; filename='+filename);
+        res.csv(Playas, true);
+    });
+});
+
 
 //Agregar riesgos
 routRiesgos.post('/addRiesgo', isLoggedIn, (req, res) => {

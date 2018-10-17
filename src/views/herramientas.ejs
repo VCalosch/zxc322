@@ -75,13 +75,13 @@
                                               <a href="" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#exampleModal1"><img src="../icons/informe.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Generar Informes</a>
                                               <a href="" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#exampleModal"> <img src="../icons/note.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Actuaciones Activas y Actuaciones Reactivas</a>
                                               <a href="/incidentes/<%=Playas.id%>" class="list-group-item list-group-item-action" > <img src="../icons/note.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Incidentes</a>
-                                              <a href="" class="list-group-item list-group-item-action"><img src="../icons/history.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Histórico de Eventos Registrados (Visualización/Edición)</a>
+                                              <a href="/eventos/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/history.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Histórico de Eventos Registrados (Visualización/Edición)</a>
                                               <a href="/avisos/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/history.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Histórico de Avisos Registrados (Visualización/Edición)</a>
                                               
                                             <% }
                                             else if(TipoUsuario === 2) { %>
                                               <a href="" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#exampleModal"> <img src="../icons/note.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Registro de Actuaciones en Playa</a>
-                                              <a href="" class="list-group-item list-group-item-action"><img src="../icons/history.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Histórico de Eventos Registrados (Visualización/Edición)</a>
+                                              <a href="/eventos/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/history.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Histórico de Eventos Registrados (Visualización/Edición)</a>
                                               <a href="/avisos/<%=Playas.id%>" class="list-group-item list-group-item-action"><img src="../icons/history.png" width="20px"; height="20px"; />&nbsp;&nbsp;&nbsp;Histórico de Avisos Registrados (Visualización/Edición)</a>
                                             <% } %>
                                             </div>
@@ -324,6 +324,17 @@
               <div class="form-row">
                   <div class="col"><button type="button" class="btn btn-primary" onclick="location='/exporttocsv/<%= Playas.id%>'">Crear CSV Playa Actual</button></div>
                   <div class="col"><button type="button" class="btn btn-primary" onclick="location='/exporttocsv'">Crear CSV Todas las Playas</button></div>
+
+                  <%
+                  for(var i=0; i < Riesgos.length; i++){
+                      if(Playas.nombre === Riesgos[i].playa){
+                    %> 
+                    <div class="col"><button type="button" class="btn btn-primary" onclick="location='/exporttocsvRiesgos/<%= Riesgos[i].id%>'">Crear CSV Riesgos</button></div><%
+                  }
+              }
+                  %>
+                  
+                  
               </div>
               <div class="col"></div>
 
