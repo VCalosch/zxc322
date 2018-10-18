@@ -7,6 +7,7 @@ const RiesgosNombres = require('../app/models/RiesgosNombres');
 const RiesgosVariables = require('../app/models/RiesgosVariables');
 const UbicarServiciosModel = require('../app/models/UbicarServicios');
 const modelPlaya = require('../app/models/playa');
+const ListaRiesgos = require('../app/models/ListaRiesgos');
 
 
 //Listar riesgos
@@ -53,11 +54,14 @@ routRiesgos.get('/addRiesgo/:id', isLoggedIn, (req, res) => {
 				if (err)  throw err;
 				TipologiaRiesgos.find({}, (err, TipologiaRiesgos) => {
 					if (err)  throw err;
+					ListaRiesgos.find({}, (err, ListaRiesgos) => {
+						if (err)  throw err;
 				else {
 			res.render('addRiesgo', {
 				Riesgos: riesgo,
 				Ubicar: UbicarServiciosModel,
 				Playas: playa,
+				ListaRiesgos: ListaRiesgos,
 				Variables: RiesgosVariables,
 				Tipologias: TipologiaRiesgos,
 				isLoggedIn: req.isAuthenticated() 
@@ -65,6 +69,7 @@ routRiesgos.get('/addRiesgo/:id', isLoggedIn, (req, res) => {
 		}
 	});
 	});
+});
 	});
 	});
 	});

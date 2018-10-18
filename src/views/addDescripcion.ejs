@@ -16,13 +16,13 @@
 						<span class="fa fa-sing-in"></span>
 						<h1>Agregar descripcion a :</h1>
 						<h2>
-							<%= Eventos.evento %>
+							<%= ListaRiesgos.Riesgo %>
 						</h2>
 						<hr>
-						<form action="/addEvento/update/<%= Eventos.id %>" method="post">
+						<form action="/addEvento/update/<%= ListaRiesgos.id %>" method="post">
 							<div class="form-group">
 								<label for="descripcion">Descripcion</label>
-								<input type="text" name="descripcion">
+								<input type="text" name="Tipologia">
 							</div>
 							<div class="col">
 								<button type="submit" class="btn btn-primary">Agregar</button>

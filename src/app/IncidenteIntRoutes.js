@@ -13,7 +13,10 @@ const IncIntSave = require('../app/models/IncIntSave');
 const modelPlaya = require('../app/models/playa');
 const Paises = require('../app/models/Paises'); 
 const ActividadDrp = require('../app/models/ActividadDrp'); 
-const Incidente = require('../app/models/Incidente'); 
+const Incidente = require('../app/models/Incidente');
+
+
+const ListaRiesgos = require('../app/models/ListaRiesgos');
 
 //DROP EVENTOS Y CONSECUENCIAS
 IncidenteInter.get('/GestionEventos/:id', (req, res) => {
@@ -52,11 +55,15 @@ IncidenteInter.get('/GestionEventos/:id', (req, res) => {
 
 IncidenteInter.get('/addEvento', (req, res) => {
     Eventos.find({}, (err, eventos) => {
-   	 if (err) throw err;
+		if (err) throw err;
+		ListaRiesgos.find({},(err, ListaRiesgos) => {
+			if(err){ throw err;}
    	 res.render('addEvento', {
 			Eventos: eventos,
+			ListaRiesgos: ListaRiesgos,
 			isLoggedIn: req.isAuthenticated()
-   	 });
+		});
+	});
     });
 });
 IncidenteInter.get('/addEvento', (req, res) => {
@@ -66,28 +73,24 @@ IncidenteInter.post('/addEvento', (req, res) => {
     let body = req.body;
     body.status = false;
 
-    Eventos.create(body, (err, Eventos) => {
+    ListaRiesgos.create(body, (err, ListaRiesgos) => {
    	 if (err) throw err;
    	 res.redirect('/addEvento');
     });
 });
-IncidenteInter.get('/addEvento/delete/:id', (req, res) => {
-    let id = req.params.id;
-    Eventos.findByIdAndRemove({ _id: id }, (err, eventos) => {
-   	 if (err) throw err;
-   	 res.redirect('/addEvento');
-    });
-});
+
+
+
 
 
 
 IncidenteInter.get('/addEvento/addDescripcion/:id', (req, res) => {
 	let id = req.params.id;
 	let body = req.body;
-	Eventos.findById({ _id: id }, (err, evento) => {
+	ListaRiesgos.findById({ _id: id }, (err, ListaRiesgos) => {
 		if (err) throw err;
 		res.render('addDescripcion', {
-			Eventos: evento,
+			ListaRiesgos: ListaRiesgos,
 			isLoggedIn: req.isAuthenticated()
 		});
 	});
@@ -99,15 +102,15 @@ IncidenteInter.post('/addEvento/update/:id', (req, res) => {
 	body.status = false;
 	const id = req.params.id;
 
-	Eventos.findById({ _id: id }, (err, evento) => {
+	ListaRiesgos.findById({ _id: id }, (err, Riesgo) => {
 		if (err) throw err;
 
-		let descripcion = [...evento.descripcion]
-		descripcion.push({ name: body.descripcion })
+		let Tipologia = [...Riesgo.Tipologia]
+		Tipologia.push({ name: body.Tipologia })
 
-		evento.descripcion = descripcion;
+		Riesgo.Tipologia = Tipologia;
 
-		evento.save((err2, updatedTank) => {
+		Riesgo.save((err2, updatedTank) => {
 			if (err2) throw err2;
 			res.redirect('/GestionEventos');
 		});
@@ -132,38 +135,38 @@ IncidenteInter.post('/addIncidente', (req, res) => {
 //::===:::====:::====:::====:::=====:::====:::====:::===:::====:::====:::====:::=====:::====:::====::
 //ADMINISTRACION DEL DROP Descripcion
 
-IncidenteInter.get('/addEvento/addDescripcion/:id', (req, res) => {
-	let id = req.params.id;
-	let body = req.body;
-	Eventos.findById({ _id: id }, (err, evento) => {
-		if (err) throw err;
-		res.render('addDescripcion', {
-			Eventos: evento
-		});
-	});
-});
+// IncidenteInter.get('/addEvento/addDescripcion/:id', (req, res) => {
+// 	let id = req.params.id;
+// 	let body = req.body;
+// 	Eventos.findById({ _id: id }, (err, evento) => {
+// 		if (err) throw err;
+// 		res.render('addDescripcion', {
+// 			Eventos: evento
+// 		});
+// 	});
+// });
 
 
-IncidenteInter.post('/addEvento/update/:id', (req, res) => {
-	let body = req.body;
-	body.status = false;
-	const id = req.params.id;
+// IncidenteInter.post('/addEvento/update/:id', (req, res) => {
+// 	let body = req.body;
+// 	body.status = false;
+// 	const id = req.params.id;
 
-	Eventos.findById({ _id: id }, (err, evento) => {
-		if (err) throw err;
+// 	Eventos.findById({ _id: id }, (err, evento) => {
+// 		if (err) throw err;
 
-		let descripcion = [...evento.descripcion]
-		descripcion.push({ name: body.descripcion })
+// 		let descripcion = [...evento.descripcion]
+// 		descripcion.push({ name: body.descripcion })
 
-		evento.descripcion = descripcion;
+// 		evento.descripcion = descripcion;
 
-		evento.save((err2, updatedTank) => {
-			if (err2) throw err2;
-			res.redirect('/GestionEventos');
-		});
+// 		evento.save((err2, updatedTank) => {
+// 			if (err2) throw err2;
+// 			res.redirect('/GestionEventos');
+// 		});
 
-	})
-});
+// 	})
+// });
 //FIN DE LA ADMINISTRACION DE EVENTOS////////////////////////////// 
 
 //::===:::====:::====:::====:::=====:::====:::====:::===:::====:::====:::====:::=====:::====:::====::

@@ -7,50 +7,34 @@
 
 		</head>
 
-<!-- <body>
-	<div class="container">
-		<div class="col-sm-6 mx-auto">
-			<div class="card mt-5">
-				<div class="card-body">
-					<h1 class="text-center">
-						<span class="fa fa-sing-in"></span>Agregar
-					</h1>
-					<center>
+<script type="text/javascript">
+	window.Riesgo = <%- JSON.stringify(ListaRiesgos) %>
+  </script>
+  <script>
+	  function onChange() {
+		var id = document.getElementById("riesgosSelect").value; 
+		
+		const riesgo = Riesgo.filter((ev) => ev._id == id)
+	
+		let tipologiasHTML = ''
+		riesgo[0].Tipologia.forEach(tipo => {
+			tipologiasHTML += `<option value=${tipo.name}> ${tipo.name} </option>`
+		})
 
-						<form action="/addRiesgo" method="post">
-							<div class="form-group">
-								<label for="Nombre">Nombre</label>
-								<input type="text" name="nombre">
-							</div>
-							<div class="form-group">
-								<label for="Descripcion">Descripcion</label>
-								<input type="text" name="descripcion">
-							</div>
+		for(var i=0; i<Riesgo.length; i++){
+		
+			if(riesgo[0]._id==Riesgo[i]._id){
+				document.getElementById("existenteRiesgo").value = Riesgo[i].Riesgo;
+				break;
+			}
+		}
+		
+		document.getElementById("Riesgos_Tipologias").innerHTML = tipologiasHTML;
+		
+	  }
+  </script>
 
-							<div class="form-group">
-								<label for="ubicacion">ubicacion</label>
-								<input type="text" name="ubicacion">
-							</div>
 
-							<div class="col">
-								<button class="btn btn-primary">Agregar</button>
-							</div>
-					</center>
-					</form>
-
-					<hr>
-					<div class="text-center">
-
-						<p>
-							<a href="/riegosAdmin">Volver</a>
-						</p>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</body> -->
 
 <div class="dashboard_container top-container">
     <div class="tab-content" id="myTabContent">
@@ -118,91 +102,17 @@
 								</div>
 								<div class="col">
 										<div class="form-group">
-												<select class="form-control" id="RiesgoSelect">
-												  <option disabled selected>Selecciona un Riesgo</option>
-												   <%
-
-												  for ( var i = 0; i < Riesgos.length; i++ )
-														  {
-															Riesgos[0].Riesgo == i;%>
-															  <option value="<%=Riesgos[ i ].Riesgo %>"><%=Riesgos[i].Riesgo%></option><%
-														  }
-												  %>
-
-												</select>
+											<select class="form-control" id="riesgosSelect" onchange="onChange()">
+												<option disabled selected>Seleccione un Riesgo</option>
+												<% for(var i=0; i< ListaRiesgos.length; i++) {%>
+													<option value='<%= ListaRiesgos[i]._id %>'>
+													  <%= ListaRiesgos[i].Riesgo %>
+							  
+													</option>
+													<% } %>
+											  </select>
 											  </div>
 								</div>
-
-
-								
-
-
-								 <script>
-
-								//******************************
-
-									$(document).ready(function () {
-										$("#RiesgoSelect").change(function () {
-
-												var val = $(this).val();
-												if (val == "Rocas") {
-													$("#Riesgos_Tipologias").html(" <% for(var x=0; x < 4; x++) { %><option value='<%=Tipologias[ x ].Rocas %>'><%=Tipologias[ x ].Rocas %></option> <% } %> ");
-												} else if (val == "Corrientes") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 6; x++) { %><option value='<%=Tipologias[ x ].Corrientes %>'><%=Tipologias[ x ].Corrientes %></option> <% } %>");
-												}
-												 else if (val == "Zona de Rompiente (Olas)") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 2; x++) { %><option value='<%=Tipologias[ x ].ZonaRompiente %>'><%=Tipologias[ x ].ZonaRompiente %></option> <% } %>");
-												}
-												 else if (val == "Actividades Deportivas y de Recreo") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 12; x++) { %><option value='<%=Tipologias[ x ].ActividadesDeportivasRecreos %>'><%=Tipologias[ x ].ActividadesDeportivasRecreos %></option> <% } %>");
-												}
-												else if (val == "Zambullidas desde Rocas") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 3; x++) { %><option value='<%=Tipologias[ x ].ZambullidasRocas %>'><%=Tipologias[ x ].ZambullidasRocas %></option> <% } %>");
-												}
-												else if (val == "Estructura Fondo de Zona de Baño") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 3; x++) { %><option value='<%=Tipologias[ x ].EstructuraFondo %>'><%=Tipologias[ x ].EstructuraFondo %></option> <% } %>");
-												}
-												else if (val == "Rayos UVA/Efectos del Sol Sobre el Cuerpo") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 2; x++) { %><option value='<%=Tipologias[ x ].RayosUVA %>'><%=Tipologias[ x ].RayosUVA %></option> <% } %>");
-												}
-												else if (val == "Animales Acuáticos y Terrestres") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 8; x++) { %><option value='<%=Tipologias[ x ].AnimalesAcuaticos %>'><%=Tipologias[ x ].AnimalesAcuaticos %></option> <% } %>");
-												}
-												else if (val == "Arena") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 3; x++) { %><option value='<%=Tipologias[ x ].Arena %>'><%=Tipologias[ x ].Arena %></option> <% } %>");
-												}
-												else if (val == "Objetos Hinchables/Sombrillas Voladizos") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 3; x++) { %><option value='<%=Tipologias[ x ].ObjetosHinchables %>'><%=Tipologias[ x ].ObjetosHinchables %></option> <% } %>");
-												}
-												else if (val == "Riesgos por Alta Afluencia de Personas") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 4; x++) { %><option value='<%=Tipologias[ x ].RiesgosAfluenciaPersonas %>'><%=Tipologias[ x ].RiesgosAfluenciaPersonas %></option> <% } %>");
-												}
-												else if (val == "Acceso Embarcaciones") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 4; x++) { %><option value='<%=Tipologias[ x ].AccesoEmbarcaciones %>'><%=Tipologias[ x ].AccesoEmbarcaciones %></option> <% } %>");
-												}
-												else if (val == "Condiciones Meteorológicas y Marinas Adversas") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 1; x++) { %><option value='<%=Tipologias[ x ].CondicionesMetereologicas %>'><%=Tipologias[ x ].CondicionesMetereologicas %></option> <% } %>");
-												}
-												else if (val == "Desprendimientos") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 2; x++) { %><option value='<%=Tipologias[ x ].Desprendimientos %>'><%=Tipologias[ x ].Desprendimientos %></option> <% } %>");
-												}
-												else if (val == "Focos Contaminación") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 3; x++) { %><option value='<%=Tipologias[ x ].FocosContaminacion %>'><%=Tipologias[ x ].FocosContaminacion %></option> <% } %>");
-												}
-												else if (val == "Morfología/Accidentes Geográficos") {
-													$("#Riesgos_Tipologias").html("<% for(var x=0; x < 2; x++) { %><option value='<%=Tipologias[ x ].Morfologia %>'><%=Tipologias[ x ].Morfologia %></option> <% } %>");
-												}
-												
-												
-
-											});
-									});
-
-
-								//******************************
-
-
-								</script>
 
 
 								<div class="col">
@@ -377,10 +287,11 @@
 
 								<!-- Llenar Formularios -->
 								<script>
-                                        $("#RiesgoSelect").change(function() {
-												var valRiesgo = $(this).val();
-												document.getElementById("existenteRiesgo").value = valRiesgo ;
-										});
+                                        // $("#riesgosSelect").change(function() {
+										// 		var valRiesgo = $(this).val();
+										// 		document.getElementById("existenteRiesgo").value = valRiesgo ;
+										// 		console.log("Nombre del Riesgo "+valRiesgo);
+										// });
 										
 										$("#TipoExistenteSelect").change(function() {
 												var valor = $(this).val();

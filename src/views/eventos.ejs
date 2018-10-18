@@ -30,16 +30,16 @@
                                                     <tbody>
                                                       
                                                         <%
-                                                        for(var i= 0; i < 2; i++){
+                                                        for(var i= 0; i < Incidente.length; i++){
                                                         %>
                                                         <tr>
-                                                        <th scope="row">1</th>
-                                                        <td><%=Incidente.Horario[i]%></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <th scope="row"><a>Suceso <%=i+1%></a></th>
+                                                        <td><%=Incidente[i].Horario%></td>
+                                                        <td><%=Incidente[i].Evento%></td>
+                                                        <td><%=Incidente[i].Descripcion%></td>
+                                                        <td><%=Incidente[i].Consecuencias%></td>
+                                                        <td><%=Incidente[i].Fecha%></td>
+                                                        <td><%=Incidente[i].Hora%></td>
                                                         </tr>
                                                         <%
                                                         }
@@ -50,6 +50,9 @@
                                                     </tbody>
                                                   </table>
 
+                                                  
+
+                                           
 
 
 

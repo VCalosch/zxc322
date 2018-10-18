@@ -10,7 +10,12 @@ const User = require('../app/models/user');
 const SucesoIntervencion = require('../app/models/SucesoIntervencion');
 const modelRiesgos = require('../app/models/riesgos');
 const Incidente = require('../app/models/Incidente');
-  
+
+//---------BORRAR ESTO DESPUES DE AGREGAR RIESGOS--------
+
+
+//-------------------------------------------------------
+
 //::::::::::render serviciosPlaya::::::::::
 
 herraRoutes.get('/herramientas/:id/', (req,res) =>{
@@ -63,17 +68,26 @@ herraRoutes.get('/eventos/:id', (req,res) =>{
 			if (err) throw err;
 			UbicarServiciosModel.find({ }, (err,UbicarServicio) =>{
 			if (err) throw err;
+			Incidente.find({ }, (err,incidente) =>{
+				if (err) throw err;
+
 		  	 else{
 		  	 	res.render('eventos', {
 					Playas: playa,
 					Servicio: servicio,
 					UbicarServicio: UbicarServicio,
+					Incidente: incidente,
+					
 					isLoggedIn: req.isAuthenticated()});
 				   }
 		  	 })
 		  });
+		});
 	})
 });
+
+
+
 
 herraRoutes.post('/incidentes/:id', (req, res) => {
 	let body = req.body;
@@ -120,17 +134,41 @@ herraRoutes.get('/incidentes/:id/', (req,res) =>{
 	let id = req.params.id;
 	modelPlaya.findById({_id: id}, (err, playa) =>{
 		if(err) throw err;
-		Incidente.find({ }, (err,incidente) =>{
+			Eventos.find({ }, (err,evento) =>{
+			if (err) throw err;
+			Incidente.find({ }, (err,incidente) =>{
 			if (err) throw err;
 		  	 else{
 		  	 	res.render('Incidentes', {
 					Playas: playa,
 					Incidente: incidente,
+					Eventos: evento,
 					isLoggedIn: req.isAuthenticated()});
 				   }
 		  	 })
 		  });
-		});
+	})
+});
+
+// herraRoutes.get('/incidentes/:id/', (req,res) =>{
+// 	let id = req.params.id;
+// 	modelPlaya.findById({_id: id}, (err, playa) =>{
+// 		if(err) throw err;
+// 		Incidente.find({ }, (err,incidente) =>{
+// 			if (err) throw err;
+// 			Eventos.find({ }, (err,eventos) =>{
+// 				if (err) throw err;
+// 		  	 else{
+// 		  	 	res.render('Incidentes', {
+// 					Playas: playa,
+// 					Incidente: incidente,
+// 					Eventos: evento,
+// 					isLoggedIn: req.isAuthenticated()});
+// 				   }
+// 		  	 });
+// 		  });
+// 		});
+// 		});
 
 
 		// herraRoutes.post('/sxs', isLoggedIn, (req, res) => {
