@@ -1,0 +1,288 @@
+<html>
+
+		<head>
+				<title>Agregar Riesgo</title>
+				<% include partials/head %>
+				<% include partials/Mapa %>
+
+		</head>
+
+<script type="text/javascript">
+	window.Riesgo = <%- JSON.stringify(ListaRiesgos) %>
+  </script>
+  <script>
+	  function onChange() {
+		var id = document.getElementById("riesgosSelect").value; 
+		
+		const riesgo = Riesgo.filter((ev) => ev._id == id)
+	
+		let tipologiasHTML = ''
+		tipologiasHTML += '<option selected disabled>Selecciona una Tipologia</option>'
+		riesgo[0].Tipologia.forEach(tipo => {
+			tipologiasHTML += `<option value=${tipo.name}> ${tipo.name} </option>`
+		})
+
+		for(var i=0; i<Riesgo.length; i++){
+			if(riesgo[0]._id==Riesgo[i]._id){
+				document.getElementById("existenteRiesgo").value = Riesgo[i].Riesgo;
+				break;
+			}
+		}
+		
+		document.getElementById("Riesgos_Tipologias").innerHTML = tipologiasHTML;
+		
+	  }
+  </script>
+
+
+<script>
+	
+$( document ).ready(function() {
+
+	document.getElementById("NombreRiesgoPOST").value = "<%= riesgosGuardados.nombre%>";
+	document.getElementById("NombreRiesgo").value = "<%= riesgosGuardados.nombre%>";
+	document.getElementById("tipoRiesgo").value = "<%= riesgosGuardados.tipo%>";
+	document.getElementById("tipologiaRiesgo").value = "<%= riesgosGuardados.tipologia%>";
+	document.getElementById("existenteRiesgo").value = "<%= riesgosGuardados.riesgo%>";
+	document.getElementById("evaluacion").value = "<%= riesgosGuardados.evaluacion%>";
+	document.getElementById("probabilidad").value = "<%= riesgosGuardados.probabilidad%>";
+	document.getElementById("severidad").value = "<%= riesgosGuardados.severidad%>";
+	document.getElementById("fechaRiesgo").value = "<%= riesgosGuardados.fecha%>";
+	document.getElementById("latitudRiesgo").value = "<%= riesgosGuardados.latitud%>";
+	document.getElementById("longitudRiesgo").value = "<%= riesgosGuardados.longitud%>";
+	document.getElementById("playaRiesgo").value = "<%= riesgosGuardados.playa%>";	
+});
+</script>
+
+
+
+
+
+
+
+<div class="dashboard_container top-container">
+    <div class="tab-content" id="myTabContent">
+                <div class="card">
+                        <div class="card-body Margenes">
+				
+                            <button type="button" class="btn btn-secondary btn-sm float-right" style="display: none;" id="eliminarMarcador" onclick="EliminarMarcador()">Eliminar Marcador</button>
+                            <div id="map"></div>
+                            <br><br>
+                            <div class="form-row">
+                                <div class="col"></div>
+                                <div class="col">
+                                        
+                                    <input class="form-control" placeholder="Nombre del Riesgo para Identificarlo" id="NombreRiesgo">
+                                </div>
+                                <div class="col"></div>
+                            </div>
+
+                            <br>
+
+                            <div class="form-row">
+                                    <div class="col">
+                                        <select class="form-control" id="TipoExistenteSelect">
+												<option disabled selected><%= riesgosGuardados.tipo%></option>
+                                            <option value="Fijo">Fijo</option>
+                                            <option value="Puntual">Puntual</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                            <div class="form-group">
+                                                <select class="form-control" id="riesgosSelect" onchange="onChange()">
+														<option disabled selected><%= riesgosGuardados.riesgo%></option>
+                                                    <% for(var i=0; i< ListaRiesgos.length; i++) {%>
+                                                        <option value='<%= ListaRiesgos[i]._id %>'>
+                                                          <%= ListaRiesgos[i].Riesgo %>
+                                  
+                                                        </option>
+                                                        <% } %>
+                                                  </select>
+                                                  </div>
+                                    </div>
+                                    
+    
+                                    <div class="col">
+                                            <select class="form-control" id="Riesgos_Tipologias">
+													<option disabled selected>Selecciona una Tipologia</option>
+                                                    <option><%= riesgosGuardados.tipologia%></option>
+                                            </select>
+                                    </div>
+                                </div>
+
+                                    <br>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <label>Probabilidad</label>
+                                            <select class="form-control" id="slProbabilidad">
+                                                <option value="0" disabled selected><%= riesgosGuardados.probabilidad%></option>
+                                                <option value="1">Baja</option>
+                                                <option value="2">Media</option>
+                                                <option value="3">Alta</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <label>Severidad</label>
+                                            <select class="form-control" id="slSeveridad">
+                                                <option value="0" disabled selected><%= riesgosGuardados.severidad%></option>
+                                                <option value="1">Baja</option>
+                                                <option value="2">Media</option>
+                                                <option value="3">Alta</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <label>Evaluación</label>
+                                            <input class="form-control" placeholder="<%= riesgosGuardados.evaluacion%>" disabled id="txtEval">
+                                        </div>
+                                    </div>
+                                                
+                                            
+
+								<br><br>
+
+								<!-- Llenar Formularios -->
+								<script>
+                        
+										
+										$("#TipoExistenteSelect").change(function() {
+												var valor = $(this).val();
+												document.getElementById("tipoRiesgo").value = valor ;
+										});
+										
+										$("#Riesgos_Tipologias").change(function() {
+												var valor = $(this).val();
+												document.getElementById("tipologiaRiesgo").value = valor ;
+										});
+										
+
+
+								</script>
+								
+								<script>
+									function rellenarCampos(){
+										
+										document.getElementById("NombreRiesgoPOST").value = document.getElementById("NombreRiesgo").value ;
+									}
+								</script>
+								
+
+								<div class="form-row">
+									<div class="col d-flex justify-content-center">
+
+												<form action="/riesgos/modificarRiesgo/<%=riesgosGuardados._id %>" method="post">
+													<input type="hidden" name="playa" id="playaRiesgo">
+													<input type="hidden" name="latitud" id="latitudRiesgo">
+													<input type="hidden" name="longitud" id="longitudRiesgo">
+													<input type="hidden" name="nombre" id="NombreRiesgoPOST" >
+													<input type="hidden" name="probabilidad" id="probabilidad">
+													<input type="hidden" name="severidad" id="severidad">
+													<input type="hidden" name="evaluacion" id="evaluacion">
+													<input type="hidden" name="tipo" id="tipoRiesgo">
+													<input type="hidden" name="riesgo" id="existenteRiesgo">
+													<input type="hidden" name="tipologia" id="tipologiaRiesgo">
+													<input type="hidden" name="fecha" id="fechaRiesgo">
+													<button type="submit" class="btn btn-info" onclick="rellenarCampos()">Guardar</button>
+												</form>
+									</div>
+								</div>
+						
+
+						</div>
+				</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+		function VientoShowHide(){
+			if($('#Check1').is(":checked"))
+			{$("#Number1").show();	document.getElementById("VientoRiesgo").value = "1";}
+			else
+			{$("#Number1").hide(); 	document.getElementById("VientoRiesgo").value = "0";}
+		}
+		function OleajeShowHide(){
+			if($('#Check2').is(":checked"))
+			{$("#Number2").show(); 	document.getElementById("OleajeRiesgo").value = "1";}
+			else
+			{$("#Number2").hide(); 	document.getElementById("OleajeRiesgo").value = "1";}
+		}
+		function MareaShowHide(){
+			if($('#Check3').is(":checked"))
+			{$("#Number3").show(); 	document.getElementById("MareaRiesgo").value = "1";}
+			else
+			{$("#Number3").hide(); 	document.getElementById("MareaRiesgo").value = "1";}
+		}
+
+		$("#slSeveridad, #slProbabilidad").change(function(){
+				var resultado = parseInt($( "#slSeveridad option:selected" ).val()) + parseInt($( "#slProbabilidad option:selected" ).val());
+				if($( "#slSeveridad option:selected" ).val() == "0" || $( "#slProbabilidad option:selected" ).val() == "0"){
+					$('#txtEval').val("Introdusca ambos valores.");
+				}
+				else if(resultado >= 2 && resultado <=6){
+						document.getElementById("probabilidad").value = $( "#slSeveridad option:selected" ).val();
+						document.getElementById("severidad").value = $( "#slProbabilidad option:selected" ).val();
+						
+						
+
+						var today = new Date();
+						var dd = today.getDate();
+						var mm = today.getMonth()+1; 
+						var yyyy = today.getFullYear();
+
+						if(dd<10) {
+							dd = '0'+dd
+						} 
+
+						if(mm<10) {
+							mm = '0'+mm
+						} 
+
+						today = dd + '/' + mm + '/' + yyyy;
+						
+						$('#fechaRiesgo').val(today);
+						
+
+						if(resultado == 2){
+							$('#txtEval').val("Flojo");
+							$('#evaluacion').val("Flojo");
+						}
+						else if(resultado == 3){
+							$('#txtEval').val("Tolerable");
+							$('#evaluacion').val("Tolerable");
+						}
+						else if(resultado == 4){
+							$('#txtEval').val("Moderado");
+							$('#evaluacion').val("Moderado");
+						}
+						else if(resultado == 5){
+							$('#txtEval').val("Importante");
+							$('#evaluacion').val("Importante");
+						}
+						else if(resultado == 6){
+							$('#txtEval').val("Grave");
+							$('#evaluacion').val("Grave");
+						}
+				}
+				else{
+					$('#txtEval').val("Hubo un error");
+				}
+
+		});
+
+</script>
+
+
+</html>

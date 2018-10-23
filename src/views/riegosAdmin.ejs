@@ -7,6 +7,20 @@
     </head>
     <body>
         
+            <div class="container">
+                    <!-- <h3>Popover Example</h3>
+                    <a href="#" data-toggle="popover" id="element" title="Popover Header" data-content="Some content inside the popover">Toggle popover</a>
+                  </div> -->
+                  
+                  <script>
+
+                      $('[data-toggle="popover"]').popover();   
+                  
+
+
+
+                  </script>
+                    
         <div class="dashboard_container top-container">
             <div class="tab-content" id="myTabContent">
                         <div class="card">
@@ -15,6 +29,7 @@
                                         <h4><b>GESTIÓN DE RIESGOS</b></h4>
                                         <hr>
                                         <br>
+
 
                                   <div id="map"></div>
                                   <br><br>
@@ -26,17 +41,28 @@
                                         
                                   </div>
                                   <div class="form-row">
-                                      
+                                        
                                     <div class="col">
                                         <%
                                         for(var i=0; i < Riesgos.length; i++){
                                             if(Playas.nombre === Riesgos[i].playa){
-                                          %><button onclick="location.href='http://www.example.com'" type="button" class="btn btn-primary btn-block"> <%=Riesgos[i].nombre%> </button> 
+                                          %><button onclick="location.href='modificarRiesgo/<%=Riesgos[i]._id%>'" type="button" class="btn btn-primary btn-block"><%=Riesgos[i].nombre%></button>
                                           <%
                                         }
                                     }
                                         %>
                                     </div>
+                                    <div class="col-auto">
+                                        
+                                            <%
+                                            for(var i=0; i < Riesgos.length; i++){
+                                                if(Playas.nombre === Riesgos[i].playa){
+                                              %><button type="button" class="btn btn-light btn-block" onclick="location='/situaciones/<%=Riesgos[i]._id%>'"><b>+</b></button> 
+                                              <%
+                                            }
+                                        }
+                                            %>
+                                        </div>
                                     <div class="col-4"></div>
                                     <div class="col-3">
                                             <button onclick="location.href='/addRiesgo/<%=Playas.id%>'" type="button" class="btn btn-primary btn-block" >Añadir Riesgo</button>
@@ -48,8 +74,14 @@
                         </div>
             </div>
         </div>
+        <script>
+        $(function () {
+  $('[data-toggle="popover"]').popover()
+})
+        </script>
 
-
+        
+       
 
     </body>
 </html>

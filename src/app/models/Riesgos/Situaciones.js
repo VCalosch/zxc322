@@ -7,14 +7,8 @@ if (!db) {
 	db = mongoose.connect('mongodb://localhost/plsNode');
 }
 
- var Riesgos = new Schema({
-        playa: String,
-        nombre: String,
-        latitud: Number,
-        longitud: Number,
-        tipo: String,
-        riesgo: String,
-        tipologia: String,
+ var Situaciones = new Schema({
+        idRiesgo: String,
         viento: String,
         oleaje: String,
         marea: String,
@@ -28,7 +22,10 @@ if (!db) {
         probabilidad: String,
         severidad: String,
         evaluacion: String,
-        fecha: String
+        fecha: {
+    		type: Date,
+   			default: Date.now
+ 		 }
     });
 
-module.exports = mongoose.model('Riesgos', Riesgos);
+module.exports = mongoose.model('Situaciones', Situaciones);

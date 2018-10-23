@@ -104,7 +104,7 @@ const User = require('../app/models/user');  //modelo a usar para guardar los da
 module.exports = (app, passport) => {
 
 	app.get('/', (req, res) => {
-		res.render('index', {
+		res.render('login', {
 			isLoggedIn: req.isAuthenticated() 
 		});
 	});

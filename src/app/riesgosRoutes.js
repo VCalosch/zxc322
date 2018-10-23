@@ -1,13 +1,14 @@
 
 const express = require('express');
 const routRiesgos = express.Router();
-const modelRiesgos = require('../app/models/riesgos');
+const modelRiesgos = require('../app/models/Riesgos/riesgos');
 const TipologiaRiesgos = require('../app/models/TipologiaRiesgo');
-const RiesgosNombres = require('../app/models/RiesgosNombres');
-const RiesgosVariables = require('../app/models/RiesgosVariables');
+const RiesgosNombres = require('../app/models/Riesgos/RiesgosNombres');
+const RiesgosVariables = require('../app/models/Riesgos/RiesgosVariables');
 const UbicarServiciosModel = require('../app/models/UbicarServicios');
 const modelPlaya = require('../app/models/playa');
-const ListaRiesgos = require('../app/models/ListaRiesgos');
+const ListaRiesgos = require('../app/models/Riesgos/ListaRiesgos');
+const Situaciones = require('../app/models/Riesgos/Situaciones');
 
 
 //Listar riesgos
@@ -171,7 +172,93 @@ routRiesgos.post('/Variables', isLoggedIn, (req, res) => {
 	});
 });
 
+// ------------------------ Actualización de un Riesgo ---------------------------------
+routRiesgos.get('/riesgos/modificarRiesgo/:id', isLoggedIn, (req, res) => { 
+	let id = req.params.id;
+	modelRiesgos.findById({_id:id}, (err, riesgosGuardados) =>{
+		if (err)  throw err;
+	RiesgosNombres.find({}, (err, riesgo) => {
+		if (err)  throw err;
+			RiesgosVariables.find({}, (err, RiesgosVariables) => {
+				if (err)  throw err;
+				TipologiaRiesgos.find({}, (err, TipologiaRiesgos) => {
+					if (err)  throw err;
+					ListaRiesgos.find({}, (err, ListaRiesgos) => {
+						if (err)  throw err;
+				else {
+			res.render('modificarRiesgo', {
+				Riesgos: riesgo,
+				riesgosGuardados: riesgosGuardados,
+				ListaRiesgos: ListaRiesgos,
+				Variables: RiesgosVariables,
+				Tipologias: TipologiaRiesgos,
+				isLoggedIn: req.isAuthenticated() 
+			});
+		}
+	});});});});});
+	//res.render('addRiesgo',{isLoggedIn: req.isAuthenticated() });
+});
 
+routRiesgos.post('/riesgos/modificarRiesgo/:id', (req, res) => {
+	let id = req.params.id;
+	let body = req.body;
+
+	modelRiesgos.findByIdAndUpdate({ _id: id },  body, (err, riesgosGuardados) => {
+		if (err) throw err;
+		else {
+		res.redirect('back');
+		}
+	})
+});
+
+//-----------------------------------------------------------------------------------------
+
+//------------------------- Situaciones ---------------------------------------------------
+routRiesgos.get('/situaciones/:id', isLoggedIn, (req, res) => { 
+	let id = req.params.id;
+	modelRiesgos.findById({_id:id}, (err, riesgosGuardados) =>{
+		if (err)  throw err;
+	RiesgosVariables.find({}, (err, RiesgosVariables) => {
+		if (err)  throw err;
+		Situaciones.find({}, (err, situaciones) => {
+			if (err)  throw err;
+				else {
+						res.render('Situaciones', {
+							Variables: RiesgosVariables,
+							riesgosGuardados: riesgosGuardados,
+							Situaciones : situaciones,
+							isLoggedIn: req.isAuthenticated() 
+						});
+					}
+	});});});
+});
+
+routRiesgos.post('/addSituacion/', isLoggedIn, (req, res) => {
+	let body = req.body;
+	body.status = false;
+
+	Situaciones.create(body, (err, ss) => {
+		if (err) throw err;
+		res.redirect('back');
+	});
+});
+
+routRiesgos.get('/modificarSituaciones/:id', isLoggedIn, (req, res) => { 
+	let id = req.params.id;
+		Situaciones.findById({_id:id}, (err, situaciones) => {
+			if (err)  throw err;
+			RiesgosVariables.find({}, (err, variables) => {
+				if (err)  throw err;
+				else {
+						res.render('modificarSituaciones', {
+							Situaciones : situaciones,
+							Variables: variables,
+							isLoggedIn: req.isAuthenticated() 
+						});
+					}
+	});});});
+
+//-----------------------------------------------------------------------------------------
 
 
 

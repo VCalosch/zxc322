@@ -16,7 +16,7 @@ const ActividadDrp = require('../app/models/ActividadDrp');
 const Incidente = require('../app/models/Incidente');
 
 
-const ListaRiesgos = require('../app/models/ListaRiesgos');
+const ListaRiesgos = require('../app/models/Riesgos/ListaRiesgos');
 
 //DROP EVENTOS Y CONSECUENCIAS
 IncidenteInter.get('/GestionEventos/:id', (req, res) => {
@@ -288,7 +288,7 @@ IncidenteInter.post('/GestionEventos/addReactForm/', (req, res) => {
 	let id = req.body.idPlaya;
 	body.status = false;
 
-	ActReact.create(body, (err, consecu) => {
+	ActReact.update(body, (err, consecu) => {
 		if (err) throw err;
 		res.redirect('/GestionEventos/' + id);
 	});

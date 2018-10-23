@@ -8,7 +8,7 @@ const Actuacionesreactivas = require('../app/models/Actuacionesreactivas');
 const Eventos = require('../app/models/EventosX');
 const User = require('../app/models/user');
 const SucesoIntervencion = require('../app/models/SucesoIntervencion');
-const modelRiesgos = require('../app/models/riesgos');
+const modelRiesgos = require('../app/models/Riesgos/riesgos');
 const Incidente = require('../app/models/Incidente');
 
 //---------BORRAR ESTO DESPUES DE AGREGAR RIESGOS--------

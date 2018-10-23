@@ -15,7 +15,7 @@ const request = require('request');
 //********************************------- CV --------------********************************************************* */
 const UbicarServiciosModel = require('../app/models/UbicarServicios');
 const CoordinadorRoutes = express.Router();
-const riesgoModel = require('../app/models/riesgos');
+const riesgoModel = require('../app/models/Riesgos/riesgos');
 const ActuacionActiva = require('../app/models/addActuacionActiva');
 const ActuacionReactiva = require('../app/models/addActuacionReactiva');
 /******************************************************************************************************************* */
