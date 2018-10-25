@@ -214,6 +214,7 @@ routRiesgos.post('/riesgos/modificarRiesgo/:id', (req, res) => {
 //-----------------------------------------------------------------------------------------
 
 //------------------------- Situaciones ---------------------------------------------------
+
 routRiesgos.get('/situaciones/:id', isLoggedIn, (req, res) => { 
 	let id = req.params.id;
 	modelRiesgos.findById({_id:id}, (err, riesgosGuardados) =>{
@@ -257,6 +258,20 @@ routRiesgos.get('/modificarSituaciones/:id', isLoggedIn, (req, res) => {
 						});
 					}
 	});});});
+
+	routRiesgos.post('/modificarSituaciones/:id', (req, res) => {
+		let id = req.params.id;
+		let body = req.body;
+
+		backURL=req.header('Referer') || '/';
+	
+		Situaciones.findByIdAndUpdate({ _id: id },  body, (err, riesgosGuardados) => {
+			if (err) throw err;
+			else {
+			res.redirect('/coordinador');
+			}
+		})
+	});
 
 //-----------------------------------------------------------------------------------------
 

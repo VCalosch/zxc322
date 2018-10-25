@@ -6,9 +6,28 @@
     <body>
         <script>
             $( document ).ready(function() {
-                window.situaciones = <%- JSON.stringify(Situaciones) %>
-                
-                
+                window.situaciones = <%- JSON.stringify(Situaciones) %>;
+
+                    if(situaciones.viento == 1){
+                        document.getElementById("Check1").checked = true;
+                        $("#Number1").show();
+                    }
+                    if(situaciones.oleaje == 1){
+                        document.getElementById("Check2").checked = true;
+                        $("#Number2").show();
+                    }
+                    if(situaciones.marea == 1){
+                        document.getElementById("Check3").checked = true;
+                        $("#Number3").show();
+                    }
+
+                    var listaID = ["ID", "VientoRiesgo", "OleajeRiesgo", "MareaRiesgo", "V_NudosRiesgo", "V_DireccionRiesgo", "O_TipoRiesgo", "O_DireccionRiesgo", "M_AlturaRiesgo", "M_CoeficienteRiesgo", "M_MomentoRiesgo", "probabilidad", "severidad", "evaluacion"];
+                    var backID = ["<%=Situaciones.idRiesgo%>", "<%=Situaciones.viento%>", "<%=Situaciones.oleaje%>", "<%=Situaciones.marea%>", "<%=Situaciones.v_nudos%>", "<%=Situaciones.v_direccion%>", "<%=Situaciones.o_tipo%>", "<%=Situaciones.o_direccion%>", "<%=Situaciones.m_altura%>", "<%=Situaciones.m_coeficiente%>", "<%=Situaciones.m_momento%>", "<%=Situaciones.probabilidad%>", "<%=Situaciones.severidad%>", "<%=Situaciones.evaluacion%>"];
+                    for(var i=0; i<=listaID.length; i++){
+                        document.getElementById(listaID[i]).value = backID[i];
+                    }
+
+
             })    
         </script>
             <div class="dashboard_container top-container">
@@ -21,15 +40,7 @@
                                                 <br>
                                                 
                                             
-                                                <div class="jumbotron">
-                                                <div class="form-row">
-                                                    <div class="col-1"></div>
-                                                    <div class="col d-flex justify-content-center">
-                                                        <h6>*En caso de que el riesgo sea afectado por variables metereológicas</h6>
-                                                    </div>
-                                                    <div class="col-1"></div>
-                                                </div>
-                    
+                                                <div class="jumbotron">                    
                                                 <br>
                     
                                                 <div class="form-row">
@@ -61,7 +72,7 @@
                                                         <div class="col">
                                                             <label>Nudos</label>
                                                             <select class="form-control" id="V_NudosSelect">
-                                                                <option disabled selected>Seleccione una opción</option>
+                                                                <option disabled selected><%=Situaciones.v_nudos%></option>
                                                                 <%  for ( var i = 0; i < 15; i++ )
                                                                         {
                                                                           Variables[0].Nudos == i;%>
@@ -72,7 +83,7 @@
                                                         <div class="col">
                                                             <label>Dirección</label>
                                                             <select class="form-control" id="V_DireccionSelect">
-                                                                <option disabled selected>Seleccione una opción</option>
+                                                                <option disabled selected><%=Situaciones.v_direccion%></option>
                                                                 <%  for ( var i = 0; i < 19; i++ )
                                                                 {
                                                                   Variables[0].Direccion == i;%>
@@ -88,7 +99,7 @@
                                                         <div class="col">
                                                             <label>Tipo</label>
                                                             <select class="form-control" id="O_TipoSelect">
-                                                                <option disabled selected>Seleccione una opción</option>
+                                                                <option disabled selected><%=Situaciones.o_tipo%></option>
                                                                 <%  for ( var i = 0; i < 10; i++ )
                                                                         {
                                                                           Variables[0].Tipo == i;%>
@@ -99,7 +110,7 @@
                                                         <div class="col">
                                                             <label>Dirección</label>
                                                             <select class="form-control" id="O_DireccionSelect">
-                                                                <option disabled selected>Seleccione una opción</option>
+                                                                <option disabled selected><%=Situaciones.o_direccion%></option>
                                                                 <%  for ( var i = 0; i < 19; i++ )
                                                                 {
                                                                   Variables[0].Direccion == i;%>
@@ -115,7 +126,7 @@
                                                         <div class="col">
                                                             <label>Altura</label>
                                                             <select class="form-control" id="M_AlturaSelect">
-                                                                <option disabled selected>Seleccione una opción</option>
+                                                                <option disabled selected><%=Situaciones.m_altura%></option>
                                                                 <%  for ( var i = 0; i < 7; i++ )
                                                                         {
                                                                           Variables[0].Altura == i;%>
@@ -127,7 +138,7 @@
                                                         <div class="col">
                                                             <label>Coeficiente</label>
                                                             <select class="form-control" id="M_CoeficienteSelect">
-                                                                <option disabled selected>Seleccione una opción</option>
+                                                                <option disabled selected><%=Situaciones.m_coeficiente%></option>
                                                                 <%  for ( var i = 0; i < 1; i++ )
                                                                 {
                                                                   Variables[0].Coeficiente == i;%>
@@ -139,7 +150,7 @@
                                                         <div class="col">
                                                                 <label>Momento</label>
                                                                 <select class="form-control" id="M_MomentoSelect">
-                                                                    <option disabled selected>Seleccione una opción</option>
+                                                                    <option disabled selected><%=Situaciones.m_momento%></option>
                                                                     <%  for ( var i = 0; i < 5; i++ )
                                                                     {
                                                                       Variables[0].Momento == i;%>
@@ -155,7 +166,7 @@
                                                         <div class="col">
                                                             <label>Probabilidad</label>
                                                             <select class="form-control" id="slProbabilidad">
-                                                                <option value="0" disabled selected>Seleccione una opción</option>
+                                                                <option value="0" disabled selected><%=Situaciones.probabilidad%></option>
                                                                 <option value="1">Baja</option>
                                                                 <option value="2">Media</option>
                                                                 <option value="3">Alta</option>
@@ -164,7 +175,7 @@
                                                         <div class="col">
                                                             <label>Severidad</label>
                                                             <select class="form-control" id="slSeveridad">
-                                                                <option value="0" disabled selected>Seleccione una opción</option>
+                                                                <option value="0" disabled selected><%=Situaciones.severidad%></option>
                                                                 <option value="1">Baja</option>
                                                                 <option value="2">Media</option>
                                                                 <option value="3">Alta</option>
@@ -172,7 +183,7 @@
                                                         </div>
                                                         <div class="col">
                                                             <label>Evaluación</label>
-                                                            <input class="form-control" placeholder="Evaluación" disabled id="txtEval">
+                                                            <input class="form-control" placeholder="<%=Situaciones.evaluacion%>" disabled id="txtEval">
                                                         </div>
                                                     </div>
                     
@@ -234,13 +245,13 @@
                                                     <div class="form-row">
                                                         <div class="col d-flex justify-content-center">
                     
-                                                                    <form action="/addSituacion" method="post">
+                                                                    <form action="/modificarSituaciones/<%=Situaciones._id%>" method="post">
                                                                         <input type="hidden" name="idRiesgo" id="ID">
                                                                         <input type="hidden" name="viento" id="VientoRiesgo">
                                                                         <input type="hidden" name="oleaje" id="OleajeRiesgo">
                                                                         <input type="hidden" name="marea" id="MareaRiesgo">
-                                                                        <input type="hidden" name="v_nudos" id="V_NudosRiesgo"> 
-                                                                        <input type="hidden" name="v_direccion" id="V_DireccionRiesgo">
+                                                                        <input type="hidden" name="v_nudos" id="V_NudosRiesgo" > 
+                                                                        <input type="hidden" name="v_direccion" id="V_DireccionRiesgo" >
                                                                         <input type="hidden" name="o_tipo" id="O_TipoRiesgo">
                                                                         <input type="hidden" name="o_direccion" id="O_DireccionRiesgo">
                                                                         <input type="hidden" name="m_altura" id="M_AlturaRiesgo">
@@ -270,7 +281,10 @@
                                 if($('#Check1').is(":checked"))
                                 {$("#Number1").show();	document.getElementById("VientoRiesgo").value = "1";}
                                 else
-                                {$("#Number1").hide(); 	document.getElementById("VientoRiesgo").value = "0";}
+                                {
+                                    $("#Number1").hide(); 	document.getElementById("VientoRiesgo").value = "0";
+
+                                }
                             }
                             function OleajeShowHide(){
                                 if($('#Check2').is(":checked"))

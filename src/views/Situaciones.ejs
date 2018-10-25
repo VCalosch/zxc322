@@ -256,9 +256,12 @@
                                                     <div class="form-row">       
                                                         <div class="col">
                                                                 <%
+                                                                var x = 0;
                                                                 for(var i=0; i <= Situaciones.length-1; i++){
-                                                                    %> <button type="submit" class="btn btn-primary" onclick="location='/modificarSituaciones/<%= Situaciones[i]._id %>'">Situacion <%=i%></button> <%
-                                                                }
+                                                                    if(riesgosGuardados._id == Situaciones[i].idRiesgo){ 
+                                                                    %> <button type="submit" class="btn btn-primary" onclick="location='/modificarSituaciones/<%= Situaciones[i]._id %>'">Situación <%=x+1%></button> <%
+                                                                    x++; } }
+                                                            
                                                                 %>
                                                         </div>
                                                     </div>

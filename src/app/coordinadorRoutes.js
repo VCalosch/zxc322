@@ -12,6 +12,7 @@ const Actuacionesreactivas = require('../app/models/Actuacionesreactivas');
 const request = require('request');
 
 
+
 //********************************------- CV --------------********************************************************* */
 const UbicarServiciosModel = require('../app/models/UbicarServicios');
 const CoordinadorRoutes = express.Router();
@@ -180,35 +181,41 @@ socoRoutes.get('/avisos/:id', (req, res) => {
 			if (err) throw err;
 			ActuacionReactiva.find({}, (err, ActuacionReactiva) => {
 				if (err) throw err;
+				Actuacionesactivas.find({},(err, ActActivas) => {
+					if(err){ throw err;}
+					Actuacionesreactivas.find({},(err, Actuacionesreactivas) => {
+						if(err){ throw err;}
 		res.render('avisos', {
 			ActuacionActiva: ActuacionActiva,
+			Actuacionesactivas : ActActivas,
+			ActuacionesReactivas : Actuacionesreactivas,
 			ActuacionReactiva: ActuacionReactiva,
 			Playas: playa,
 			isLoggedIn: req.isAuthenticated()
 		});
-	});
+	});});});
 });
 });
 });
 
-socoRoutes.get('/avisos/:id', (req, res) => {
-	let id = req.params.id;
-	modelPlaya.findById({_id:id}, (err, playa) =>{
-		if (err) throw err;
-		ActuacionActiva.find({}, (err, ActuacionActiva) => {
-			if (err) throw err;
-			ActuacionReactiva.find({}, (err, ActuacionReactiva) => {
-				if (err) throw err;
-		res.render('avisos', {
-			ActuacionActiva: ActuacionActiva,
-			ActuacionReactiva: ActuacionReactiva,
-			Playas: playa,
-			isLoggedIn: req.isAuthenticated()
-		});
-	});
-});
-});
-});
+// socoRoutes.get('/avisos/:id', (req, res) => {
+// 	let id = req.params.id;
+// 	modelPlaya.findById({_id:id}, (err, playa) =>{
+// 		if (err) throw err;
+// 		ActuacionActiva.find({}, (err, ActuacionActiva) => {
+// 			if (err) throw err;
+// 			ActuacionReactiva.find({}, (err, ActuacionReactiva) => {
+// 				if (err) throw err;
+// 		res.render('avisos', {
+// 			ActuacionActiva: ActuacionActiva,
+// 			ActuacionReactiva: ActuacionReactiva,
+// 			Playas: playa,
+// 			isLoggedIn: req.isAuthenticated()
+// 		});
+// 	});
+// });
+// });
+// });
 
 
 socoRoutes.post('/addPlaya', isLoggedIn, (req, res) => {
