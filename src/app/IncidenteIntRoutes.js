@@ -13,7 +13,8 @@ const IncIntSave = require('../app/models/IncIntSave');
 const modelPlaya = require('../app/models/playa');
 const Paises = require('../app/models/Paises'); 
 const ActividadDrp = require('../app/models/ActividadDrp'); 
-const Incidente = require('../app/models/Incidente');
+const Incidente = require('../app/models/Incidentes/Incidente');
+const addIncidente = require('../app/models/Incidentes/DatosIncidente');
 
 
 const ListaRiesgos = require('../app/models/Riesgos/ListaRiesgos');
@@ -128,48 +129,18 @@ IncidenteInter.post('/addIncidente', (req, res) => {
 	});
 });
 
+IncidenteInter.post('/submitshit', (req, res) => {
+	let body = req.body;
+	body.status = false;
+
+	addIncidente.create(body, (err, consecu) => {
+		if (err) throw err;
+		res.redirect('back');
+	});
+});
 
 
-//FIN DE LA ADMINISTRACION DE EVENTOS
 
-//::===:::====:::====:::====:::=====:::====:::====:::===:::====:::====:::====:::=====:::====:::====::
-//ADMINISTRACION DEL DROP Descripcion
-
-// IncidenteInter.get('/addEvento/addDescripcion/:id', (req, res) => {
-// 	let id = req.params.id;
-// 	let body = req.body;
-// 	Eventos.findById({ _id: id }, (err, evento) => {
-// 		if (err) throw err;
-// 		res.render('addDescripcion', {
-// 			Eventos: evento
-// 		});
-// 	});
-// });
-
-
-// IncidenteInter.post('/addEvento/update/:id', (req, res) => {
-// 	let body = req.body;
-// 	body.status = false;
-// 	const id = req.params.id;
-
-// 	Eventos.findById({ _id: id }, (err, evento) => {
-// 		if (err) throw err;
-
-// 		let descripcion = [...evento.descripcion]
-// 		descripcion.push({ name: body.descripcion })
-
-// 		evento.descripcion = descripcion;
-
-// 		evento.save((err2, updatedTank) => {
-// 			if (err2) throw err2;
-// 			res.redirect('/GestionEventos');
-// 		});
-
-// 	})
-// });
-//FIN DE LA ADMINISTRACION DE EVENTOS////////////////////////////// 
-
-//::===:::====:::====:::====:::=====:::====:::====:::===:::====:::====:::====:::=====:::====:::====::
 //ADMINISTRACION DEL DROP Consecuencia
 IncidenteInter.get('/addConsecuencia', (req, res) => {
 	consecuencia.find({}, (err, consecu) => {

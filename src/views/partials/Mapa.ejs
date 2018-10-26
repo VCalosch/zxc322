@@ -18,6 +18,7 @@
 <script>
     var marcadoresServicios=0;
     var marcadoresRiesgos=0;
+    var marcadoresSucesos=0;
     var map;
     var currentLatitud;
     var currentLongitud;
@@ -75,6 +76,15 @@
             });
             }
         }
+
+        if(marcadoresSucesos == 1){
+            for(var i=0; i<=SucesosLongitud.length; i++){
+            marker = addMarker({
+                coords: new google.maps.LatLng(SucesosLatitud[i], SucesosLongitud[i])
+            });
+            }
+        }
+
 
            
         google.maps.event.addListener(map, 'click', function(event) {

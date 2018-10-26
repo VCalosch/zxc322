@@ -9,7 +9,8 @@ const Eventos = require('../app/models/EventosX');
 const User = require('../app/models/user');
 const SucesoIntervencion = require('../app/models/SucesoIntervencion');
 const modelRiesgos = require('../app/models/Riesgos/riesgos');
-const Incidente = require('../app/models/Incidente');
+const Incidente = require('../app/models/Incidentes/Incidente');
+const DatosIncidente = require('../app/models/Incidentes/DatosIncidente');
 
 //---------BORRAR ESTO DESPUES DE AGREGAR RIESGOS--------
 
@@ -138,48 +139,24 @@ herraRoutes.get('/incidentes/:id/', (req,res) =>{
 			if (err) throw err;
 			Incidente.find({ }, (err,incidente) =>{
 			if (err) throw err;
+			DatosIncidente.find({ }, (err,datosIncidente) =>{
+				if (err) throw err;
+			
 		  	 else{
 		  	 	res.render('Incidentes', {
 					Playas: playa,
 					Incidente: incidente,
 					Eventos: evento,
+					DatosIncidente: datosIncidente,
 					isLoggedIn: req.isAuthenticated()});
 				   }
 		  	 })
 		  });
 	})
 });
-
-// herraRoutes.get('/incidentes/:id/', (req,res) =>{
-// 	let id = req.params.id;
-// 	modelPlaya.findById({_id: id}, (err, playa) =>{
-// 		if(err) throw err;
-// 		Incidente.find({ }, (err,incidente) =>{
-// 			if (err) throw err;
-// 			Eventos.find({ }, (err,eventos) =>{
-// 				if (err) throw err;
-// 		  	 else{
-// 		  	 	res.render('Incidentes', {
-// 					Playas: playa,
-// 					Incidente: incidente,
-// 					Eventos: evento,
-// 					isLoggedIn: req.isAuthenticated()});
-// 				   }
-// 		  	 });
-// 		  });
-// 		});
-// 		});
+});
 
 
-		// herraRoutes.post('/sxs', isLoggedIn, (req, res) => {
-		// 	let body = req.body;
-		// 	body.status = false;
-		
-		// 	SucesoIntervencion.create(body, (err, Aviso) => {
-		// 		if (err) throw err;
-		// 		res.redirect('back');
-		// 	});
-		// });
 
 function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated()) {

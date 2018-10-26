@@ -8,6 +8,9 @@
 
         var RiesgosLatitud = [];
         var RiesgosLongitud = [];
+
+        var SucesosLatitud = [];
+        var SucesosLongitud = [];
     </script>
     
     <% var PlayaNombre = Playas.nombre; var test=0; %>
@@ -42,6 +45,23 @@
                                         var getLongitudRiesgos = <%= longitudRiesgos  %>;
                                         RiesgosLatitud.push(getLatitudRiesgos);
                                         RiesgosLongitud.push(getLongitudRiesgos);
+                                </script>
+                            <%
+                            } }
+
+                            for(var i =0; i < Incidente.length; i++){
+                                
+                                var y = Incidente[i].Playa
+                                if(PlayaNombre === y){ 
+                                    var latitudSucesos = Incidente[i].Latitud;
+                                    var longitudSucesos = Incidente[i].Longitud;
+                                    
+                            %>
+                                <script>
+                                        var getLatitudSucesos = <%= latitudSucesos  %>;
+                                        var getLongitudSucesos = <%= longitudSucesos  %>;
+                                        SucesosLatitud.push(getLatitudSucesos);
+                                        SucesosLongitud.push(getLongitudSucesos);
                                 </script>
                             <%
                             } }
@@ -111,6 +131,14 @@
                                     initMap();
                                     }else
                                     marcadoresRiesgos = 0; initMap();
+                                });
+
+                                $('#Sucesos').change(function(){
+                                    if (this.checked) {
+                                        marcadoresSucesos = 1;
+                                    initMap();
+                                    }else
+                                    marcadoresSucesos = 0; initMap();
                                 });
                             </script>
                             

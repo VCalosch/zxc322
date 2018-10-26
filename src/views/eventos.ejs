@@ -31,6 +31,7 @@
                                                       
                                                         <%
                                                         for(var i= 0; i < Incidente.length; i++){
+                                                            if(Playas.nombre == Incidente[i].Playa){
                                                         %>
                                                         <tr>
                                                         <th scope="row"><a>Suceso <%=i+1%></a></th>
@@ -42,7 +43,7 @@
                                                         <td><%=Incidente[i].Hora%></td>
                                                         </tr>
                                                         <%
-                                                        }
+                                                          }  }
                                                         %>
                                                       
                         

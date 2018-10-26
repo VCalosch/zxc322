@@ -4,6 +4,35 @@
     
 </head>
 
+<script>
+    $( document ).ready(function() {
+        window.actuacionReactiva = <%- JSON.stringify(addActuacionReactiva) %>;
+        
+            if(actuacionReactiva.campañasPrevencion == 1){
+                document.getElementById("defaultCheck1").checked = true;
+            }
+
+            document.getElementById("ActuacionReactivaPost").value = actuacionReactiva.ActuacionReactiva;
+            document.getElementById("ActuacionReactivaPlaya").value = actuacionReactiva.playa;
+            document.getElementById("SexoPost").value = actuacionReactiva.sexo;
+            document.getElementById("EdadPost").value = actuacionReactiva.edad;
+            document.getElementById("ActividadPost").value = actuacionReactiva.actividad;
+            document.getElementById("PaisPost").value = actuacionReactiva.pais;
+            document.getElementById("FechaPost").value = actuacionReactiva.fecha;
+            document.getElementById("fecha").value = actuacionReactiva.fecha;
+            document.getElementById("HoraPost").value = actuacionReactiva.hora;
+            document.getElementById("hora").value = actuacionReactiva.hora;
+            document.getElementById("MinutoPost").value = actuacionReactiva.minuto;
+            document.getElementById("minuto").value = actuacionReactiva.minuto;
+            document.getElementById("SegundoPost").value = actuacionReactiva.segundo;
+            document.getElementById("segundo").value = actuacionReactiva.segundo;
+            document.getElementById("campañaPost").value = actuacionReactiva.campañasPrevencion;
+            document.getElementById("latitudRiesgo").value = actuacionReactiva.lat;
+            document.getElementById("longitudRiesgo").value = actuacionReactiva.lng;
+
+    })    
+</script>
+
 <div class="dashboard_container top-container">
     <div class="tab-content" id="myTabContent">
                 <div class="card">
@@ -23,7 +52,7 @@
                                             %>
                                         </select>
                                     </div>
-                            </div>
+                                </div>
                 
                             <br>
                   
@@ -40,10 +69,10 @@
                   
                           <div id="Contenido1">
                               <div class="form-row">
-                                  <div class="col"><input class="form-control" placeholder="" id="fecha"></div>
-                                      <div class="col-md-1"><input class="form-control" placeholder="" id="hora"></div>
-                                      <div class="col-md-1"><input class="form-control" placeholder="" id="minuto"></div>
-                                      <div class="col-md-1"><input class="form-control" placeholder="" id="segundo"></div>
+                                  <div class="col"><input class="form-control" placeholder="Fecha" id="fecha"></div>
+                                      <div class="col-md-1"><input class="form-control" placeholder="Hora" id="hora"></div>
+                                      <div class="col-md-1"><input class="form-control" placeholder="Minuto" id="minuto"></div>
+                                      <div class="col-md-1"><input class="form-control" placeholder="Segundo" id="segundo"></div>
                                   
                                 <div class="col">
                                       <select class="form-control" id="Sexo">
@@ -120,6 +149,7 @@
                         </script>
                           
                           <br>
+                          <button type="button" class="btn btn-secondary btn-sm float-right" style="display: none;" id="eliminarMarcador" onclick="EliminarMarcador()">Eliminar Marcador</button>
                           <div id="map"></div>
                           <br>
                   
@@ -127,7 +157,7 @@
                           <div class="form-row">
                             <div class="col"></div>
                             <div class="col-auto">
-                                <form action="/addReactivas" method="post" >
+                                <form action="/avisos/modAvisosPreventivos/<%=addActuacionReactiva._id%>" method="post" >
                                   <input type="hidden" name="ActuacionReactiva" id="ActuacionReactivaPost">
                                   <input type="hidden" name="playa" id="ActuacionReactivaPlaya">
                                   <input type="hidden" name="sexo" id="SexoPost">

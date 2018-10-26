@@ -22,6 +22,8 @@ const showActuacionesActivas = require('../app/models/Actuacionesactivas');
 const showActuacionesReactivas = require('../app/models/Actuacionesreactivas');
 const addActuacionActiva = require('../app/models/addActuacionActiva');
 const addActuacionReactiva = require('../app/models/addActuacionReactiva');
+
+const Incidente = require('../app/models/Incidentes/Incidente');
 /******************************************************************************************************************* */
 
 
@@ -165,19 +167,25 @@ socoRoutes.get('/MostrarMapa/:id', (req, res) => {
 		if (err) throw err;
 		riesgoModel.find({}, (err, riesgo) => {
 		if (err) throw err;
+		Incidente.find({}, (err, incidente) => {
+			if (err) throw err;
 		res.render('MostrarMapa', {
 			UbicarServicio: UbicarServicio,
 			Playas: playa,
 			Riesgos: riesgo,
+			Incidente: incidente,
 			isLoggedIn: req.isAuthenticated()
 		});
 	});
 	});
 	});
 });
+});
 
 socoRoutes.get('/avisos/:id', (req, res) => {
 	let id = req.params.id;
+	global.idPlaya = id;
+
 	modelPlaya.findById({_id:id}, (err, playa) =>{
 		if (err) throw err;
 		addActuacionActiva.find({}, (err, ActuacionActiva) => {
@@ -229,6 +237,17 @@ socoRoutes.get('/avisos/modAvisosPreventivos/:id', (req, res) => {
 });
 });
 
+socoRoutes.post('/avisos/modAvisosPreventivos/:id', (req, res) => {
+	let id = req.params.id;
+	let body = req.body;
+
+	addActuacionReactiva.findByIdAndUpdate({ _id: id },  body, (err, actReactivaUpdate) => {
+		if (err) throw err;
+		else {
+		res.redirect('/avisos/'+idPlaya);
+		}
+	})
+});
 
 
 

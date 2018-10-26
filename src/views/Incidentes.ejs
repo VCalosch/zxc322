@@ -7,9 +7,11 @@
 
     <script type="text/javascript">
         window.eventos = <%- JSON.stringify(Eventos) %>
+    
       </script>
       <script>
           function onChange() {
+            document.getElementById("Playas").value = "<%=Playas.nombre%>"
             var id = document.getElementById("eventosSelect").value; 
          
       
@@ -35,11 +37,7 @@
 
 
     <body>
-        <!-- <script>
-            $( document ).ready(function() {
-                $("#Intervenciones").hide();
-            });
-        </script> -->
+
         <div class="dashboard_container top-container">
             <div class="tab-content" id="myTabContent">
                         <div class="card">
@@ -84,8 +82,12 @@
                                                         <div class="col"></div><div class="col">
                                                           <select class="form-control" id="SelectHorario">
                                                               <option disabled selected>Selecciona una Opción</option>
-                                                              <option value="Dentro">Dentro</option>
-                                                              <option value="Fuera">Fuera</option>
+                                                              <% for(var i=0; i< 2; i++) {%>
+                                                                <option value='<%= DatosIncidente[i].Horario %>'>
+                                                                  <%= DatosIncidente[i].Horario %>
+                                          
+                                                                </option>
+                                                                <% } %>
                                                             </select>
                                                       </div><div class="col"></div>
                                                     </div>
@@ -110,14 +112,12 @@
                                                         <div class="col">
                                                             <select class="form-control" id="SelectConsecuencias">
                                                                 <option disabled selected>Consecuencias</option>
-                                                                <option value="Sin consecuencias">Sin consecuencias</option>
-                                                                <option value="Recomendación de observación posterior">Recomendación de observación posterior</option>
-                                                                <option value="Traslado a Centro Hospitalario">Traslado a Centro Hospitalario</option>
-                                                                <option value="Ahogamiento mortal sin aspiración">Ahogamiento mortal sin aspiración</option>
-                                                                <option value="Ahogamiento mortal con aspiración">Ahogamiento mortal con aspiración</option>
-                                                                <option value="Fallecimiento sin ahogamiento">Fallecimiento sin ahogamiento</option>
-                                                                <option value="Lesiones">Lesiones</option>
-                                                                <option value="PCR recuperada y traslado a centro hospitalario">PCR recuperada y traslado a centro hospitalario</option>
+                                                                <% for(var i=0; i< 8; i++) {%>
+                                                                    <option value='<%= DatosIncidente[i].Consecuencias %>'>
+                                                                      <%= DatosIncidente[i].Consecuencias %>
+                                              
+                                                                    </option>
+                                                                    <% } %>
                                                               </select>
                                                         </div>
                                                       </div>
@@ -198,6 +198,7 @@
                                                     <label for="DeteccionSuceso">¿Cómo se ha detectado el Suceso?</label>
                                                     <select class="form-control" id="DeteccionSuceso">
                                                         <option selected disabled>Seleccione una Opción</option>
+                                                        
                                                       </select>
                                                 </div>
                                                 <div class="col">
@@ -416,8 +417,11 @@
                                             
                                             
 
-
-
+                                                  <!-- <p>HELOOOOOOOOOO</p>
+                                                  <form method="POST" action="/submitshit">
+                                                    <input name="Consecuencias">
+                                                    <button type="submit">shit</button>
+                                                  </form> -->
 
                                         </div>
 
@@ -437,7 +441,10 @@
                                             <input type="hidden" name="campañaPrevencion" id="campañaPost">
                                             <input type="hidden" id="latitudRiesgo" name="Latitud">
                                             <input type="hidden" id="longitudRiesgo" name="Longitud">
+                                            <input type="hidden" id="Playas" name="Playa">
                                         </form>
+
+                                        <% include partials/Mapa %>
                                         
                                         <script>
                                                 $("#SelectHorario").change(function() {
@@ -585,68 +592,3 @@
                                         }
                                         </script>
 
-                                                <!-- <form action="/sxs" method="post">
-                                                    <input name="DeteccionSuceso">
-                                                    <input name="LugarAntesSuceso">
-                                                    <input name="DistanciaRecorrida">
-                                                    <input name="TipoDesplazamientoHaciaVictima">
-                                                    <input name="TipoTraslado">
-                                                    <input name="DistanciaDesplazamiento">
-                                                    <input name="ProfundidadVictima">
-                                                    <input name="MaterialesUtilizados">
-                                                    <input name="EstadoAccidentadoPrimerContacto">
-                                                    <input name="AyudaRecibidaPor">
-                                                    <input name="TipoExtraccionVictima">
-                                                    <input name="QuienInicia">
-                                                    <input name="QuienParticipa">
-
-                                                    <button type="submit">Shit</button>
-                                                </form> -->
-
-                                                
-                                                
-                                                <!-- <div class="form-row">
-                                                  <div class="col"></div>
-                                                  <div class="col-auto">
-                                                      <form action="" method="" >
-                                                        <input type="hidden" name="ActuacionReactiva" id="ActuacionReactivaPost">
-                                                        <input type="hidden" name="playa" id="ActuacionReactivaPlaya">
-                                                        <input type="hidden" name="sexo" id="SexoPost">
-                                                        <input type="hidden" name="edad" id="EdadPost">
-                                                        <input type="hidden" name="actividad" id="ActividadPost">
-                                                        <input type="hidden" name="pais" id="PaisPost">
-                                                        <input type="hidden" name="fecha" id="FechaPost">
-                                                        <input type="hidden" name="hora" id="HoraPost">
-                                                        <input type="hidden" name="minuto" id="MinutoPost">
-                                                        <input type="hidden" name="segundo" id="SegundoPost">
-                                                        <input type="hidden" name="campañasPrevencion" id="campañaPost">
-                                                        <input type="hidden" name="lat" id="latitudRiesgo">
-                                                        <input type="hidden" name="lng" id="longitudRiesgo">
-                                                        
-                                                      </form>
-                                                    
-                                                  </div>
-                                                  <div class="col"></div>
-                                                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                </div>
-                        </div>
-            </div>
-        </div>
-    </body>
-    <% include partials/Mapa %>
-</html>
