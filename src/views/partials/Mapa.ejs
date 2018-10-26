@@ -19,6 +19,7 @@
     var marcadoresServicios=0;
     var marcadoresRiesgos=0;
     var marcadoresSucesos=0;
+    var marcadoresAvisos=0;
     var map;
     var currentLatitud;
     var currentLongitud;
@@ -81,6 +82,14 @@
             for(var i=0; i<=SucesosLongitud.length; i++){
             marker = addMarker({
                 coords: new google.maps.LatLng(SucesosLatitud[i], SucesosLongitud[i])
+            });
+            }
+        }
+
+        if(marcadoresAvisos == 1){
+            for(var i=0; i<=AvisosLongitud.length; i++){
+            marker = addMarker({
+                coords: new google.maps.LatLng(AvisosLatitud[i], AvisosLongitud[i])
             });
             }
         }

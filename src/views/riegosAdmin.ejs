@@ -14,7 +14,9 @@
                   
                   <script>
 
-                      $('[data-toggle="popover"]').popover();   
+                          $(function () {
+                            $('[data-toggle="popover"]').popover()
+                            })
                   
 
 
@@ -57,7 +59,7 @@
                                             <%
                                             for(var i=0; i < Riesgos.length; i++){
                                                 if(Playas.nombre === Riesgos[i].playa){
-                                              %><button type="button" class="btn btn-light btn-block" onclick="location='/situaciones/<%=Riesgos[i]._id%>'"><b>+</b></button> 
+                                              %><button type="button" class="btn btn-light btn-block" onclick="location='/situaciones/<%=Riesgos[i]._id%>'" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="right" data-content="Crear/Modificar Situaciones"><b>+</b></button> 
                                               <%
                                             }
                                         }

@@ -1,205 +1,209 @@
 <head>
-    <title>Servicios</title>
-    <% include partials/head %>
+        <title>Servicios</title>
+        <% include partials/head %>
+        
+    </head>
     
-</head>
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3d6OC5uV4aQlVClt97CEULYxOvY7b1GU&callback=initMap">
-</script>
-
-<script>
-    var ServiciosLatitud = [];
-    var ServiciosLongitud = [];
-</script>
-
-<% var PlayaNombre = Playas.nombre; var test=0; %>
-
-                        <% 
-                        var latt = 0;
-                        for(var i = 0; i< UbicarServicio.length; i++ ) {
-
-                                var x = UbicarServicio[i].Playa 
-                                if(PlayaNombre === x){
-                                var LatitudF = UbicarServicio[i].Latitud;
-                                var LongitudF = UbicarServicio[i].Longitud; %>
-                                    <script>
-                                            var getLatitudF = <%= LatitudF  %>;
-                                            var getLongitudF = <%= LongitudF  %>;
-                                            ServiciosLatitud.push(getLatitudF);
-                                            ServiciosLongitud.push(getLongitudF);
-                                    </script> <%} %>
-                        <% } %>
-
-<script>
-    var map;
-    var currentLatitud;
-    var currentLongitud;
-
-    var isMarcador = false;
-    var isPoligono;
-    var Marcador = 0;
-    var latitud, longitud;
-    var cerrarPoligono = 0;
-    var poligono;
-    var marker;
-    var insertarPoligono = true;
-
-
-    var list = [];
-    var numeros = [];
-
-    var listPolygon = [];
-    var numerosPolygon = [];
-
-    function EliminarMarcador() {
-        marker.setMap(null);
-        Marcador = 0;
-        longitud = null;
-        latitud = null;
-
-        marcadorCounter=0;
- 
-    }
-
-
-    function initMap(position) {
-
-        //Valores Iniciales para Mapa
-        var latlng = new google.maps.LatLng(43.477373, -3.787489);
-        var options = {
-                zoom: 15,
-                center: latlng
-            }
-            // Defininar Mapa
-        map = new google.maps.Map(document.getElementById('map'), options);
-
-          
-          for(var i=0; i<=ServiciosLongitud.length; i++){
-            marker = addMarker({
-                coords: new google.maps.LatLng(ServiciosLatitud[i], ServiciosLongitud[i])
-            });
-          }
-
-        function shitx(){
-            console.log("sss");
-        }
-           
-        google.maps.event.addListener(map, 'click', function(event) {
-            
-            if (Marcador == 0) {
-                marker = addMarker({
-                    coords: event.latLng
-                });
-
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3d6OC5uV4aQlVClt97CEULYxOvY7b1GU&callback=initMap">
+    </script>
+    
+    <script>
+        var ServiciosLatitud = [];
+        var ServiciosLongitud = [];
+    </script>
+    
+    <% var PlayaNombre = Playas.nombre; var test=0; %>
+    
+                            <% 
+                            var latt = 0;
+                            for(var i = 0; i< UbicarServicio.length; i++ ) {
+    
+                                    var x = UbicarServicio[i].Playa 
+                                    if(PlayaNombre === x){
+                                    var LatitudF = UbicarServicio[i].Latitud;
+                                    var LongitudF = UbicarServicio[i].Longitud; %>
+                                        <script>
+                                                var getLatitudF = <%= LatitudF  %>;
+                                                var getLongitudF = <%= LongitudF  %>;
+                                                ServiciosLatitud.push(getLatitudF);
+                                                ServiciosLongitud.push(getLongitudF);
+                                        </script> <%} %>
+                            <% } %>
+    
+    <script>
+        var map;
+        var currentLatitud;
+        var currentLongitud;
+    
+        var isMarcador = false;
+        var isPoligono;
+        var Marcador = 0;
+        var latitud, longitud;
+        var cerrarPoligono = 0;
+        var poligono;
+        var marker;
+        var insertarPoligono = true;
+    
+    
+        var list = [];
+        var numeros = [];
+    
+        var listPolygon = [];
+        var numerosPolygon = [];
+    
+        function EliminarMarcador() {
+            marker.setMap(null);
+            Marcador = 0;
+            longitud = null;
+            latitud = null;
+    
+            marcadorCounter=0;
      
-                latitud = event.latLng.lat();
-                longitud = event.latLng.lng();
-                marcadorCounter=1;
+        }
+    
+    
+        function initMap(position) {
+    
+            //Valores Iniciales para Mapa
+            var latlng = new google.maps.LatLng(43.477373, -3.787489);
+            var options = {
+                    zoom: 15,
+                    center: latlng
+                }
+                // Defininar Mapa
+            map = new google.maps.Map(document.getElementById('map'), options);
+    
+              
+              for(var i=0; i<=ServiciosLongitud.length; i++){
+                marker = addMarker({
+                    coords: new google.maps.LatLng(ServiciosLatitud[i], ServiciosLongitud[i])
+                });
+              }
+    
+            function shitx(){
+                console.log("sss");
+            }
+               
+            google.maps.event.addListener(map, 'click', function(event) {
                 
-                
-                Marcador = 1;
-
-                document.getElementById("latitudPost").value = latitud ;
-                document.getElementById("longitudPost").value = longitud ;
-                
-                } 
-                
-                marker.addListener('dragend', function(event) {
+                if (Marcador == 0) {
+                    marker = addMarker({
+                        coords: event.latLng
+                    });
+    
+         
                     latitud = event.latLng.lat();
                     longitud = event.latLng.lng();
+                    marcadorCounter=1;
+                    
+                    
+                    Marcador = 1;
+    
                     document.getElementById("latitudPost").value = latitud ;
-                document.getElementById("longitudPost").value = longitud ;
-                });
-
-        });
-
-        function addMarker(props) {
-            var marker = new google.maps.Marker({
-                position: props.coords,
-                map: map,
-                draggable:true
+                    document.getElementById("longitudPost").value = longitud ;
+                    
+                    } 
+                    
+                    marker.addListener('dragend', function(event) {
+                        latitud = event.latLng.lat();
+                        longitud = event.latLng.lng();
+                        document.getElementById("latitudPost").value = latitud ;
+                    document.getElementById("longitudPost").value = longitud ;
+                    });
+    
             });
-            return marker;
+    
+            function addMarker(props) {
+                var marker = new google.maps.Marker({
+                    position: props.coords,
+                    map: map,
+                    draggable:true
+                });
+                return marker;
+            }
+    
+    
+    
         }
-
-
-
-    }
-
-    //---------------------------------------------ELIMINAR MARCADOR------------------------------------------------------------------------
-</script>
-
-<div class="dashboard_container top-container">
-    <div class="tab-content" id="myTabContent">
-                <div class="card">
-                        <div class="card-body Margenes">
-
-                                <h4><b>EDITAR SERVICIOS DE PLAYA</b></h4>
-								<hr>
-								<br>
-
-                        <div class="form-row">
-                                <div class="col">
-
-                                        <select id="volume" class="form-control">
-                                                        <option disabled selected>Seleccione un Servicio</option>  
-                                        <% 
-                                           
-                                        for ( var i = 0; i < Servicio.length; i++ )
-                                                {
-                                                    Servicio[0].servicio == i;%>
-                                                    <option value="<%=Servicio[ i ].servicio %>"><%=Servicio[i].servicio %></option><%
-                                                }
-                                        %>
-                                        </select>
-                                </div>
-                                <div class="col"></div>
-                        </div>
-                        <br><br>
-                        <div id="map"></div>
-
-
-                        <br>
-                        <form class="form-row" action="/ubicarServicios" method="post">
-                            <div class="col d-flex justify-content-center">
-                                <button  class="btn btn-info ">Guardar</button>
-                                <input type="hidden" class="form-control" placeholder="Playa" id="NombrePlaya" name="Playa">
-                                <input type="hidden" class="form-control" placeholder="Latitud" id="latitudPost" name="Latitud">
-                                <input type="hidden" class="form-control" placeholder="Longitud" id="longitudPost" name="Longitud">
-                                <input type="hidden" class="form-control" placeholder="Servicio" id="mytext" name="Servicio">
-                            </div>   
-                        </form>
-                        
-                        
-                        
-                        
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                var x = $("#uid").html(); 
-                                console.log(x);
-                                document.getElementById("NombrePlaya").value = x ;
-                                
-                            });
-                        </script>
-                        
-                        <h2 style="display:none;" id="uid"><%=PlayaNombre %></h2>
-                        
-                        
-                        
-
-                        <script>
-                                        $("#volume").change(function() {
-                                                var val = $(this).val();
-                                                console.log(val);
-                                                document.getElementById("mytext").value = val ;
+    
+        //---------------------------------------------ELIMINAR MARCADOR------------------------------------------------------------------------
+    </script>
+    
+    
+    <div class="dashboard_container top-container">
+        <div class="tab-content" id="myTabContent">
+                    <div class="card">
+                            <div class="card-body Margenes">
+    
+                                    <h4><b>EDITAR SERVICIOS DE PLAYA</b></h4>
+                                    <hr>
+                                    <br>
+    
+                            <div class="form-row">
+                                    <div class="col">
+    
+                                            <select id="volume" class="form-control">
+                                                            <option disabled selected>Seleccione un Servicio</option>  
+                                            <% 
                                                
-                                               console.log(x);
-                                                //Codigo Encargado de llenar Array
+                                            for ( var i = 0; i < Servicio.length; i++ )
+                                                    {
+                                                        Servicio[0].servicio == i;%>
+                                                        <option value="<%=Servicio[ i ].servicio %>"><%=Servicio[i].servicio %></option><%
+                                                    }
+                                            %>
+                                            </select>
+                                    </div>
+                                    <div class="col"></div>
+                            </div>
+                            <br><br>
+                            <div id="map"></div>
+    
+    
+                            <br>
+                            <form class="form-row" action="/ubicarServicios" method="post">
+                                <div class="col d-flex justify-content-center">
+                                    <button  class="btn btn-info ">Guardar</button>
+                                    <input type="hidden" class="form-control" placeholder="Playa" id="NombrePlaya" name="Playa">
+                                    <input type="hidden" class="form-control" placeholder="Latitud" id="latitudPost" name="Latitud">
+                                    <input type="hidden" class="form-control" placeholder="Longitud" id="longitudPost" name="Longitud">
+                                    <input type="hidden" class="form-control" placeholder="Servicio" id="mytext" name="Servicio">
+                                </div>   
+                            </form>
+                            
+                            
+                            
+                            
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    var x = $("#uid").html(); 
+                                    console.log(x);
+                                    document.getElementById("NombrePlaya").value = x ;
+                                    
+                                });
+                            </script>
+                            
+                            <h2 style="display:none;" id="uid"><%=PlayaNombre %></h2>
+                            
+                            
+                            
+    
+                            <script>
+                                            $("#volume").change(function() {
+                                                    var val = $(this).val();
+                                                    console.log(val);
+                                                    document.getElementById("mytext").value = val ;
+                                                   
+                                                   console.log(x);
+                                                    //Codigo Encargado de llenar Array
+    
+                                            });
+                            </script>
+    
+                            </div>
+                    </div>
+        </div>
+        
+    </div>  
 
-                                        });
-                        </script>
-
-                        </div>
-                </div>
-    </div>
-</div>            
+    <% include partials/footer %>         

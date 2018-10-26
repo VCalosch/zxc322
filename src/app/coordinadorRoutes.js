@@ -169,16 +169,20 @@ socoRoutes.get('/MostrarMapa/:id', (req, res) => {
 		if (err) throw err;
 		Incidente.find({}, (err, incidente) => {
 			if (err) throw err;
+			addActuacionReactiva .find({}, (err, addActuacionReactiva ) => {
+				if (err) throw err;
 		res.render('MostrarMapa', {
 			UbicarServicio: UbicarServicio,
 			Playas: playa,
 			Riesgos: riesgo,
 			Incidente: incidente,
+			addActuacionReactiva: addActuacionReactiva,
 			isLoggedIn: req.isAuthenticated()
 		});
 	});
 	});
 	});
+});
 });
 });
 

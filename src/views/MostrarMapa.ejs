@@ -11,6 +11,9 @@
 
         var SucesosLatitud = [];
         var SucesosLongitud = [];
+
+        var AvisosLatitud = [];
+        var AvisosLongitud = [];
     </script>
     
     <% var PlayaNombre = Playas.nombre; var test=0; %>
@@ -62,6 +65,23 @@
                                         var getLongitudSucesos = <%= longitudSucesos  %>;
                                         SucesosLatitud.push(getLatitudSucesos);
                                         SucesosLongitud.push(getLongitudSucesos);
+                                </script>
+                            <%
+                            } }
+
+                            for(var i =0; i < addActuacionReactiva.length; i++){
+                                
+                                var y = addActuacionReactiva[i].playa
+                                if(PlayaNombre === y){ 
+                                    var latitudAvisos = addActuacionReactiva[i].lat;
+                                    var longitudAvisos = addActuacionReactiva[i].lng;
+                                    
+                            %>
+                                <script>
+                                        var getLatitudAvisos = <%= latitudAvisos  %>;
+                                        var getLongitudAvisos = <%= longitudAvisos  %>;
+                                        AvisosLatitud.push(getLatitudAvisos);
+                                        AvisosLongitud.push(getLongitudAvisos);
                                 </script>
                             <%
                             } }
@@ -139,6 +159,14 @@
                                     initMap();
                                     }else
                                     marcadoresSucesos = 0; initMap();
+                                });
+
+                                $('#Avisos').change(function(){
+                                    if (this.checked) {
+                                        marcadoresAvisos = 1;
+                                    initMap();
+                                    }else
+                                    marcadoresAvisos = 0; initMap();
                                 });
                             </script>
                             

@@ -1,4 +1,4 @@
 module.exports = {
-	'url': 'mongodb://playas:playas@localhost/plsNode',
+	'url': 'mongodb://localhost/plsNode',
+	'port': '27018'
 }
-

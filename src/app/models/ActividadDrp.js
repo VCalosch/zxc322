@@ -4,7 +4,7 @@ let Schema = mongoose.Schema;
 let db;
 
 if (!db) {
-	db = mongoose.connect('mongodb://playas:playas@localhost/plsNode');
+	db = mongoose.connect('mongodb://localhost/plsNode');
 }
 
  var ActividadDrp = new Schema({
