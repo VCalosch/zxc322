@@ -1,0 +1,157 @@
+<head>
+    <title>Servicios</title>
+    <% include partials/head %>
+    
+</head>
+
+<div class="dashboard_container top-container">
+    <div class="tab-content" id="myTabContent">
+                <div class="card">
+                        <div class="card-body Margenes">
+
+                                <h4><b>MODIFICAR AVISO PREVENTIVO</b></h4>
+								<hr>
+								<br>
+
+                                <div class="form-row">
+                                    <div class="col-auto">
+                                        <select class="form-control" id="ActuacionReactivaSelect">
+                                            <option selected disabled><%=addActuacionReactiva.ActuacionReactiva%></option>
+                                            <%
+                                            for(var i =0; i < showActuacionesReactivas.length; i++){ 
+                                            %> <option><%=showActuacionesReactivas[i].ActuacionreactivasNombre%></option> <%  }
+                                            %>
+                                        </select>
+                                    </div>
+                            </div>
+                
+                            <br>
+                  
+                            <script>
+                                  $("#ActuacionReactivaSelect").change(function() {
+                                    var val = $(this).val();
+                                    document.getElementById("ActuacionReactivaPost").value = val;
+                                    document.getElementById("ActuacionReactivaPlaya").value = playaActual;
+                                    //document.theFormActuacionReactiva.submit();
+                                    $('#Contenido1').show();
+                                });
+                            </script>
+                  
+                  
+                          <div id="Contenido1">
+                              <div class="form-row">
+                                  <div class="col"><input class="form-control" placeholder="" id="fecha"></div>
+                                      <div class="col-md-1"><input class="form-control" placeholder="" id="hora"></div>
+                                      <div class="col-md-1"><input class="form-control" placeholder="" id="minuto"></div>
+                                      <div class="col-md-1"><input class="form-control" placeholder="" id="segundo"></div>
+                                  
+                                <div class="col">
+                                      <select class="form-control" id="Sexo">
+                                        <option disabled selected><%=addActuacionReactiva.sexo%></option>
+                                        <option value="Hombre">Hombre</option>
+                                        <option value="Mujer">Mujer</option>
+                                        <option value="Otro">Otro</option>
+                                      </select>
+                                  </div>
+                  
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                          Campaña de Prevención
+                                        </label>
+                                      </div>
+                                </div>
+                          </div>
+                  
+                          <br>
+                  
+                          <div class="form-row">
+                                <div class="col">
+                                    <select class="form-control" id="Pais">
+                                        <option disabled selected><%=addActuacionReactiva.pais%></option>
+                                        <option value="Pais1">Pais1</option>
+                                      </select>
+                                </div>
+                                <div class="col">
+                                    <select class="form-control" id="Edad">
+                                        <option disabled selected><%=addActuacionReactiva.edad%></option>
+                                        <option value="Edad1">Edad1</option>
+                                      </select>
+                                </div>
+                                <div class="col">
+                                    <select class="form-control" id="Actividad">
+                                        <option disabled selected><%=addActuacionReactiva.actividad%></option>
+                                        <option value="Actividad1">Actividad1</option>
+                                      </select>
+                                </div>
+                          </div>
+                  
+                          <script>
+                              $("#Sexo").change(function() {
+                                  var val = $(this).val();
+                                  document.getElementById("SexoPost").value = val;
+                              });
+                              $("#Pais").change(function() {
+                                  var val = $(this).val();
+                                  document.getElementById("PaisPost").value = val;
+                              });
+                              $("#Edad").change(function() {
+                                  var val = $(this).val();
+                                  document.getElementById("EdadPost").value = val;
+                              });
+                              $("#Actividad").change(function() {
+                                  var val = $(this).val();
+                                  document.getElementById("ActividadPost").value = val;
+                              });
+                  
+                              $('#defaultCheck1').on('change', function(){
+                                this.value = this.checked ? 1 : 0;
+                                document.getElementById("campañaPost").value = this.value;
+                              }).change();
+                  
+                              function RellenarForms(){
+                                document.getElementById("FechaPost").value = document.getElementById("fecha").value;
+                                document.getElementById("HoraPost").value = document.getElementById("hora").value;
+                                document.getElementById("MinutoPost").value = document.getElementById("minuto").value;
+                                document.getElementById("SegundoPost").value = document.getElementById("segundo").value;
+                              }
+                  
+                        </script>
+                          
+                          <br>
+                          <div id="map"></div>
+                          <br>
+                  
+                  
+                          <div class="form-row">
+                            <div class="col"></div>
+                            <div class="col-auto">
+                                <form action="/addReactivas" method="post" >
+                                  <input type="hidden" name="ActuacionReactiva" id="ActuacionReactivaPost">
+                                  <input type="hidden" name="playa" id="ActuacionReactivaPlaya">
+                                  <input type="hidden" name="sexo" id="SexoPost">
+                                  <input type="hidden" name="edad" id="EdadPost">
+                                  <input type="hidden" name="actividad" id="ActividadPost">
+                                  <input type="hidden" name="pais" id="PaisPost">
+                                  <input type="hidden" name="fecha" id="FechaPost">
+                                  <input type="hidden" name="hora" id="HoraPost">
+                                  <input type="hidden" name="minuto" id="MinutoPost">
+                                  <input type="hidden" name="segundo" id="SegundoPost">
+                                  <input type="hidden" name="campañasPrevencion" id="campañaPost">
+                                  <input type="hidden" name="lat" id="latitudRiesgo">
+                                  <input type="hidden" name="lng" id="longitudRiesgo">
+                                  <button type="submit" class="btn btn-primary" onclick="RellenarForms()">Guardar Cambios</button>
+                                </form>
+                              
+                            </div>
+                            <div class="col"></div>
+                          </div>
+
+
+                        </div>
+                </div>
+    </div>
+</div>
+
+<% include partials/Mapa %>

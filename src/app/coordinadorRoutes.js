@@ -7,8 +7,7 @@ const modelPlaya = require('../app/models/playa');
 const PerfilUsuario = require('../app/models/PerfilUsuario');
 const Servicio = require('../app/models/ServicioPlaya');
 const addServicio = require('../app/models/addServicio');
-const Actuacionesactivas = require('../app/models/Actuacionesactivas');
-const Actuacionesreactivas = require('../app/models/Actuacionesreactivas');
+
 const request = require('request');
 
 
@@ -17,8 +16,12 @@ const request = require('request');
 const UbicarServiciosModel = require('../app/models/UbicarServicios');
 const CoordinadorRoutes = express.Router();
 const riesgoModel = require('../app/models/Riesgos/riesgos');
-const ActuacionActiva = require('../app/models/addActuacionActiva');
-const ActuacionReactiva = require('../app/models/addActuacionReactiva');
+
+
+const showActuacionesActivas = require('../app/models/Actuacionesactivas');
+const showActuacionesReactivas = require('../app/models/Actuacionesreactivas');
+const addActuacionActiva = require('../app/models/addActuacionActiva');
+const addActuacionReactiva = require('../app/models/addActuacionReactiva');
 /******************************************************************************************************************* */
 
 
@@ -28,7 +31,7 @@ socoRoutes.get('/coordinador',  (req, res) => { //Listar Todo
 		User.find({},(err,users) =>{
 			if(err){throw err;}
 			else{
-				Actuacionesactivas.find({}, (err,Act) =>{
+				showActuacionesActivas.find({}, (err,Act) =>{
 					if(err){ throw err;}
 					else{
 						PerfilUsuario.find({} , (err, usr) =>{
@@ -177,19 +180,46 @@ socoRoutes.get('/avisos/:id', (req, res) => {
 	let id = req.params.id;
 	modelPlaya.findById({_id:id}, (err, playa) =>{
 		if (err) throw err;
-		ActuacionActiva.find({}, (err, ActuacionActiva) => {
+		addActuacionActiva.find({}, (err, ActuacionActiva) => {
 			if (err) throw err;
-			ActuacionReactiva.find({}, (err, ActuacionReactiva) => {
-				if (err) throw err;
-				Actuacionesactivas.find({},(err, ActActivas) => {
+				showActuacionesActivas.find({},(err, ActActivas) => {
 					if(err){ throw err;}
-					Actuacionesreactivas.find({},(err, Actuacionesreactivas) => {
+					showActuacionesReactivas.find({},(err, Actuacionesreactivas) => {
 						if(err){ throw err;}
+						addActuacionReactiva.find({},(err, ActuacionReactiva) => {
+							if(err){ throw err;}
 		res.render('avisos', {
-			ActuacionActiva: ActuacionActiva,
-			Actuacionesactivas : ActActivas,
-			ActuacionesReactivas : Actuacionesreactivas,
-			ActuacionReactiva: ActuacionReactiva,
+			addActuacionActiva: ActuacionActiva,
+			showActuacionesActivas : ActActivas,
+			showActuacionesReactivas : Actuacionesreactivas,
+			addActuacionReactiva: ActuacionReactiva,
+			Playas: playa,
+			isLoggedIn: req.isAuthenticated()
+		});
+	});});});
+});
+});});
+
+
+socoRoutes.get('/avisos/modAvisosPreventivos/:id', (req, res) => {
+	let id = req.params.id;
+	addActuacionReactiva.findById({_id:id}, (err, ActuacionReactiva) =>{
+		if (err) throw err;
+		addActuacionActiva.find({}, (err, ActuacionActiva) => {
+			if (err) throw err;
+			modelPlaya.find({}, (err, playa) => {
+				if (err) throw err;
+				showActuacionesActivas.find({},(err, ActActivas) => {
+					if(err){ throw err;}
+					showActuacionesReactivas.find({},(err, Actuacionesreactivas) => {
+						if(err){ throw err;}
+						showActuacionesReactivas.find({},(err, Actuacionesreactivas) => {
+							if(err){ throw err;}
+		res.render('modAvisosPreventivos', {
+			addActuacionActiva: ActuacionActiva,
+			showActuacionesActivas : ActActivas,
+			showActuacionesReactivas : Actuacionesreactivas,
+			addActuacionReactiva: ActuacionReactiva,
 			Playas: playa,
 			isLoggedIn: req.isAuthenticated()
 		});
@@ -197,25 +227,11 @@ socoRoutes.get('/avisos/:id', (req, res) => {
 });
 });
 });
+});
 
-// socoRoutes.get('/avisos/:id', (req, res) => {
-// 	let id = req.params.id;
-// 	modelPlaya.findById({_id:id}, (err, playa) =>{
-// 		if (err) throw err;
-// 		ActuacionActiva.find({}, (err, ActuacionActiva) => {
-// 			if (err) throw err;
-// 			ActuacionReactiva.find({}, (err, ActuacionReactiva) => {
-// 				if (err) throw err;
-// 		res.render('avisos', {
-// 			ActuacionActiva: ActuacionActiva,
-// 			ActuacionReactiva: ActuacionReactiva,
-// 			Playas: playa,
-// 			isLoggedIn: req.isAuthenticated()
-// 		});
-// 	});
-// });
-// });
-// });
+
+
+
 
 
 socoRoutes.post('/addPlaya', isLoggedIn, (req, res) => {
@@ -242,7 +258,7 @@ socoRoutes.post('/addActivas', isLoggedIn, (req, res) => {
 		let body = req.body;
 		body.status = false;
 	
-		ActuacionActiva.create(body, (err, Aviso) => {
+		addActuacionActiva.create(body, (err, Aviso) => {
 			if (err) throw err;
 			res.redirect('back');
 		});
@@ -252,7 +268,7 @@ socoRoutes.post('/addReactivas', isLoggedIn, (req, res) => {
 	let body = req.body;
 	body.status = false;
 
-	ActuacionReactiva.create(body, (err, Aviso) => {
+	addActuacionReactiva.create(body, (err, Aviso) => {
 		if (err) throw err;
 		res.redirect('back');
 	});

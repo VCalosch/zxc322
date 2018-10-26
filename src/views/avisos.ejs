@@ -6,7 +6,7 @@
 
     <script>
         $( document ).ready(function() {
-            window.Actuacion = <%- JSON.stringify(ActuacionReactiva) %>;
+            window.Actuacion = <%- JSON.stringify(addActuacionReactiva) %>;
 
                 if(Actuacion[0].campañasPrevencion == 1){
                  document.getElementById("defaultCheck1").checked = true;
@@ -36,9 +36,9 @@
                                                     </div>
                                                     <div class="form-row">
                                                         <%
-                                                            for(var i=0; i < ActuacionActiva.length; i++){
-                                                                if(Playas.nombre === ActuacionActiva[i].playa ){
-                                                            %><button type="button" class="btn btn-primary btn-sm btn-block"><%=ActuacionActiva[i].ActuacionActiva%></button><%
+                                                            for(var i=0; i < addActuacionActiva.length; i++){
+                                                                if(Playas.nombre === addActuacionActiva[i].playa ){
+                                                            %><button type="button" class="btn btn-primary btn-sm btn-block"><%=addActuacionActiva[i].ActuacionActiva%></button><%
                                                             } }
                                                         %>
                                                     </div>
@@ -50,9 +50,9 @@
                                                     </div>
                                                     <div class="form-row">
                                                             <%
-                                                                for(var i=0; i < ActuacionReactiva.length; i++){
-                                                                    if(Playas.nombre === ActuacionReactiva[i].playa ){
-                                                                %><button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#exampleModal" onclick="PosActuacion(<%= i %>)" ><%=ActuacionReactiva[i].ActuacionReactiva%></button> <%
+                                                                for(var i=0; i < addActuacionReactiva.length; i++){
+                                                                    if(Playas.nombre === addActuacionReactiva[i].playa ){
+                                                                %><button type="button" class="btn btn-primary btn-sm btn-block" onclick="location='/avisos/modAvisosPreventivos/<%=addActuacionReactiva[i]._id%>'" ><%=addActuacionReactiva[i].ActuacionReactiva%></button> <%
                                                                 } }
                                                             %>
                                                         </div>
@@ -68,195 +68,6 @@
                 </div>
         </div>
     </body>
-
-    <script>
-        function PosActuacion(x){
-            let ActuacionReactiva = '', sexo = '', edad = '', actividad = '', pais = '', fecha = '', hora = '', minuto = '', segundo = '', lat = '', lng = ''
-            ActuacionReactiva += Actuacion[x].ActuacionReactiva;
-            sexo += Actuacion[x].ActuacionReactiva;
-            edad += Actuacion[x].ActuacionReactiva;
-            actividad += Actuacion[x].ActuacionReactiva;
-            ActuacionReactiva += Actuacion[x].ActuacionReactiva;
-            ActuacionReactiva += Actuacion[x].ActuacionReactiva;
-            ActuacionReactiva += Actuacion[x].ActuacionReactiva;
-            ActuacionReactiva += Actuacion[x].ActuacionReactiva;
-            ActuacionReactiva += Actuacion[x].ActuacionReactiva;
-            document.getElementById("FirstActuacionReactiva").innerHTML = ActuacionReactiva;
-        }
-    </script>
-
-
-
-<!-- MODAL -->
-
-<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modificar Aviso Preventivo</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-
-            <div class="form-row">
-                    <div class="col-auto">
-                        <select class="form-control" id="ActuacionReactivaSelect">
-                            <option id="FirstActuacionReactiva" selected disabled></option>
-                            <%
-                            for(var i =0; i < ActuacionesReactivas.length; i++){ 
-                            %> <option><%=ActuacionesReactivas[i].ActuacionreactivasNombre%></option> <%  }
-                            %>
-                        </select>
-                    </div>
-            </div>
-
-            <br>
-  
-            <script>
-                  $("#ActuacionReactivaSelect").change(function() {
-                    var val = $(this).val();
-                    document.getElementById("ActuacionReactivaPost").value = val;
-                    document.getElementById("ActuacionReactivaPlaya").value = playaActual;
-                    //document.theFormActuacionReactiva.submit();
-                    $('#Contenido1').show();
-                });
-            </script>
-  
-  
-          <div id="Contenido1">
-              <div class="form-row">
-                  <div class="col"><input class="form-control" placeholder="<%=ActuacionReactiva[0].fecha%>" id="fecha"></div>
-                      <div class="col-md-1"><input class="form-control" placeholder="<%=ActuacionReactiva[0].hora%>" id="hora"></div>
-                      <div class="col-md-1"><input class="form-control" placeholder="<%=ActuacionReactiva[0].minuto%>" id="minuto"></div>
-                      <div class="col-md-1"><input class="form-control" placeholder="<%=ActuacionReactiva[0].segundo%>" id="segundo"></div>
-                  
-                <div class="col">
-                      <select class="form-control" id="Sexo">
-                        <option disabled selected><%=ActuacionReactiva[0].sexo%></option>
-                        <option value="Hombre">Hombre</option>
-                        <option value="Mujer">Mujer</option>
-                        <option value="Otro">Otro</option>
-                      </select>
-                  </div>
-  
-                <div class="col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
-                          Campaña de Prevención
-                        </label>
-                      </div>
-                </div>
-          </div>
-  
-          <br>
-  
-          <div class="form-row">
-                <div class="col">
-                    <select class="form-control" id="Pais">
-                        <option disabled selected><%=ActuacionReactiva[0].pais%></option>
-                        <option value="Pais1">Pais1</option>
-                      </select>
-                </div>
-                <div class="col">
-                    <select class="form-control" id="Edad">
-                        <option disabled selected><%=ActuacionReactiva[0].edad%></option>
-                        <option value="Edad1">Edad1</option>
-                      </select>
-                </div>
-                <div class="col">
-                    <select class="form-control" id="Actividad">
-                        <option disabled selected><%=ActuacionReactiva[0].actividad%></option>
-                        <option value="Actividad1">Actividad1</option>
-                      </select>
-                </div>
-          </div>
-  
-          <script>
-              $("#Sexo").change(function() {
-                  var val = $(this).val();
-                  document.getElementById("SexoPost").value = val;
-              });
-              $("#Pais").change(function() {
-                  var val = $(this).val();
-                  document.getElementById("PaisPost").value = val;
-              });
-              $("#Edad").change(function() {
-                  var val = $(this).val();
-                  document.getElementById("EdadPost").value = val;
-              });
-              $("#Actividad").change(function() {
-                  var val = $(this).val();
-                  document.getElementById("ActividadPost").value = val;
-              });
-  
-              $('#defaultCheck1').on('change', function(){
-                this.value = this.checked ? 1 : 0;
-                document.getElementById("campañaPost").value = this.value;
-              }).change();
-  
-              function RellenarForms(){
-                document.getElementById("FechaPost").value = document.getElementById("fecha").value;
-                document.getElementById("HoraPost").value = document.getElementById("hora").value;
-                document.getElementById("MinutoPost").value = document.getElementById("minuto").value;
-                document.getElementById("SegundoPost").value = document.getElementById("segundo").value;
-              }
-  
-        </script>
-          
-          <br>
-          <div id="map"></div>
-          <br>
-  
-  
-          <div class="form-row">
-            <div class="col"></div>
-            <div class="col-auto">
-                <form action="/addReactivas" method="post" >
-                  <input type="hidden" name="ActuacionReactiva" id="ActuacionReactivaPost">
-                  <input type="hidden" name="playa" id="ActuacionReactivaPlaya">
-                  <input type="hidden" name="sexo" id="SexoPost">
-                  <input type="hidden" name="edad" id="EdadPost">
-                  <input type="hidden" name="actividad" id="ActividadPost">
-                  <input type="hidden" name="pais" id="PaisPost">
-                  <input type="hidden" name="fecha" id="FechaPost">
-                  <input type="hidden" name="hora" id="HoraPost">
-                  <input type="hidden" name="minuto" id="MinutoPost">
-                  <input type="hidden" name="segundo" id="SegundoPost">
-                  <input type="hidden" name="campañasPrevencion" id="campañaPost">
-                  <input type="hidden" name="lat" id="latitudRiesgo">
-                  <input type="hidden" name="lng" id="longitudRiesgo">
-                  <button type="submit" class="btn btn-primary" onclick="RellenarForms()">Modificar y Cerrar</button>
-                </form>
-              
-            </div>
-            <div class="col"></div>
-          </div>
-            
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <% include partials/Mapa %> 
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
 
 
 </html>
