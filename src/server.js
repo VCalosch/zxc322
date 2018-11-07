@@ -11,9 +11,15 @@ const cookieParser = require('cookie-parser');//administrar cookies
 const bodyParser = require('body-parser');//body
 const session = require('express-session');
 const $ = require('jquery');
-/*const bootstrap = require('bootstrap');
-const jquery = require('jquery');
-const popper = require('popper');*/
+
+
+
+//--------------Test----------------------
+const validator = require('express-validator')
+
+//////////////////////////////////////////
+
+
 
 const { url } = require('./config/database');
 
@@ -28,6 +34,8 @@ const coorRoutes = require('./app/coordinadorRoutes');
 const serviceRoutes = require('./app/servicioRoutes');
 const herramientasRoutes = require('./app/herramientasRoutes');
 
+const test = require('./app/Test/TestRoutes');
+
 
 
 //setings 
@@ -39,6 +47,9 @@ app.set('view engine', 'ejs');
 app.use(morgan('dev')); //mostrar por consola 
 app.use(cookieParser()); //administrar cookies
 app.use(bodyParser.urlencoded({ extended: false })); //extended false evita trabajar las cookies de imagenes , interpretar la informacion desde las url
+
+app.use(validator());
+
 app.use(session({
 	secret: 'Redencion', //Variable de entorno o de session
 	resave: false,
@@ -58,6 +69,7 @@ app.use(eventRoutes);
 app.use(coorRoutes);
 app.use(serviceRoutes);
 app.use(herramientasRoutes);
+app.use(test);
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
 //app.use(express.static(path.join(__dirname + 'public')));

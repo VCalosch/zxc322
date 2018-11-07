@@ -34,7 +34,7 @@
                                                             if(Playas.nombre == Incidente[i].Playa){
                                                         %>
                                                         <tr>
-                                                        <th scope="row"><a>Suceso <%=i+1%></a></th>
+                                                        <th scope="row"><a href="/modIncidente/<%=Incidente[i]._id%>">Suceso <%=i+1%></a></th>
                                                         <td><%=Incidente[i].Horario%></td>
                                                         <td><%=Incidente[i].Evento%></td>
                                                         <td><%=Incidente[i].Descripcion%></td>
@@ -61,6 +61,10 @@
                             </div>
                 </div>
         </div>
+        
     </body>
+    
+     
+    
 
 </html>

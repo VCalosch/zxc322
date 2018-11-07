@@ -11,6 +11,7 @@ const SucesoIntervencion = require('../app/models/SucesoIntervencion');
 const modelRiesgos = require('../app/models/Riesgos/riesgos');
 const Incidente = require('../app/models/Incidentes/Incidente');
 const DatosIncidente = require('../app/models/Incidentes/DatosIncidente');
+const Informacion = require('../app/models/Otros/Informacion');
 
 //---------BORRAR ESTO DESPUES DE AGREGAR RIESGOS--------
 
@@ -37,6 +38,8 @@ herraRoutes.get('/herramientas/:id/', (req,res) =>{
 						if (err) { throw err; }
 						Incidente.find({},(err, incidente) =>{
 							if(err){ throw err;}
+							Informacion.find({},(err, informacion) =>{
+								if(err){ throw err;}
 		  	 else{
 		  	 	res.render('herramientas', {
 					user: req.user,
@@ -48,6 +51,7 @@ herraRoutes.get('/herramientas/:id/', (req,res) =>{
 					ActuacionesReactivas:ActReactivas,
 					Incidente: incidente,
 					Riesgos: riesgo,
+					Informacion : informacion,
 					isLoggedIn: req.isAuthenticated()});
 				   }
 		  	 })
@@ -58,7 +62,7 @@ herraRoutes.get('/herramientas/:id/', (req,res) =>{
 		});
 	});
 	})
-});
+});	});
 
 
 herraRoutes.get('/eventos/:id', (req,res) =>{
@@ -119,17 +123,32 @@ herraRoutes.get('/caracteristicasPlaya/:id/', (req,res) =>{
 			if (err) throw err;
 			UbicarServiciosModel.find({ }, (err,UbicarServicio) =>{
 			if (err) throw err;
+			Informacion.find({ }, (err,informacion) =>{
+				if (err) throw err;
 		  	 else{
 		  	 	res.render('caracteristicasPlaya', {
 					Playas: playa,
 					Servicio: servicio,
 					UbicarServicio: UbicarServicio,
+					Informacion: informacion,
 					isLoggedIn: req.isAuthenticated()});
 				   }
 		  	 })
 		  });
 	})
+}); });
+
+herraRoutes.post('/caracteristicasPlaya/', (req, res) => {
+	let body = req.body;
+	body.status = false;
+
+	modelPlaya.update(body, (err, consecu) => {
+		if (err) throw err;
+		res.redirect('back');
+	});
 });
+
+
 
 herraRoutes.get('/incidentes/:id/', (req,res) =>{
 	let id = req.params.id;

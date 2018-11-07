@@ -90,13 +90,15 @@ $( document ).ready(function() {
                                     <div class="col">
                                             <div class="form-group">
                                                 <select class="form-control" id="riesgosSelect" onchange="onChange()">
+														<option disabled>Seleciona un Riesgo</option>
 														<option disabled selected><%= riesgosGuardados.riesgo%></option>
-                                                    <% for(var i=0; i< ListaRiesgos.length; i++) {%>
+													<% for(var i=0; i< ListaRiesgos.length; i++) {
+														if(riesgosGuardados.riesgo != ListaRiesgos[i].Riesgo){ %>
                                                         <option value='<%= ListaRiesgos[i]._id %>'>
                                                           <%= ListaRiesgos[i].Riesgo %>
                                   
                                                         </option>
-                                                        <% } %>
+                                                        <% }  } %>
                                                   </select>
                                                   </div>
                                     </div>

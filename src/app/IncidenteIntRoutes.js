@@ -16,6 +16,7 @@ const ActividadDrp = require('../app/models/ActividadDrp');
 const Incidente = require('../app/models/Incidentes/Incidente');
 const addIncidente = require('../app/models/Incidentes/DatosIncidente');
 
+const DatosIncidente = require('../app/models/Incidentes/DatosIncidente');
 
 const ListaRiesgos = require('../app/models/Riesgos/ListaRiesgos');
 
@@ -267,55 +268,6 @@ IncidenteInter.post('/GestionEventos/addReactForm/', (req, res) => {
 
 
 
-//FIN DE ACTUACIONES REACTIVAS ////////////////////////////// 
-//::===:::====:::====:::====:::=====:::====:::====:::===:::====:::====:::====:::=====:::====:::====::
-//ADMINISTRACION Para el guardado de Actuacionessave se piensa usar en general para poder listar todos los datos
-
-
-
-IncidenteInter.get('/GestionEventosAct/:id', (req, res) => {
-	let id = req.params.id;
-	Actuacionesactivas.findById({ _id: id }, (err, actac) => {
-		if (err) throw err;
-		res.render('GestionEventos.ejs', {
-			ActividadAct : actac
-		});
-	});
-
-});
-IncidenteInter.post('/GestionEventosAct/', (req, res) => {
-	let body = req.body;
-	let idPlaya = req.body.idPlaya;
-	body.status = false;
-
-	ActuacionesSave.create(body, (err, consecu) => {
-		if (err) throw err;
-		res.redirect('/GestionEventos/' + idPlaya);
-	});
-});
-
-//FIN DE ACTUACIONES Actuaciones ////////////////////////////// 
-//::===:::====:::====:::====:::=====:::====:::====:::===:::====:::====:::====:::=====:::====:::====::
-//MOSTRAR TODOS LOS DATOS DE BASE DE DATOS
-IncidenteInter.get('/GestionEventos/Incidencias/:id', (req, res) => {
-	ActuacionesSave.find({idPlaya: req.params.id}, (err, actsav) => {
-		if (err) throw err;
-			else{
-				ActReact.find({},(err ,actre) =>{
-					if(err) throw err;
-					else{
-						IncIntSave.find({},(err, IncInter) =>{
-							res.render('Incidencias', {
-							ActuacionActivasSave  : actsav,
-							ActuacionActivasRe  : actre,
-							IncidentInter: IncInter
-							});
-						});
-					}
-				});
-			}
-		});
-});
 
 IncidenteInter.get('/Incidencias/delete/:id', (req, res) => {
 	let id = req.params.id;
@@ -325,91 +277,43 @@ IncidenteInter.get('/Incidencias/delete/:id', (req, res) => {
 	});
 });
 
+//GET y POST para poder actualizar los incidentes guardos previamente
+IncidenteInter.get('/modIncidente/:id/', (req,res) =>{
+	let id = req.params.id;
+	Incidente.findById({_id: id}, (err, incidente) =>{ //Busca el Incidente por medio del ID que se le pasa en la vista '/eventos'
+		if(err) throw err;
+			Eventos.find({ }, (err,evento) =>{ //Lista de Eventos Disponibles con sus descripciones
+			if (err) throw err;
+			modelPlaya.find({ }, (err,playa) =>{ // 
+			if (err) throw err;
+			DatosIncidente.find({ }, (err,datosIncidente) =>{ //Toda la informacion para los ComboBox
+				if (err) throw err;
+			
+		  	 else{
+		  	 	res.render('modIncidente', {
+					Playas: playa,
+					Incidente: incidente,
+					Eventos: evento,
+					DatosIncidente: datosIncidente,
+					isLoggedIn: req.isAuthenticated()});
+				   }
+		  	 })
+		  });
+	})
+});
+});
 
-
-
-//FIN DE MOSTRAR INCIDENCIAS ////////////////////////////// 
-//::===:::====:::====:::====:::=====:::====:::====:::===:::====:::====:::====:::=====:::====:::====::
-//Guardar Incidente/Intervencion
-
-IncidenteInter.post('/addIncInt/', (req, res) => {
+IncidenteInter.post('/modIncidente', (req, res) => {
 	let body = req.body;
-	let bodyCom = req.body.descripcion;
-	let bodyEve = req.body.idEvento;
-	let idPlaya = req.body.idPlaya;
-	console.log(body);
-	console.log(bodyEve);
-
 	body.status = false;
 
-	IncIntSave.create(body, (err, Incidencias) => {
+	Incidente.create(body, (err, consecu) => {
 		if (err) throw err;
-		res.redirect('/GestionEventos/' + idPlaya);
+		res.redirect('back');
 	});
 });
 
 
-IncidenteInter.get('/addPais', (req,res) =>{ //Listar
-	Paises.find({} , (err, pais) =>{
-		res.render('addPais',{
-			ListPaises : pais
-		});
-	});
-});
-
-//::===:::====:::====:::====:::=====:::====:::====:::===:::====:::====:::====:::=====:::====:::====::
-IncidenteInter.post('/agregarPais' , (req, res) =>{ //Agregar Pais
-	let body = req.body;
-	body.status = false;
-	Paises.create(body, (err, newPais) =>{
-		if(err){ throw err;}
-		else{
-			res.redirect('/addPais');
-		}
-	})
-});
-
-IncidenteInter.get('/addPais/delete/:id' , (req, res) =>{ //Eliminar pais
-	let id = req.params.id;
-	Paises.findByIdAndRemove({_id: id},(err, delpais) =>{
-		if(err){throw err;}
-		else{
-			res.redirect('/addPais');
-		}
-	});
-});
-
-//:::===:::====:::====:::===:::====:::====:::====:::=====:::====:::====:::
-//Administracion de los Drop de  Actividad 
-IncidenteInter.get('/addActividadDrop', (req,res) =>{ //Listar
-	ActividadDrp.find({} , (err, Actividad) =>{
-		res.render('addActividadDrop',{
-			Actividades : Actividad
-		});
-	});
-});
-
-
-IncidenteInter.post('/agregarActividadDrop' , (req, res) =>{ //Agregar Pais
-	let body = req.body;
-	body.status = false;
-	ActividadDrp.create(body, (err, newActividad) =>{
-		if(err){ throw err;}
-		else{
-			res.redirect('/addActividadDrop');
-		}
-	})
-});
-
-IncidenteInter.get('/addActividadDrop/delete/:id' , (req, res) =>{ //Eliminar pais
-	let id = req.params.id;
-	ActividadDrp.findByIdAndRemove({_id: id},(err, delActividad) =>{
-		if(err){throw err;}
-		else{
-			res.redirect('/addActividadDrop');
-		}
-	});
-});
 
 
 

@@ -8,6 +8,7 @@
 
         <script type="text/javascript">
           window.eventos = <%- JSON.stringify(Eventos) %>
+          window.Informacion = <%- JSON.stringify(Informacion) %>
         </script>
         <script>
             function onChange() {
@@ -203,7 +204,12 @@
               <div class="col">
                   <select class="form-control" id="Edad">
                       <option disabled selected>Edad</option>
-                      <option value="Edad1">Edad1</option>
+                      <%
+                      const xInformacion = (Informacion[0].Edad).split(",");
+                                                for(var i=0; i < xInformacion.length; i++){
+                                                    %> <option value="<%=xInformacion[i]%>"><%=xInformacion[i]%></option> <%
+                                                }
+                                                %>
                     </select>
               </div>
               <div class="col">

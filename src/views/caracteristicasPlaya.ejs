@@ -18,9 +18,31 @@
                                             var contenido = 1;
                                             $( document ).ready(function() {
                                                 $('#Contenido2, #Contenido3, #Contenido4, #Contenido5, #Contenido6, #Contenido7, #Contenido8').hide();
-                                              
+                                                
+
+                                                 var datosOriginales = ["Municipio", "Provincia", "CCAA", "Longitud", "Anchura", "DescripcionPlaya", "CarreteraProxima", "ParadaAutobus", "PuertoDeportivo", "DistanciaPuertoPlaya", "ObservacionesGenerales", "NombreHospital" , "Direccion"];
+                                                var datosPOST = ["MunicipioPOST", "ProvinciaPOST", "CCAAPOST", "LongitudPOST", "AnchuraPOST", "DescripcionPlayaPOST", "CarreteraProximaPOST", "ParadaAutobusPOST", "PuertoDeportivoPOST", "DistanciaPuertoPlayaPOST", "ObservacionesGeneralesPOST", "NombreHospitalPOST" , "DireccionPOST"];
+                                                let element = '';
+                                                console.log(datosOriginales.length);
+                                                for(var i=0; i<datosOriginales.length; i++){
+                                                element += `<input name="${datosOriginales[i]}" type="hidden" id="${datosPOST[i]}">`
+                                               }
+                                               document.getElementById("forms").innerHTML = element;
                                             });
+
+                                           
                                             function Siguiente(){
+
+                                                var datosOriginales = ["Municipio", "Provincia", "CCAA", "Longitud", "Anchura", "DescripcionPlaya", "CarreteraProxima", "ParadaAutobus", "PuertoDeportivo", "DistanciaPuertoPlaya", "ObservacionesGenerales", "NombreHospital" , "Direccion"];
+                                                var datosPOST = ["MunicipioPOST", "ProvinciaPOST", "CCAAPOST", "LongitudPOST", "AnchuraPOST", "DescripcionPlayaPOST", "CarreteraProximaPOST", "ParadaAutobusPOST", "PuertoDeportivoPOST", "DistanciaPuertoPlayaPOST", "ObservacionesGeneralesPOST", "NombreHospitalPOST" , "DireccionPOST"];
+                                               for(var i=0; i< 13; i++){
+                                                console.log(i);
+                                                document.getElementById(datosPOST[i]).value = document.getElementById(datosOriginales[i]).value;
+
+                                               }
+                                           
+
+
                                                 
                                                 if(contenido==1){
                                                 $('#Contenido2').show(); 
@@ -41,8 +63,8 @@
                                                 $('#Contenido7').show(); 
                                                 $('#Contenido1, #Contenido3, #Contenido4, #Contenido5, #Contenido6, #Contenido2, #Contenido8').hide();contenido++; }
                                                 else if(contenido==7){
-                                                $('#Contenido8').show(); 
-                                                $('#Contenido1, #Contenido3, #Contenido4, #Contenido5, #Contenido6, #Contenido7, #Contenido2').hide();contenido++; }   
+                                                $('#Contenido8, #botonGuardar').show(); 
+                                                $('#Contenido1, #Contenido3, #Contenido4, #Contenido5, #Contenido6, #Contenido7, #Contenido2, #botonSiguiente').hide();contenido++; }   
                                             }
                                             
                                             function Atras(){
@@ -63,16 +85,16 @@
 
                                         <div id="Contenido1">
                                             <div class="form-row" >
-                                                    <div class="col"><input class="form-control" formControlName="Municipio" placeholder="Municipio" ></div>
-                                                    <div class="col"><input class="form-control" formControlName="Provincia" placeholder="Provincia"></div>
-                                                    <div class="col"><input class="form-control" formControlName="CCAA" placeholder="CC AA:"></div>
+                                                    <div class="col"><input class="form-control" placeholder="Municipio" id="Municipio"></div>
+                                                    <div class="col"><input class="form-control" placeholder="Provincia" id="Provincia"></div>
+                                                    <div class="col"><input class="form-control" placeholder="CC AA:" id="CCAA"></div>
                                                 </div>
                                                 <br>
                 
                                                 <div class="form-row">
                                                     <div class="col-1"></div>
-                                                    <div class="col"><input class="form-control" placeholder="Longitud"></div>
-                                                    <div class="col"><input class="form-control" placeholder="Anchura"></div>
+                                                    <div class="col"><input class="form-control" placeholder="Longitud" id="Longitud"></div>
+                                                    <div class="col"><input class="form-control" placeholder="Anchura" id="Anchura"></div>
                                                     <div class="col-1"></div>
                                                 </div>
                                                 <br>
@@ -89,7 +111,7 @@
                                                 <div class="form-row">
                                                     <div class="col">
                                                     
-                                                        <select class="form-control" >
+                                                        <select class="form-control" id="Pendiente" >
                                                             <option disabled selected>Pendiente</option>
                                                             <option>Ángulo Suave</option>
                                                             <option>Ángulo Normal</option>
@@ -98,7 +120,7 @@
                                                     </div>
                 
                                                     <div class="col">
-                                                        <select class="form-control">
+                                                        <select class="form-control" id="GradoOcupacion">
                                                             <option disabled selected >Grado de Ocupación</option>
                                                             <option>Alto</option>
                                                             <option>Medio</option>
@@ -109,7 +131,7 @@
                                                     </div>
                 
                                                     <div class="col">
-                                                        <select class="form-control">
+                                                        <select class="form-control" id="GradoUrbanizacion">
                                                             <option disabled selected>Grado de Urbanización</option>
                                                             <option>Rural</option>
                                                             <option>Salvaje</option>
@@ -121,17 +143,17 @@
                                                 <br>
                                                 <div class="form-row">
                                                 <div class="col">
-                                                    <textarea class="form-control" placeholder="Descripción de Playa" rows="3"></textarea>
+                                                    <textarea class="form-control" placeholder="Descripción de Playa" rows="3" id="DescripcionPlaya"></textarea>
                                                 </div>
                                                 <div class="col-4">
                                                     <div class="form-rows">
-                                                    <select class="form-control">
+                                                    <select class="form-control" id="PaseoMaritimo">
                                                         <option disabled selected>Paseo Marítimo</option>
                                                         <option>Si</option>
                                                         <option>No</option>
                                                     </select>
                                                     <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
-                                                    <select class="form-control">
+                                                    <select class="form-control" id="FachadaLitoral">
                                                         <option disabled selected >Fachada Litoral</option>
                                                         <option>Urbano</option>
                                                         <option>Industrial</option>
@@ -160,14 +182,14 @@
                                                 
                                                         <div class="form-row">
                                                           <div class="col">
-                                                              <select class="form-control">
+                                                              <select class="form-control" id="Morfologia">
                                                                   <option disabled selected>Morfologia</option>
                                                                   <option>Arenosa</option>
                                                                   <option>Rocosa</option>
                                                               </select>
                                                           </div>
                                                             <div class="col">
-                                                                <select class="form-control">
+                                                                <select class="form-control" id="Composicion">
                                                                     <option disabled selected>Composición</option>
                                                                     <option>Arena</option>
                                                                     <option>Gravilla</option>
@@ -176,7 +198,7 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col">
-                                                                <select class="form-control">
+                                                                <select class="form-control" id="TipoArena">
                                                                     <option disabled selected>Tipo Arena</option>
                                                                     <option>Dorada</option>
                                                                 </select>
@@ -211,7 +233,7 @@
                                                       <div class="form-row">
                                                           <div class="col-1"></div>
                                                           <div class="col">
-                                                              <select class="form-control">
+                                                              <select class="form-control" id="TipoOleaje">
                                                                   <option disabled selected>Tipo de Oleaje</option>
                                                                   <option>Leve</option>
                                                                   <option>Moderado</option>
@@ -219,7 +241,7 @@
                                                               </select>
                                                           </div>
                                                           <div class="col">
-                                                              <select class="form-control">
+                                                              <select class="form-control" id="NivelViento">
                                                                   <option disabled selected>Nivel de Viento</option>
                                                                   <option>Leve</option>
                                                                   <option>Moderado</option>
@@ -279,8 +301,8 @@
                                                           <div class="form-row"><div class="col"></div><div class="col-auto"><h4>Hospital más Cercano</h4></div><div class="col"></div></div>
                                                           <br>
                                                         <div class="form-row">
-                                                            <div class="col"><input class="form-control" type="text" placeholder="Nombre de Hospital"></div>
-                                                            <div class="col"><input class="form-control" type="text" placeholder="Dirección"></div>
+                                                            <div class="col"><input class="form-control" type="text" placeholder="Nombre de Hospital" id="NombreHospital"></div>
+                                                            <div class="col"><input class="form-control" type="text" placeholder="Dirección" id="Direccion"></div>
                                                         </div>
                                                         <br>
                                                         <div class="form-row">
@@ -424,16 +446,16 @@
                                         <div id="Contenido7">
 
                                                         <div class="form-row">
-                                                            <div class="col"><input class="form-control" type="text" placeholder="Carretera más Proxima"></div>
+                                                            <div class="col"><input class="form-control" type="text" placeholder="Carretera más Proxima" id="CarreteraProxima"></div>
                                                         </div>
                                                         <br>
                                                         
                                                         <div class="form-row">
                                                           <div class="col">
-                                                            <input class="form-control" type="text" placeholder="Parada de AutoBus">
+                                                            <input class="form-control" type="text" placeholder="Parada de AutoBus" id="ParadaAutobus">
                                                           </div>
                                                           <div class="col">
-                                                                <select class="form-control">
+                                                                <select class="form-control" id="EstacionamientoGeneral">
                                                                         <option disabled selected value="">Estacionamiento General</option>
                                                                         <option>Libre</option>
                                                                         <option>Privado</option>
@@ -453,22 +475,35 @@
 
                                         <div id="Contenido8">
                                                     <div class="form-row">
-                                                        <div class="col"><input class="form-control" type="text" placeholder="Puerto Deportivo"> </div>
-                                                        <div class="col"><input class="form-control" type="text" placeholder="Distancia Puerto de Playa"></div>
+                                                        <div class="col"><input class="form-control" type="text" placeholder="Puerto Deportivo" id="PuertoDeportivo"></div>
+                                                        <div class="col"><input class="form-control" type="text" placeholder="Distancia Puerto de Playa" id="DistanciaPuertoPlaya"></div>
                                                     </div>
                                                     <br>
                                                     <div class="form-row"><div class="col"></div><div class="col-auto"><label>Observaciones Generales</label></div><div class="col"></div></div>
-                                                    <div class="form-row"><textarea class="form-control" rows="3"></textarea></div>
+                                                    <div class="form-row"><textarea class="form-control" rows="3" id="ObservacionesGenerales"></textarea></div>
                                                     <br>
                                                     <div class="form-row">
                                                         <div class="col"></div>
                                                         <div class="form-row">
                                                                 <div class="col"><button type="button" class="btn btn-primary" onclick="Atras()">Atras</button></div>
-                                                                <div class="col"><button type="button" class="btn btn-primary" onclick="Siguiente()">Siguiente</button></div>
+                                                                <div class="col"><button type="button" class="btn btn-primary" onclick="Siguiente()" id="botonSiguiente">Siguiente</button></div>
+                                                                <div class="col"><button type="button" class="btn btn-primary" onclick="Guardar()" id="botonGuardar">Guardar</button></div>
                                                         </div>
                                                         <div class="col"></div>
                                                     </div>
                                         </div>
+
+                                        <script>
+                                        function Guardar(){
+                                            document.getElementById("forms").submit();
+                                        }
+                                        </script>
+
+
+                                        <!--DATOS DE FORMULARIO-->
+                                        <form action="/caracteristicasPlaya" method="POST" id="forms">
+
+                                        </form>
                                        
                                         
 

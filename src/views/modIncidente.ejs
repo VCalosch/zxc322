@@ -1,0 +1,686 @@
+<html>
+    <head>
+            <meta charset="utf-8"></meta>
+            <title>Incidentes</title>
+            <% include partials/head %>
+    </head>
+
+    <script type="text/javascript">
+        window.eventos = <%- JSON.stringify(Eventos) %>
+        window.datosIncidente = <%- JSON.stringify(DatosIncidente) %>
+    
+      </script>
+      <script>
+          function onChange() {
+            document.getElementById("Playas").value = "<%=Playas.nombre%>"
+            var id = document.getElementById("eventosSelect").value; 
+         
+      
+            const event = eventos.filter((ev) => ev._id == id)
+           
+            let descriptionsHTML = ''
+            event[0].descripcion.forEach(des => {
+              descriptionsHTML += `<option value=${des.name}> ${des.name} </option>`
+            })
+            
+            for(var i=0; i<eventos.length; i++){
+		
+            if(event[0]._id==eventos[i]._id){
+                    document.getElementById("eventosPOST").value = eventos[i].evento;
+                    break;
+                }
+            }
+            
+            
+            document.getElementById("descripcionSelect").innerHTML = descriptionsHTML;
+          }
+
+      </script>
+
+
+
+    <body>
+
+        <div class="dashboard_container top-container">
+            <div class="tab-content" id="myTabContent">
+                        <div class="card">
+                                <div class="card-body Margenes">
+
+                                    <script>
+                                        
+                                        $( document ).ready(function() {
+                                            $('div.contenedores').hide().first().show();
+                                            $("#display1").hide();
+                                            $("#guardar").hide();
+                                            $("#GuardarSalir").hide();
+
+                                            var now = new Date();
+                                            var hour = now.getHours(), min= now.getMinutes(), seg=now.getSeconds(), date = now.getDate()+"/"+(now.getMonth()+1)+"/"+now.getFullYear();
+
+                                            document.getElementById("fecha").value = date;
+                                            document.getElementById("hora").value = hour+" h";
+                                            document.getElementById("minuto").value = min+" minutos";
+                                            document.getElementById("segundo").value = seg+" Segundos";
+                                            document.getElementById("FechaPost").value = document.getElementById("fecha").value;
+                                            document.getElementById("HoraPost").value = document.getElementById("hora").value;
+                                            document.getElementById("MinutoPost").value = document.getElementById("minuto").value;
+                                            document.getElementById("SegundoPost").value = document.getElementById("segundo").value;
+                                              
+                                        });
+
+                                        
+                                        
+                                    </script>
+
+                                    
+
+                                    <h4><b>MODIFICAR INCIDENTES</b></h4>
+                                    <hr>
+                                    <br>
+                                        <div class="contenedores" id="Contenido0">
+                                                <div class="form-row">
+                                                        <div class="col"></div><div class="col-auto"><h5>Horario</h5></div><div class="col"></div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col"></div><div class="col">
+                                                            <select class="form-control" id="SelectHorario">
+                                                                <option disabled selected>Horario</option>
+                                                                <%
+                                                                const x = (DatosIncidente[0].Horario).split(",");
+                                                                for(var i=0; i < x.length; i++){
+                                                                    %> <option value="<%=x[i]%>"><%=x[i]%></option> <%
+                                                                }
+                                                                %>
+                                                              </select>
+                                                      </div><div class="col"></div>
+                                                    </div>
+                                                    <br>
+                                                                     
+
+<div class="form-row">
+    <div class="col">
+        <select class="form-control" id="eventosSelect" onchange="onChange()">
+            <option disabled selected>Evento</option>
+            <% for(var i=0; i< Eventos.length; i++) {%>
+                <option value='<%= Eventos[i]._id %>'>
+                  <%= Eventos[i].evento %>
+
+                </option>
+                <% } %>
+          </select>
+    </div>
+    <div class="col">
+        <select class="form-control" id="descripcionSelect">
+            <option disabled selected>Descripción</option>
+          </select>
+    </div>
+    <div class="col">
+        <select class="form-control" id="SelectConsecuencias">
+            <option disabled selected>Consecuencias</option>
+            <%
+            const xConsecuencias = (DatosIncidente[0].Consecuencias).split(",");
+            for(var i=0; i < xConsecuencias.length; i++){
+                %> <option value="<%=xConsecuencias[i]%>"><%=xConsecuencias[i]%></option> <%
+            }
+            %>
+          </select>
+    </div>
+  </div>
+  <br>
+</div>
+
+<div class="contenedores" id="Contenido1">
+<div class="form-row">
+    <div class="col"><input class="form-control" placeholder="Fecha" id="fecha"></div>
+        <div class="col-md-1"><input class="form-control" placeholder="Hora" id="hora"></div>
+        <div class="col-md-1"><input class="form-control" placeholder="Minuto" id="minuto"></div>
+        <div class="col-md-1"><input class="form-control" placeholder="Segundo" id="segundo"></div>
+    
+  <div class="col">
+        <select class="form-control" id="Sexo">
+          <option disabled selected>Sexo</option>
+          <%
+          const xSexo = (DatosIncidente[0].Sexo).split(",");
+          for(var i=0; i < xSexo.length; i++){
+              %> <option value="<%=xSexo[i]%>"><%=xSexo[i]%></option> <%
+          }
+          %>
+        </select>
+    </div>
+
+  <div class="col">
+      <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1">
+          <label class="form-check-label" for="defaultCheck1">
+            Campaña de Prevención
+          </label>
+        </div>
+  </div>
+</div>
+
+<br>
+
+<div class="form-row">
+  <div class="col">
+      <select class="form-control" id="Pais">
+          <option disabled selected>Pais</option>
+          <%
+          const xPais = (DatosIncidente[0].Pais).split(",");
+          for(var i=0; i < xPais.length; i++){
+              %> <option value="<%=xPais[i]%>"><%=xPais[i]%></option> <%
+          }
+          %>
+        </select>
+  </div>
+  <div class="col">
+      <select class="form-control" id="Edad">
+          <option disabled selected>Edad</option>
+          <%
+          const xEdad = (DatosIncidente[0].Edad).split(",");
+          for(var i=0; i < xEdad.length; i++){
+              %> <option value="<%=xEdad[i]%>"><%=xEdad[i]%></option> <%
+          }
+          %>
+        </select>
+  </div>
+  <div class="col">
+      <select class="form-control" id="Actividad">
+          <option disabled selected>Actividad</option>
+          <%
+          const xActividad = (DatosIncidente[0].Actividad).split(",");
+          for(var i=0; i < xActividad.length; i++){
+              %> <option value="<%=xActividad[i]%>"><%=xActividad[i]%></option> <%
+          }
+          %>
+        </select>
+  </div>
+</div>
+
+<script>                                        
+
+
+function SubmitForm(){
+    document.getElementById("FechaPost").value = document.getElementById("fecha").value;
+    document.getElementById("HoraPost").value = document.getElementById("hora").value;
+    document.getElementById("MinutoPost").value = document.getElementById("minuto").value;
+    document.getElementById("SegundoPost").value = document.getElementById("segundo").value;
+    document.formIncidente.submit();
+}
+
+</script>
+
+<br>
+<div id="map"></div>
+<br>
+
+</div>
+
+<div class="contenedores" id="Contenido2">
+<div class="form-row">
+<div class="col">
+<label for="DeteccionSuceso">¿Cómo se ha detectado el Suceso?</label>
+<select class="form-control" id="DeteccionSuceso">
+    <option selected disabled>Seleccione una Opción</option>
+    <%
+    const xDeteccionSuceso = (DatosIncidente[0].DeteccionSuceso).split(",");
+    for(var i=0; i < xDeteccionSuceso.length; i++){
+        %> <option value="<%=xDeteccionSuceso[i]%>"><%=xDeteccionSuceso[i]%></option> <%
+    }
+    %>
+  </select>
+</div>
+<div class="col">
+    <label for="LugarAnteriorSuceso">¿Dónde estaba la víctima justo antes del suceso?</label>
+    <select class="form-control" id="LugarAnteriorSuceso">
+        <option selected disabled>Seleccione una Opción</option>
+        <%
+        const xLugarAntesSuceso = (DatosIncidente[0].LugarAntesSuceso).split(",");
+        for(var i=0; i < xLugarAntesSuceso.length; i++){
+            %> <option value="<%=xLugarAntesSuceso[i]%>"><%=xLugarAntesSuceso[i]%></option> <%
+        }
+        %>
+      </select>
+</div>
+</div>
+<br><br>
+<div class="jumbotron jumbotron-fluid">
+
+  
+    <div class="form-row form-check text-center">
+        <input class="form-check-input" type="checkbox" value="" id="Check1">
+        <label class="form-check-label" for="Check1">¿Ha sido necesaria intervención fuera del puesto?</label>   
+    </div>
+
+    <br>
+
+    <div id="Intervenciones" style="display:none">
+            <div class="form-row form-check text-center">
+                <input class="form-check-input" type="checkbox" value="" id="Check2">
+                <label class="form-check-label" for="Check2">¿Ha sido necesario un desplazamiento terrestre hacia la víctima?</label>   
+            </div>
+            <br>
+
+                            <div id="DesplazamientoTerrestre" style="margin-left: 50px; margin-right: 50px; display: none">
+                                <div class="form-row">
+                                        <div class="col">
+                                            <select class="form-control" id="DesplazamientoTerrestre1">
+                                                <option selected disabled>Distancia Recorrida</option>
+                                                <%
+                                                const xDistanciaRecorrida = (DatosIncidente[0].DistanciaRecorrida).split(",");
+                                                for(var i=0; i < xDistanciaRecorrida.length; i++){
+                                                    %> <option value="<%=xDistanciaRecorrida[i]%>"><%=xDistanciaRecorrida[i]%></option> <%
+                                                }
+                                                %>
+                                                </select>
+                                        </div>
+                                        <div class="col">
+                                            <select class="form-control" id="DesplazamientoTerrestre2">
+                                                    <option selected disabled>Tipo Desplazamiento Hacia la Víctima</option>
+                                                    <%
+                                                    const xTipoDesplazamientoHaciaVictima = (DatosIncidente[0].TipoDesplazamientoHaciaVictima).split(",");
+                                                    for(var i=0; i < xTipoDesplazamientoHaciaVictima.length; i++){
+                                                        %> <option value="<%=xTipoDesplazamientoHaciaVictima[i]%>"><%=xTipoDesplazamientoHaciaVictima[i]%></option> <%
+                                                    }
+                                                    %>
+                                                    </select>
+                                        </div>
+                                        <div class="col-2">
+                                            <input class="form-control" placeholder="mm:ss">
+                                        </div>
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                        <div class="col"></div>
+                                                <div class="col-auto">
+                                                        <select class="form-control" id="TrasladoPrimeroAuxilios">
+                                                                <option selected disabled>¿Traslado al Puesto de Primeros Auxilios?</option>
+                                                                <option value="1">Si</option><option value="0">No</option>
+                                                        </select>
+                                                </div>
+                                                
+                                                <div class="col-auto" id="TipoTraslado" style="display:none">
+                                                        <select class="form-control" id="">
+                                                                <option selected disabled>Tipo Traslado</option>
+                                                                <%
+                                                                const xTipoTraslado = (DatosIncidente[0].TipoTraslado).split(",");
+                                                                for(var i=0; i < xTipoTraslado.length; i++){
+                                                                    %> <option value="<%=xTipoTraslado[i]%>"><%=xTipoTraslado[i]%></option> <%
+                                                                }
+                                                                %>
+                                                        </select>
+                                                </div>
+                                        <div class="col"></div>
+                                </div>
+                                <br>
+                            </div>
+
+
+            <div class="form-row form-check text-center">
+                <input class="form-check-input" type="checkbox" value="" id="Check3">
+                <label class="form-check-label" for="Check3">¿Ha sido necesario un desplazamiento acuático hacia la víctima?</label>   
+            </div>
+            <br>
+
+                            <div id="DesplazamientoAcuatico" style="margin-left: 50px; margin-right: 50px; display: none">
+                                    <div class="form-row">
+                                            <div class="col">
+                                                <select class="form-control" id="DistanciaDesplazamiento">
+                                                    <option selected disabled>Distancia del Desplazamiento</option>
+                                                                <%
+                                                                const xDistanciaDesplazamiento = (DatosIncidente[0].DistanciaDesplazamiento).split(",");
+                                                                for(var i=0; i < xDistanciaDesplazamiento.length; i++){
+                                                                    %> <option value="<%=xDistanciaDesplazamiento[i]%>"><%=xDistanciaDesplazamiento[i]%></option> <%
+                                                                }
+                                                                %>
+                                                    </select>
+                                            </div>
+                                            <div class="col">
+                                                <select class="form-control" id="ProfundidadVictima">
+                                                        <option selected disabled>¿A qué profundidad se encontraba la víctima?</option>
+                                                        <%
+                                                        const xProfundidadVictima = (DatosIncidente[0].ProfundidadVictima).split(",");
+                                                        for(var i=0; i < xProfundidadVictima.length; i++){
+                                                            %> <option value="<%=xProfundidadVictima[i]%>"><%=xProfundidadVictima[i]%></option> <%
+                                                        }
+                                                        %>
+                                                        </select>
+                                            </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-row">
+                                            <div class="col">
+                                                <select class="form-control" id="MaterialesUtilizados">
+                                                    <option selected disabled>¿Qué materiales de apoyo se utilizaron?</option>
+                                                    <%
+                                                        const xMaterialesUtilizados = (DatosIncidente[0].MaterialesUtilizados).split(",");
+                                                        for(var i=0; i < xMaterialesUtilizados.length; i++){
+                                                            %> <option value="<%=xMaterialesUtilizados[i]%>"><%=xMaterialesUtilizados[i]%></option> <%
+                                                        }
+                                                        %>
+                                                    </select>
+                                            </div>
+                                            <div class="col">
+                                                <select class="form-control" id="EstadoAccidentado">
+                                                        <option selected disabled>Estado del accidentado en el primer contacto</option>
+                                                        <%
+                                                        const xEstadoAccidentadoPrimerContacto = (DatosIncidente[0].EstadoAccidentadoPrimerContacto).split(",");
+                                                        for(var i=0; i < xEstadoAccidentadoPrimerContacto.length; i++){
+                                                            %> <option value="<%=xEstadoAccidentadoPrimerContacto[i]%>"><%=xEstadoAccidentadoPrimerContacto[i]%></option> <%
+                                                        }
+                                                        %>
+                                                        </select>
+                                            </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-row">
+                                            <div class="col"></div>
+                                            <div class="col-auto">
+                                                    <select class="form-control" id="TrasladoRemolque">
+                                                            <option selected disabled>¿Traslado al Puesto de Primeros Auxilios?</option>
+                                                            <option value="1">Si</option><option value="0">No</option>
+                                                    </select>
+                                            </div>
+                                            <div id="AyudaRecibidaSH" class="col-auto" style="display:none">
+                                                    <select class="form-control" id="AyudaRecibida">
+                                                            <option selected disabled>¿Ayuda Recibida?</option>
+                                                            <option value="1">Si</option><option value="0">No</option>
+                                                    </select>
+                                            </div>
+                                            <div id="PorQuienesSH" class="col-auto" style="display:none">
+                                                    <select class="form-control" id="PorQuienes">
+                                                            <option selected disabled>¿Por quienes?</option>
+                                                            <%
+                                                            const xAyudaRecibidaPor = (DatosIncidente[0].AyudaRecibidaPor).split(",");
+                                                            for(var i=0; i < xAyudaRecibidaPor.length; i++){
+                                                                %> <option value="<%=xAyudaRecibidaPor[i]%>"><%=xAyudaRecibidaPor[i]%></option> <%
+                                                            }
+                                                        %>
+                                                    </select>
+                                            </div>
+                                            <div class="col"></div>
+                                    </div>
+                                    <br>
+                                    <div class="form-row">
+                                            <div class="col">
+                                                    <label for="TipoExtraccionVictima"><small>Tipo de extracción de la víctima en la orilla</small></label>
+                                                    <select class="form-control" id="TipoExtraccionVictima">
+                                                        <option selected disabled>Seleccione una Opción</option>
+                                                        
+                                                      </select>
+                                            </div>
+                                            <div class="col">
+                                                    <label for="DuracionEstimadaIntervencion"><small>Duración estimada de la intervención acuática</small></label>
+                                                    <input id="DuracionEstimadaIntervencion" class="form-control" placeholder="mm:ss">
+                                            </div>
+                                    </div>
+                                    <br>
+                                </div>
+
+            <div class="form-row form-check text-center">
+                <input class="form-check-input" type="checkbox" value="" id="Check4">
+                <label class="form-check-label" for="Check4">¿Ha sido necesaria la aplicación de primeros auxilios?</label>   
+            </div>
+
+
+                        <div id="AplicacionPrimerosAuxilios" style="margin-left: 50px; margin-right: 50px;">
+                            <br><br>
+                            <div class="form-row">
+                                <div class="col">
+                                    <div class="custom-control custom-checkbox text-center">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                        <label class="custom-control-label" for="customCheck1"><h5>RCP</h5></label>
+                                    </div>
+                                    <br>
+                                    <div class="form-row" id="RCPSH" style="display:none">
+                                            <div class="col"></div>
+                                            <div class="col-auto">
+                                                    <label for="Tiempo"><small>Tiempo</small></label>
+                                                    <input placeholder="mm:ss" class="form-control" id="Tiempo">
+                                            </div>
+                                            <div class="col"></div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col">
+                                    <div class="custom-control custom-checkbox text-center">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                        <label class="custom-control-label" for="customCheck2"><h5>DESA</h5></label>
+                                    </div>
+                                    <br>
+                                    <div id="DESASH" class="form-row" style="display:none">
+                                            <div class="col-auto">
+                                                    <label for="Tiempo"><small>Tiempo</small></label>
+                                                    <input placeholder="mm:ss" class="form-control" id="Tiempo">
+                                            </div>
+                                            <div class="col-auto">
+                                                    <select class="form-control" id="">
+                                                            <option selected disabled>¿Descargas?</option>
+                                                            <option value="1">Si</option><option value="0">No</option>
+                                                    </select>
+                                            </div>
+                                            <div class="col-2">
+                                                <input placeholder="Nº" class="form-control">
+                                            </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="form-row">
+                                    <div class="col">
+                                            <label for="QuienInicia"><small>Quién Inicia:</small></label>
+                                            <select class="form-control" id="QuienInicia">
+                                                <option selected disabled>Seleccione una Opción</option>
+                                                <%
+                                                const xQuienInicia = (DatosIncidente[0].QuienInicia).split(",");
+                                                for(var i=0; i < xQuienInicia.length; i++){
+                                                    %> <option value="<%=xQuienInicia[i]%>"><%=xQuienInicia[i]%></option> <%
+                                                }
+                                                %>
+                                              </select>
+                                    </div>
+                                    <div class="col">
+                                            <label for="QuienParticipa"><small>Quién Participa:</small></label>
+                                            <select class="form-control" id="QuienParticipa">
+                                                <option selected disabled>Seleccione una Opción</option>
+                                                <%
+                                                const xQuienParticipa = (DatosIncidente[0].QuienParticipa).split(",");
+                                                for(var i=0; i < xQuienParticipa.length; i++){
+                                                    %> <option value="<%=xQuienParticipa[i]%>"><%=xQuienParticipa[i]%></option> <%
+                                                }
+                                                %>
+                                              </select>
+                                    </div>
+                            </div>
+                                                    
+                                                    
+                                                              
+                                                    
+                                                                                
+
+
+
+
+
+
+
+                                                                            </div>
+
+                                                        </div>
+                                                    
+                                                  </div>
+                                            
+                                            
+
+
+
+                                        </div>
+
+                                        <form action="/addIncidente" method="POST" name="formIncidente">
+                                            <input type="hidden" id="HorarioPOST" name="Horario">
+                                            <input type="hidden" id="eventosPOST" name="Evento">
+                                            <input type="hidden" id="descripcionPOST" name="Descripcion">
+                                            <input type="hidden" id="consecuenciasPOST" name="Consecuencias">
+                                            <input type="hidden" id="FechaPost" name="Fecha">
+                                            <input type="hidden" id="HoraPost" name="Hora">
+                                            <input type="hidden" id="MinutoPost" name="Minuto">
+                                            <input type="hidden" id="SegundoPost" name="Segundo">
+                                            <input type="hidden" id="SexoPost" name="Sexo">
+                                            <input type="hidden" id="PaisPost" name="Pais">
+                                            <input type="hidden" id="EdadPost" name="Edad">
+                                            <input type="hidden" id="ActividadPost" name="Actividad">
+                                            <input type="hidden" name="campañaPrevencion" id="campañaPost">
+                                            <input type="hidden" id="latitudRiesgo" name="Latitud">
+                                            <input type="hidden" id="longitudRiesgo" name="Longitud">
+                                            <input type="hidden" id="Playas" name="Playa">
+                                        </form>
+
+                                        <% include partials/Mapa %>
+                                        
+                                        <script>
+                                                $("#SelectHorario").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("HorarioPOST").value = val;
+                                                });
+                                                $("#descripcionSelect").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("descripcionPOST").value = val;
+                                                });
+                                                $("#SelectConsecuencias").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("consecuenciasPOST").value = val;
+                                                });
+                                                $("#Sexo").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("SexoPost").value = val;
+                                                });
+                                                $("#Pais").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("PaisPost").value = val;
+                                                });
+                                                $("#Edad").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("EdadPost").value = val;
+                                                });
+                                                $("#Actividad").change(function() {
+                                                    var val = $(this).val();
+                                                    document.getElementById("ActividadPost").value = val;
+                                                });
+
+                                                $('#defaultCheck1').on('change', function(){
+                                                      this.value = this.checked ? 1 : 0;
+                                                      document.getElementById("campañaPost").value = this.value;
+                                                }).change();
+                                                
+                                                
+                                        </script>
+
+                                        <div class="form-row">
+                                                <div class="col"></div>
+                                                <div class="col-auto"> 
+                                                        <button type="button" class="btn btn-primary" onclick="backPage()" id="backButton">Atras</button>
+                                                        <button type="button" id="display1" class="display btn btn-primary">Atras</button>
+                                                        <button type="button" id="GuardarSalir" class="display btn btn-primary" onclick="SubmitForm()">Guardar y Salir</button>
+                                                        <button type="button" id="display" class="display btn btn-primary">Siguiente</button>
+                                                        <button type="submit" id="guardar" class="display btn btn-primary">Guardar</button>
+                                                </div>
+                                                <div class="col"></div>
+                                            </div>
+
+
+                                        
+                                            <script>
+                                                    var contadorDiv=0;
+                                                    $('button.display').on('click', function(e) {
+                                                        
+                                                        e.preventDefault();
+                                                        var that = $('div.contenedores:visible'), t = $(this).text();
+                                                            
+                                                        if (t == 'Siguiente' && that.next('div.contenedores').length > 0) {
+                                                            $('div.contenedores').hide();
+                                                            $("#display1").show();
+                                                            $("#backButton").hide();
+                                                            $("#GuardarSalir").show();
+                                                            that.next('div.contenedores').show()
+                                                            
+                                                            contadorDiv++; 
+                                                            if(contadorDiv==2){
+                                                                $("#display").hide(); $("#guardar").show(); $("#GuardarSalir").hide();
+                                                            }
+                                                        }
+                                                        else if (t == 'Atras' && that.prev('div.contenedores').length > 0) {
+                                                            $('div.contenedores').hide();
+                                                            $("#guardar").hide(); $("#display").show(); $("#GuardarSalir").show();
+                                                            that.hide().prev('div.contenedores').show()
+                                                            contadorDiv--;
+                                                            
+                                                            if(contadorDiv==0){
+                                                                $("#display1").hide();
+                                                                $("#GuardarSalir").hide();
+                                                                $("#backButton").show();
+                                                            }
+                                                        }
+                                                    });
+                                                    </script>
+
+
+
+
+
+
+
+
+                                        <script>
+                                                $('#Check1').on('change', function(){
+                                                    this.value = this.checked ? $("#Intervenciones").show() : $("#Intervenciones").hide();}).change();
+
+                                                $('#Check2').on('change', function(){
+                                                this.value = this.checked ? $("#DesplazamientoTerrestre").show() : $("#DesplazamientoTerrestre").hide();}).change();
+                                                
+                                                $('#Check3').on('change', function(){
+                                                this.value = this.checked ? $("#DesplazamientoAcuatico").show() : $("#DesplazamientoAcuatico").hide();}).change();
+                                                
+                                                $('#Check4').on('change', function(){
+                                                this.value = this.checked ? $("#AplicacionPrimerosAuxilios").show() : $("#AplicacionPrimerosAuxilios").hide();}).change();
+                                                
+                                                $('#customCheck1').on('change', function(){
+                                                this.value = this.checked ? $("#RCPSH").show() : $("#RCPSH").hide();}).change();
+
+                                                $('#customCheck2').on('change', function(){
+                                                this.value = this.checked ? $("#DESASH").show() : $("#DESASH").hide();}).change();
+                                        
+                                        </script>
+
+                                        <script>
+                                                $("#TrasladoPrimeroAuxilios").change(function() {
+                                                    var val = $(this).val();
+                                                    if(val==1)
+                                                        $("#TipoTraslado").show();
+                                                    else
+                                                        $("#TipoTraslado").hide();
+                                                });
+
+                                                $("#TrasladoRemolque").change(function() {
+                                                    var val = $(this).val();
+                                                    if(val==1)
+                                                    $("#AyudaRecibidaSH").show();
+                                                    else
+                                                     $("#AyudaRecibidaSH").hide();
+                                                });
+
+                                                $("#AyudaRecibida").change(function() {
+                                                    var val = $(this).val();
+                                                    if(val==1)
+                                                        $("#PorQuienesSH").show();
+                                                    else
+                                                        $("#PorQuienesSH").hide();
+                                                });
+                                        </script>
+                                           
+                                        <script>
+                                        function backPage(){
+                                            window.history.back();
+                                        }
+                                        </script>
+
